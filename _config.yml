@@ -69,6 +69,6 @@ theme: landscape
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type:git
-  repo:https://github.com/logan62334/logan62334.github.io.git
+  repo:git@github.com:logan62334/logan62334.github.io.git
   branch:master
   message:hexo
