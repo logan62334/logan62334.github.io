@@ -106,7 +106,7 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        3
+        4
         <span>posts</span>
       </div>
       <div class="article-info-block">
@@ -185,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cik4tz76o0008o9t1hrkns9w3" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cik4uvxlo0008umt1iomhpk13" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-热修复/">Android 热修复</a></li></ul>
@@ -245,10 +245,124 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/01/02/Android 实现APP开屏广告/" data-id="cik4tz75n0000o9t100z6porp" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/01/02/Android 实现APP开屏广告/" data-id="cik4uvxkn0000umt1yo8kl0z8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
+      <article id="post-Android实现PopupWindow背景半透明（兼容方案）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/">Android实现PopupWindow背景半透明（兼容方案）</a>
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/">
+      <time datetime="2015-12-27T03:37:42.000Z" itemprop="datePublished">2015-12-27</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/Android布局问题总结/">Android布局问题总结</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <p>大家想必对PopupWindow不会很陌生吧，我们在开发中经常会遇到要求使其背景半透明的需求，但网上的很多解决方案只能是在大部分机型上满足要求，像华为这样的机型就会发现我们原来设置的背景变暗效果的代码并没有起效果。<br>这里我贴出最终的兼容方案：</p>
+<pre><code>View contentView;
+    LayoutInflater mLayoutInflater = LayoutInflater.from(activity);
+    contentView = mLayoutInflater.inflate(R.layout.layout_popupwindow,
+            null);
+    pop = new PopupWindow(contentView,
+            ViewGroup.LayoutParams.MATCH_PARENT, (int) context.getResources().getDimension(R.dimen.y568));
+    TextView tvTitle = (TextView) contentView.findViewById(R.id.text);
+    tvTitle.setText(strTitle);
+    ListView listView = (ListView) contentView.findViewById(R.id.list);
+    // 产生背景变暗效果
+    WindowManager.LayoutParams lp = activity.getWindow()
+            .getAttributes();
+    lp.alpha = 0.4f;
+    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+    activity.getWindow().setAttributes(lp);
+    pop.setTouchable(true);
+    pop.setFocusable(true);
+    pop.setBackgroundDrawable(new BitmapDrawable());
+    pop.setOutsideTouchable(true);
+    pop.showAtLocation(contentView, Gravity.BOTTOM, 0, 0);
+    pop.update();
+    pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+        // 在dismiss中恢复透明度
+        public void onDismiss() {
+            WindowManager.LayoutParams lp = activity.getWindow()
+                    .getAttributes();
+            lp.alpha = 1f;
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            activity.getWindow().setAttributes(lp);
+        }
+    });
+    listView.setOnItemClickListener(onItemClickListener);
+    listView.setAdapter(adapter);
+</code></pre><p>注：特别是下面几行代码</p>
+<pre><code>// 产生背景变暗效果
+    WindowManager.LayoutParams lp = activity.getWindow()
+            .getAttributes();
+    lp.alpha = 0.4f;
+    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+    activity.getWindow().setAttributes(lp);
+    pop.setTouchable(true);
+    pop.setFocusable(true);
+    pop.setBackgroundDrawable(new BitmapDrawable());
+    pop.setOutsideTouchable(true);
+    pop.showAtLocation(contentView, Gravity.BOTTOM, 0, 0);
+    pop.update();
+    pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+        // 在dismiss中恢复透明度
+        public void onDismiss() {
+            WindowManager.LayoutParams lp = activity.getWindow()
+                    .getAttributes();
+            lp.alpha = 1f;
+              activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            activity.getWindow().setAttributes(lp);
+        }
+    });
+</code></pre><p>网上很多方案都要求加下面这两行代码，但其实加上反而会影响华为这种机型的显示效果</p>
+<pre><code>ColorDrawable dw = new ColorDrawable(-00000);
+popupWindow.setBackgroundDrawable(dw);
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://logan62334.github.io/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/" data-id="cik4uvxlv000iumt1wtmxxawg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
 
     </footer>
   </div>
@@ -432,7 +546,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2014/12/22/Android实现button一边圆角一边直角/" data-id="cik4tz76r000do9t1ljnmyxip" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2014/12/22/Android实现button一边圆角一边直角/" data-id="cik4uvxls000dumt1i56y96hp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
@@ -492,6 +606,23 @@
           <li>
             
             <div class="item-thumbnail">
+              <a href="/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/Android布局问题总结/">Android布局问题总结</a></p>
+              <p class="item-title"><a href="/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/" class="title">Android实现PopupWindow背景半透明（兼容方案）</a></p>
+              <p class="item-date"><time datetime="2015-12-27T03:37:42.000Z" itemprop="datePublished">2015-12-27</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
               <a href="/2014/12/22/Android实现button一边圆角一边直角/" class="thumbnail">
   
     <span style="background-image:url(http://img.blog.csdn.net/20150317122255569?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDQ2MTY1OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center
@@ -516,7 +647,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -525,7 +656,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -534,7 +665,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tag cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 10px;">Android布局UI</a>
+      <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 20px;">Android布局UI</a>
     </div>
   </div>
 
@@ -543,7 +674,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
