@@ -5,16 +5,25 @@
   
   <title>Activity启动后EditText是否自动弹出输入法虚拟键盘的问题 | 马飞-产品改变世界，技术驱动未来</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="产品改变世界，技术驱动未来">
+  <meta name="description" content="在开发过程中，我们经常会遇到Activity中包含EditText控件时会自动弹出虚拟键盘的情况，这是由于EditText自动获得焦点的缘故，只要让EditText失去焦点就行了，解决办法如下：
+1、在Manifest.xml文件中相应的Activity下添加如下代码：
+1android:windowSoftInputMode=&amp;#34;stateHidden&amp;#34;
+2、让EditText失去">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Activity启动后EditText是否自动弹出输入法虚拟键盘的问题">
 <meta property="og:url" content="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/index.html">
 <meta property="og:site_name" content="马飞-产品改变世界，技术驱动未来">
-<meta property="og:description" content="产品改变世界，技术驱动未来">
-<meta property="og:updated_time" content="2016-02-27T09:30:57.000Z">
+<meta property="og:description" content="在开发过程中，我们经常会遇到Activity中包含EditText控件时会自动弹出虚拟键盘的情况，这是由于EditText自动获得焦点的缘故，只要让EditText失去焦点就行了，解决办法如下：
+1、在Manifest.xml文件中相应的Activity下添加如下代码：
+1android:windowSoftInputMode=&amp;#34;stateHidden&amp;#34;
+2、让EditText失去">
+<meta property="og:updated_time" content="2016-02-27T09:33:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Activity启动后EditText是否自动弹出输入法虚拟键盘的问题">
-<meta name="twitter:description" content="产品改变世界，技术驱动未来">
+<meta name="twitter:description" content="在开发过程中，我们经常会遇到Activity中包含EditText控件时会自动弹出虚拟键盘的情况，这是由于EditText自动获得焦点的缘故，只要让EditText失去焦点就行了，解决办法如下：
+1、在Manifest.xml文件中相应的Activity下添加如下代码：
+1android:windowSoftInputMode=&amp;#34;stateHidden&amp;#34;
+2、让EditText失去">
   
   
     <link rel="icon" href="favicon.png">
@@ -169,11 +178,25 @@
     <div class="article-entry" itemprop="articleBody">
       
                 
-        
+        <p>在开发过程中，我们经常会遇到Activity中包含EditText控件时会自动弹出虚拟键盘的情况，这是由于EditText自动获得焦点的缘故，只要让EditText失去焦点就行了，解决办法如下：</p>
+<p>1、在Manifest.xml文件中相应的Activity下添加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:windowSoftInputMode=&#34;stateHidden&#34;</span><br></pre></td></tr></table></figure>
+<p>2、让EditText失去焦点，用EditText的clearFocus：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EditText edt = (EditText)findViewById(R.id.edt);&#10;edt.clearFocus();</span><br></pre></td></tr></table></figure>
+<p>3、强制隐藏Android输入法窗口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EditText edt = (EditText)findViewById(R.id.edt);  &#10;InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);  &#10;imm.hideSoftInputFromWindow(edt.getWindowToken(), 0);</span><br></pre></td></tr></table></figure>
+<p>4、要求EditText始终不弹出虚拟键盘：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EditText edt = (EditText)findViewById(R.id.edt);  &#10;edt.setInputType(InputType.TYPE_NULL);</span><br></pre></td></tr></table></figure>
+<p>但有时我们确实是想让EditText自动获得焦点并弹出软键盘，在设置了EditText自动获得焦点后，软件盘不会弹出。<br>注意：此时是由于刚跳到一个新的界面，界面未加载完全而无法弹出软键盘。此时应该适当的延迟弹出软键盘，如500毫秒（保证界面的数据加载完成，如果500毫秒仍未弹出，则延长至1000毫秒）。</p>
+<p>1、可以在EditText后面加上一段代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Timer timer = new Timer();  &#10;timer.schedule(new TimerTask() &#123;  &#10;&#10;    public void run() &#123;  &#10;        InputMethodManager inputManager = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);  &#10;        inputManager.showSoftInput(editText, 0);  &#10;    &#125;  &#10;&#10;&#125;, 500);</span><br></pre></td></tr></table></figure>
+<p>2、给activity配置加入属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:windowSoftInputMode=&#34;adjustResize&#34;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cil4xi5zr0000j4t1p9aqcmf8" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cil4xk7zk0000ott1dr8bnrrj" class="article-share-link">Share</a>
       
       
     </footer>

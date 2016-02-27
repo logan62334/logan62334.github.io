@@ -169,11 +169,25 @@
     <div class="article-entry" itemprop="articleBody">
       
                 
-        
+        <p>在开发过程中，我们经常会遇到Activity中包含EditText控件时会自动弹出虚拟键盘的情况，这是由于EditText自动获得焦点的缘故，只要让EditText失去焦点就行了，解决办法如下：</p>
+<p>1、在Manifest.xml文件中相应的Activity下添加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:windowSoftInputMode=&#34;stateHidden&#34;</span><br></pre></td></tr></table></figure>
+<p>2、让EditText失去焦点，用EditText的clearFocus：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EditText edt = (EditText)findViewById(R.id.edt);&#10;edt.clearFocus();</span><br></pre></td></tr></table></figure>
+<p>3、强制隐藏Android输入法窗口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EditText edt = (EditText)findViewById(R.id.edt);  &#10;InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);  &#10;imm.hideSoftInputFromWindow(edt.getWindowToken(), 0);</span><br></pre></td></tr></table></figure>
+<p>4、要求EditText始终不弹出虚拟键盘：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EditText edt = (EditText)findViewById(R.id.edt);  &#10;edt.setInputType(InputType.TYPE_NULL);</span><br></pre></td></tr></table></figure>
+<p>但有时我们确实是想让EditText自动获得焦点并弹出软键盘，在设置了EditText自动获得焦点后，软件盘不会弹出。<br>注意：此时是由于刚跳到一个新的界面，界面未加载完全而无法弹出软键盘。此时应该适当的延迟弹出软键盘，如500毫秒（保证界面的数据加载完成，如果500毫秒仍未弹出，则延长至1000毫秒）。</p>
+<p>1、可以在EditText后面加上一段代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Timer timer = new Timer();  &#10;timer.schedule(new TimerTask() &#123;  &#10;&#10;    public void run() &#123;  &#10;        InputMethodManager inputManager = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);  &#10;        inputManager.showSoftInput(editText, 0);  &#10;    &#125;  &#10;&#10;&#125;, 500);</span><br></pre></td></tr></table></figure>
+<p>2、给activity配置加入属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:windowSoftInputMode=&#34;adjustResize&#34;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cil4xi5zr0000j4t1p9aqcmf8" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cil4xk7zk0000ott1dr8bnrrj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -270,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cil4xi60n0009j4t1c0gys6el" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cil4xk80i0009ott1qck6d3h8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a></li></ul>
@@ -329,7 +343,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cil4xi60i0004j4t1dnygbwc3" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cil4xk8090004ott18cfkmu39" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-热修复/">Android 热修复</a></li></ul>
@@ -389,7 +403,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/01/02/Android 实现APP开屏广告/" data-id="cil4xi611000lj4t1oexhlr8o" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/01/02/Android 实现APP开屏广告/" data-id="cil4xk80v000lott1s2j3if70" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a></li></ul>
@@ -503,7 +517,7 @@ popupWindow.setBackgroundDrawable(dw);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/" data-id="cil4xi60u000ij4t1lzwn4i1x" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/" data-id="cil4xk80q000iott1j38g05xo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
@@ -690,7 +704,7 @@ popupWindow.setBackgroundDrawable(dw);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2014/12/22/Android实现button一边圆角一边直角/" data-id="cil4xi60r000dj4t1ep5urhbu" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2014/12/22/Android实现button一边圆角一边直角/" data-id="cil4xk80n000dott10s3v7dut" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
