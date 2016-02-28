@@ -3,17 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016 | 马飞-产品改变世界，技术驱动未来</title>
+  <title>WebView内存泄露终结解决方案 | 马飞-产品改变世界，技术驱动未来</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="产品改变世界，技术驱动未来">
-<meta property="og:type" content="website">
-<meta property="og:title" content="马飞-产品改变世界，技术驱动未来">
-<meta property="og:url" content="http://logan62334.github.io/archives/2016/index.html">
+  <meta name="description" content="但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。
+不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。
+需求背景：需要一个带有加载进度条的w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebView内存泄露终结解决方案">
+<meta property="og:url" content="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/index.html">
 <meta property="og:site_name" content="马飞-产品改变世界，技术驱动未来">
-<meta property="og:description" content="产品改变世界，技术驱动未来">
+<meta property="og:description" content="但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。
+不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。
+需求背景：需要一个带有加载进度条的w">
+<meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY3gcGU1tdEM5EvhnIXmv3P394da0iclBU8LkfrlP21GGGHPJ79tvKojNf0txSOvBZRqCvHicNSOc97Q/0?wx_fmt=png">
+<meta property="og:updated_time" content="2016-02-28T14:50:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="马飞-产品改变世界，技术驱动未来">
-<meta name="twitter:description" content="产品改变世界，技术驱动未来">
+<meta name="twitter:title" content="WebView内存泄露终结解决方案">
+<meta name="twitter:description" content="但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。
+不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。
+需求背景：需要一个带有加载进度条的w">
   
   
     <link rel="icon" href="favicon.png">
@@ -138,188 +146,78 @@
 </aside>
 
       
-      <section id="main">
-      <div class="archive-year-wrap">
-        <a href="/archives/2016" class="archive-year">2016</a>
-      </div>
-      <section class="archives-wrap">
-        <div class="archives">
+      <section id="main"><article id="post-Android-WebView内存泄露终结解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
     
-    <div class="archive-article-thumbnail">
-      <a href="/2016/02/28/Android-WebView内存泄露终结解决方案/" class="thumbnail">
-  
-    <span style="background-image:url(https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY3gcGU1tdEM5EvhnIXmv3P394da0iclBU8LkfrlP21GGGHPJ79tvKojNf0txSOvBZRqCvHicNSOc97Q/0?wx_fmt=png
-)" alt="WebView内存泄露终结解决方案" class="thumbnail-image"></span>
-  
-</a>
-    </div>
     
-    <header class="archive-article-header">
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/02/28/Android-WebView内存泄露终结解决方案/">WebView内存泄露终结解决方案</a>
+    <h1 class="article-title" itemprop="name">
+      WebView内存泄露终结解决方案
     </h1>
   
 
-      
-        
-  <div class="archive-article-date">
+        <div class="article-meta">
+          
+  <div class="article-date">
     <i class="fa fa-calendar"></i>
     <a href="/2016/02/28/Android-WebView内存泄露终结解决方案/">
-      <time datetime="2016-02-28T14:46:50.000Z" itemprop="datePublished">Feb 28</time>
+      <time datetime="2016-02-28T14:46:50.000Z" itemprop="datePublished">2016-02-28</time>
     </a>
   </div>
 
 
-      
-    </header>
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/Android疑难杂症/">Android疑难杂症</a>
   </div>
-</article>
-  
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
+
+        </div>
+      </header>
     
-    <div class="archive-article-thumbnail">
-      <a href="/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" class="thumbnail">
-  
-    <span class="thumbnail-image thumbnail-none"></span>
-  
-</a>
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <p>但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。</p>
+<p>不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。</p>
+<p>需求背景：<br>需要一个带有加载进度条的webview来正常的显示合作方和自己的web页面。</p>
+<p>1、解决webview对一些js的支持：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#29992;JsBridge&#20195;&#26367;&#31995;&#32479;&#21407;&#29983;&#30340;webview&#65292;&#10;github&#22320;&#22336;&#65306;https://github.com/lzyzsd/JsBridge</span><br></pre></td></tr></table></figure>
+<p>2、解决webview内存泄露：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Bind(R.id.pb)&#10;    ProgressBar pb;&#10;    @Bind(R.id.mWebView)&#10;    BridgeWebView mWebView;&#10;&#10;    pb.setMax(100);&#10;    mWebView.setWebChromeClient(new WebViewClient());&#10;    mWebView.loadUrl(strWebsite);&#10;&#10;    private class WebViewClient extends WebChromeClient &#123;&#10;        @Override&#10;        public void onProgressChanged(WebView view, int newProgress) &#123;&#10;            try &#123;&#10;                pb.setProgress(newProgress);&#10;                if (newProgress == 100) &#123;&#10;                    pb.setVisibility(View.GONE);&#10;                &#125;&#10;            &#125; catch (Exception e) &#123;&#10;                e.printStackTrace();&#10;            &#125;&#10;            super.onProgressChanged(view, newProgress);&#10;        &#125;&#10;    &#125;&#10;&#10;    @Override&#10;    protected void onDestroy() &#123;&#10;        super.onDestroy();&#10;        try &#123;&#10;            if (mWebView != null) &#123;&#10;                mWebView.removeAllViews();&#10;                mWebView.destroy();&#10;                mWebView = null;&#10;            &#125;&#10;        &#125; catch (Exception e) &#123;&#10;            e.printStackTrace();&#10;        &#125;&#10;    &#125;</span><br></pre></td></tr></table></figure>
+<p>最后介绍大家一个用来检测应用内存泄露的工具：leakcanary<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY3gcGU1tdEM5EvhnIXmv3P394da0iclBU8LkfrlP21GGGHPJ79tvKojNf0txSOvBZRqCvHicNSOc97Q/0?wx_fmt=png" alt=""><br>github地址：<a href="https://github.com/square/leakcanary" target="_blank" rel="external">https://github.com/square/leakcanary</a></p>
+
+      
     </div>
-    
-    <header class="archive-article-header">
+    <footer class="article-footer">
+      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cil6ob88b000nwzt17gzsdzy2" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/">Activity启动后EditText是否自动弹出输入法虚拟键盘的问题</a>
-    </h1>
-  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
 
-      
-        
-  <div class="archive-article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/">
-      <time datetime="2016-02-27T09:54:53.000Z" itemprop="datePublished">Feb 27</time>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Activity启动后EditText是否自动弹出输入法虚拟键盘的问题</div>
     </a>
-  </div>
+  
+</nav>
 
 
-      
-    </header>
-  </div>
+  
 </article>
-  
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    
-    <div class="archive-article-thumbnail">
-      <a href="/2016/02/02/Android持续集成技术实践/" class="thumbnail">
-  
-    <span style="background-image:url(https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8Ma7EIVLxZmey6CXPwHmyLQ0CbfxnzFgenx1C2S2Osa7HEkVckSgP4tQ/0?wx_fmt=png
-)" alt="Android持续集成技术实践" class="thumbnail-image"></span>
-  
-</a>
-    </div>
-    
-    <header class="archive-article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/02/02/Android持续集成技术实践/">Android持续集成技术实践</a>
-    </h1>
-  
-
-      
-        
-  <div class="archive-article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/02/02/Android持续集成技术实践/">
-      <time datetime="2016-02-02T08:08:59.000Z" itemprop="datePublished">Feb 2</time>
-    </a>
-  </div>
 
 
-      
-    </header>
-  </div>
-</article>
-  
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    
-    <div class="archive-article-thumbnail">
-      <a href="/2016/02/01/Android热修复技术实践/" class="thumbnail">
-  
-    <span style="background-image:url(https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa37AOYw5GicMOgc2He8n1STv3nOS3mhvJXScQPVnyFYOxj5JibUWsPOVNw/0?wx_fmt=jpeg
-)" alt="Android热修复技术实践" class="thumbnail-image"></span>
-  
-</a>
-    </div>
-    
-    <header class="archive-article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/02/01/Android热修复技术实践/">Android热修复技术实践</a>
-    </h1>
-  
-
-      
-        
-  <div class="archive-article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/02/01/Android热修复技术实践/">
-      <time datetime="2016-02-01T09:54:53.000Z" itemprop="datePublished">Feb 1</time>
-    </a>
-  </div>
-
-
-      
-    </header>
-  </div>
-</article>
-  
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    
-    <div class="archive-article-thumbnail">
-      <a href="/2016/01/02/Android 实现APP开屏广告/" class="thumbnail">
-  
-    <span class="thumbnail-image thumbnail-none"></span>
-  
-</a>
-    </div>
-    
-    <header class="archive-article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/01/02/Android 实现APP开屏广告/">Android实现APP开屏广告</a>
-    </h1>
-  
-
-      
-        
-  <div class="archive-article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/01/02/Android 实现APP开屏广告/">
-      <time datetime="2016-01-02T00:54:53.000Z" itemprop="datePublished">Jan 2</time>
-    </a>
-  </div>
-
-
-      
-    </header>
-  </div>
-</article>
-  
-    </div></section>
-  </section>
+</section>
       
         <aside id="sidebar">
   
