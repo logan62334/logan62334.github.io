@@ -3,17 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>马飞-产品改变世界，技术驱动未来</title>
+  <title>Android应用崩溃(Crash)日志报告 | 马飞-产品改变世界，技术驱动未来</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="产品改变世界，技术驱动未来">
-<meta property="og:type" content="website">
-<meta property="og:title" content="马飞-产品改变世界，技术驱动未来">
-<meta property="og:url" content="http://logan62334.github.io/index.html">
+  <meta name="description" content="我们在开发应用的过程中不可避免的会遇到各种Crash，今天分享一下如何姿势正确的处理这些Crash来提高我们的开发效率。
+对于应用的Crash处理分为测试环境和生产环境。
+1、测试环境在开发过程中为了方便快速定位崩溃所发生的代码，要求我们能在崩溃的同时将日志打印出来，最好以直观的界面显示。这里推荐大家一个开源项目：CustomActivityOnCrashgithub地址：https://gith">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android应用崩溃(Crash)日志报告">
+<meta property="og:url" content="http://logan62334.github.io/2016/03/02/Android-应用崩溃-Crash-日志报告/index.html">
 <meta property="og:site_name" content="马飞-产品改变世界，技术驱动未来">
-<meta property="og:description" content="产品改变世界，技术驱动未来">
+<meta property="og:description" content="我们在开发应用的过程中不可避免的会遇到各种Crash，今天分享一下如何姿势正确的处理这些Crash来提高我们的开发效率。
+对于应用的Crash处理分为测试环境和生产环境。
+1、测试环境在开发过程中为了方便快速定位崩溃所发生的代码，要求我们能在崩溃的同时将日志打印出来，最好以直观的界面显示。这里推荐大家一个开源项目：CustomActivityOnCrashgithub地址：https://gith">
+<meta property="og:updated_time" content="2016-03-02T04:21:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="马飞-产品改变世界，技术驱动未来">
-<meta name="twitter:description" content="产品改变世界，技术驱动未来">
+<meta name="twitter:title" content="Android应用崩溃(Crash)日志报告">
+<meta name="twitter:description" content="我们在开发应用的过程中不可避免的会遇到各种Crash，今天分享一下如何姿势正确的处理这些Crash来提高我们的开发效率。
+对于应用的Crash处理分为测试环境和生产环境。
+1、测试环境在开发过程中为了方便快速定位崩溃所发生的代码，要求我们能在崩溃的同时将日志打印出来，最好以直观的界面显示。这里推荐大家一个开源项目：CustomActivityOnCrashgithub地址：https://gith">
   
   
     <link rel="icon" href="favicon.png">
@@ -138,8 +145,7 @@
 </aside>
 
       
-      <section id="main">
-      <article id="post-Android-应用崩溃-Crash-日志报告" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-Android-应用崩溃-Crash-日志报告" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -147,8 +153,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/02/Android-应用崩溃-Crash-日志报告/">Android应用崩溃(Crash)日志报告</a>
+    <h1 class="article-title" itemprop="name">
+      Android应用崩溃(Crash)日志报告
     </h1>
   
 
@@ -193,374 +199,23 @@
     </footer>
   </div>
   
-</article>
-
-
-
     
-      <article id="post-Git-简易指南" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/01/Git-简易指南/">Git简易指南</a>
-    </h1>
   
-
-        <div class="article-meta">
-          
-  <div class="article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/03/01/Git-简易指南/">
-      <time datetime="2016-03-01T14:48:52.000Z" itemprop="datePublished">2016-03-01</time>
+    <a href="/2016/03/01/Git-简易指南/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Git简易指南</div>
     </a>
-  </div>
+  
+</nav>
 
 
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Git/">Git</a>
-  </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <p>今天来分享一下我在使用Git的过程中经常用到的一些命令：</p>
-<p>1、创建新仓库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-<p>2、检出仓库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone username@host:/path/to/repository</span><br></pre></td></tr></table></figure>
-<p>3、添加与提交</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add *&#10;git commit -m &#34;&#20195;&#30721;&#25552;&#20132;&#20449;&#24687;&#34;</span><br></pre></td></tr></table></figure>
-<p>4、推送改动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<p>5、创建分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b feature_x</span><br></pre></td></tr></table></figure>
-<p>6、切换分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure>
-<p>7、删除本地分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d feature_x</span><br></pre></td></tr></table></figure>
-<p>8、删除远程分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin :feature_x</span><br></pre></td></tr></table></figure>
-<p>9、将分支推送到远端仓库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin &#60;branch&#62;</span><br></pre></td></tr></table></figure>
-<p>10、更新你的本地仓库至最新改动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
-<p>11、合并其他分支到你的当前分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge &#60;branch&#62;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/01/Git-简易指南/" data-id="cilac71mj0008ait1483c1lvg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
 
-
-    
-      <article id="post-Android-WebView内存泄露终结解决方案" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/28/Android-WebView内存泄露终结解决方案/">WebView内存泄露终结解决方案</a>
-    </h1>
-  
-
-        <div class="article-meta">
-          
-  <div class="article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/02/28/Android-WebView内存泄露终结解决方案/">
-      <time datetime="2016-02-28T14:46:50.000Z" itemprop="datePublished">2016-02-28</time>
-    </a>
-  </div>
-
-
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Android疑难杂症/">Android疑难杂症</a>
-  </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <p>但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。</p>
-<p>不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。</p>
-<p>需求背景：<br>需要一个带有加载进度条的webview来正常的显示合作方和自己的web页面。</p>
-<p>1、解决webview对一些js的支持：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#29992;JsBridge&#20195;&#26367;&#31995;&#32479;&#21407;&#29983;&#30340;webview&#65292;&#10;github&#22320;&#22336;&#65306;https://github.com/lzyzsd/JsBridge</span><br></pre></td></tr></table></figure>
-<p>2、解决webview内存泄露：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Bind(R.id.pb)&#10;    ProgressBar pb;&#10;    @Bind(R.id.mWebView)&#10;    BridgeWebView mWebView;&#10;&#10;    pb.setMax(100);&#10;    mWebView.setWebChromeClient(new WebViewClient());&#10;    mWebView.loadUrl(strWebsite);&#10;&#10;    private class WebViewClient extends WebChromeClient &#123;&#10;        @Override&#10;        public void onProgressChanged(WebView view, int newProgress) &#123;&#10;            try &#123;&#10;                pb.setProgress(newProgress);&#10;                if (newProgress == 100) &#123;&#10;                    pb.setVisibility(View.GONE);&#10;                &#125;&#10;            &#125; catch (Exception e) &#123;&#10;                e.printStackTrace();&#10;            &#125;&#10;            super.onProgressChanged(view, newProgress);&#10;        &#125;&#10;    &#125;&#10;&#10;    @Override&#10;    protected void onDestroy() &#123;&#10;        super.onDestroy();&#10;        try &#123;&#10;            if (mWebView != null) &#123;&#10;                mWebView.removeAllViews();&#10;                mWebView.destroy();&#10;                mWebView = null;&#10;            &#125;&#10;        &#125; catch (Exception e) &#123;&#10;            e.printStackTrace();&#10;        &#125;&#10;    &#125;</span><br></pre></td></tr></table></figure>
-<p>最后介绍大家一个用来检测应用内存泄露的工具：leakcanary<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY3gcGU1tdEM5EvhnIXmv3P394da0iclBU8LkfrlP21GGGHPJ79tvKojNf0txSOvBZRqCvHicNSOc97Q/0?wx_fmt=png" alt=""><br>github地址：<a href="https://github.com/square/leakcanary" target="_blank" rel="external">https://github.com/square/leakcanary</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cilac71n6000wait170ceitf4" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-      <article id="post-Activity启动后EditText是否自动弹出输入法虚拟键盘的问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/">Activity启动后EditText是否自动弹出输入法虚拟键盘的问题</a>
-    </h1>
-  
-
-        <div class="article-meta">
-          
-  <div class="article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/">
-      <time datetime="2016-02-27T09:54:53.000Z" itemprop="datePublished">2016-02-27</time>
-    </a>
-  </div>
-
-
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Android布局问题总结/">Android布局问题总结</a>
-  </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <p>在开发过程中，我们经常会遇到Activity中包含EditText控件时会自动弹出虚拟键盘的情况，这是由于EditText自动获得焦点的缘故，只要让EditText失去焦点就行了，解决办法如下：</p>
-<p>1、在Manifest.xml文件中相应的Activity下添加如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:windowSoftInputMode=&#34;stateHidden&#34;</span><br></pre></td></tr></table></figure>
-<p>2、让EditText失去焦点，用EditText的clearFocus：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EditText edt = (EditText)findViewById(R.id.edt);&#10;edt.clearFocus();</span><br></pre></td></tr></table></figure>
-<p>3、强制隐藏Android输入法窗口：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EditText edt = (EditText)findViewById(R.id.edt);  &#10;InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);  &#10;imm.hideSoftInputFromWindow(edt.getWindowToken(), 0);</span><br></pre></td></tr></table></figure>
-<p>4、要求EditText始终不弹出虚拟键盘：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EditText edt = (EditText)findViewById(R.id.edt);  &#10;edt.setInputType(InputType.TYPE_NULL);</span><br></pre></td></tr></table></figure>
-<p>但有时我们确实是想让EditText自动获得焦点并弹出软键盘，在设置了EditText自动获得焦点后，软件盘不会弹出。<br>注意：此时是由于刚跳到一个新的界面，界面未加载完全而无法弹出软键盘。此时应该适当的延迟弹出软键盘，如500毫秒（保证界面的数据加载完成，如果500毫秒仍未弹出，则延长至1000毫秒）。</p>
-<p>1、可以在EditText后面加上一段代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Timer timer = new Timer();  &#10;timer.schedule(new TimerTask() &#123;  &#10;&#10;    public void run() &#123;  &#10;        InputMethodManager inputManager = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);  &#10;        inputManager.showSoftInput(editText, 0);  &#10;    &#125;  &#10;&#10;&#125;, 500);</span><br></pre></td></tr></table></figure>
-<p>2、给activity配置加入属性：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:windowSoftInputMode=&#34;adjustResize&#34;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cilac71lk0000ait1nxzm1kn3" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-      <article id="post-Android持续集成技术实践" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/02/Android持续集成技术实践/">Android持续集成技术实践</a>
-    </h1>
-  
-
-        <div class="article-meta">
-          
-  <div class="article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/02/02/Android持续集成技术实践/">
-      <time datetime="2016-02-02T08:08:59.000Z" itemprop="datePublished">2016-02-02</time>
-    </a>
-  </div>
-
-
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a>
-  </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <p><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8Ma7EIVLxZmey6CXPwHmyLQ0CbfxnzFgenx1C2S2Osa7HEkVckSgP4tQ/0?wx_fmt=png" alt=""></p>
-<p><strong>背景</strong></p>
-<p>随着业务需求的演进，工程的复杂度会逐渐增加，自动化的践行日益强烈。事实上，工程的自动化一直是我们努力追求的目标，能有效提高我们的生产效率，最大化减少人为出错的概率，实现一些复杂的业务需求应变。</p>
-<p>以我现在的公司为例，我们有22个渠道包，而且分为测试环境和生产环境，新的迭代开始除去要经常给测试人员直接烧测试版APP偶尔还会被商务和运营打断要求新增一个渠道包。尤其临近发版的一周，几乎每天都要新版本。这样的话，有两方面的影响：第一，打断了开发人员的开发进度；第二，开发人员打包效率低下。</p>
-<p>要解决这个问题，必须实现移动端应用的自动化构建。具体说来就是，使用持续集成（CI）系统jenkins，自动检测并拉取Git上的最新代码，自动打包成不同的渠道apk，自动上传到内测分发平台蒲公英上和自建的FTP服务器上。（接下来，测试人员只要打开一个（或多个）固定的网址，扫描一下二维码，就能下载最新的版本了…）</p>
-<p><strong>环境</strong></p>
-<p>因为公司内网的服务器都是Windows操作系统，所以下面的操作都是以Windows为例，无论是哪个操作系统，jenkins的配置是一样的。</p>
-<p>安装Jenkins</p>
-<p>官网地址： <a href="http://jenkins-ci.org/，具体安装过程就不详写了跟平常装软件没什么区别。" target="_blank" rel="external">http://jenkins-ci.org/，具体安装过程就不详写了跟平常装软件没什么区别。</a><br>默认访问 <a href="http://localhost:8080/" target="_blank" rel="external">http://localhost:8080/</a> , 可进入jenkins配置页面。</p>
-<p>安装Jenkins相关插件</p>
-<p>点击系统管理&gt;管理插件&gt;可选插件，可搜索以下插件安装</p>
-<p>git插件(GIT plugin)</p>
-<p>ssh插件(SSH Credentials Plugin)</p>
-<p>Gradle插件(Gradle plugin) - android专用</p>
-<p>注：</p>
-<ol>
-<li>这里要用VPN或者修改系统的hosts文件才可以搜索到插件；</li>
-<li>还有就是Windows中要装好JDK、Git、Gradle的环境。</li>
-</ol>
-<p>装好后的效果图：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8MyicibAVSP5SkZ4iclLPZtGRxrzdEWEOT5cmr4ibT95A3z2ezuDudFanLmA/0?wx_fmt=jpeg" alt=""></p>
-<p>新建Job</p>
-<p>主页面，新建 -&gt; 构建一个自由风格的软件项目即可。</p>
-<p>配置git仓库</p>
-<p>如果安装了git插件，在源码管理会出现Git，选中之后：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8MlSLIia7DnVsQib5k9jBakpg7Zuqwv62nVibHpVN6lr2VrXUvJV5Htx0nA/0?wx_fmt=jpeg" alt=""></p>
-<p>配置自动拉取最新代码</p>
-<p>在构建触发器中，有两种自动拉取代码并编译的策略:</p>
-<ol>
-<li>设置Poll SCM，设置定时器，定时检查代码更新，有更新则编译，否则不编译。</li>
-<li>也可以设置Build periodically，周期性的执行编译任务。<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8MjDqTjKicIEyXMbd2oftcYicavAVvx6KOFKKMf0LdropR5qXlPXY2BCIQ/0?wx_fmt=jpeg" alt=""></li>
-</ol>
-<p>配置gradle</p>
-<p>如果安装gradle插件成功的话，应该会出现下图的Invoke Gradle script，配置一下:<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8MWSQ8gjriafdzYZcYQrkJKmSwwAdP8AuLrFHfXFG21GA1MFu09YBgQLA/0?wx_fmt=jpeg" alt=""></p>
-<p>这样，就能自动在project下的app的build/outputs/apk下生成相应的apk.</p>
-<p>因为要区分测试环境和生产环境，所以我建了两个任务分别对应git上的主分支和子分支：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8MJn970Z1MZlJpHuINeMz88icDntpPJicciafXyquIwQolK3CEI4ej2PoVA/0?wx_fmt=jpeg" alt=""></p>
-<p>FTP服务器搭建：</p>
-<p>如果不会利用IIS搭建FTP的同学可以自行百度这里就不详细介绍了，记得把FTP根路径指向编译结果的目录：D:\Jenkins\jobs\XXForAndroidTest\workspace\app\build\outputs\apk<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8MA2lnFIibtdxoicqSjlBnKbE6dMxbbYrxrBvicyDqia2yhQHkZrRqs8bRVg/0?wx_fmt=jpeg" alt=""></p>
-<p>如果编译失败，请检查以下问题：</p>
-<ol>
-<li>确保gradle、git、jdk的环境变量都配好</li>
-<li>找不到local.properties中sdk定义，因为一般来说local.properties不会添加到版本库。</li>
-<li>还有就是子项目中build.gradle的签名秘钥的路径问题</li>
-</ol>
-<p>关于local.properties的定义：</p>
-<pre><code>sdk.dir=xx/xx/android-sdk
-</code></pre><p>再编译一般就会编译成功，当然当那些第三方库需要重新下载的话，编译可能会很慢。</p>
-<p><strong>总结一下</strong></p>
-<p>经过以上的折腾，以后终于可以彻底解放开发人员的双手去专心写代码了，我们在以后的工作中也要尽量去把精力放在业务上面提高工作效率。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cilac71mr000iait17gj1k462" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-      <article id="post-Android热修复技术实践" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/01/Android热修复技术实践/">Android热修复技术实践</a>
-    </h1>
-  
-
-        <div class="article-meta">
-          
-  <div class="article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/02/01/Android热修复技术实践/">
-      <time datetime="2016-02-01T09:54:53.000Z" itemprop="datePublished">2016-02-01</time>
-    </a>
-  </div>
-
-
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a>
-  </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <p><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa37AOYw5GicMOgc2He8n1STv3nOS3mhvJXScQPVnyFYOxj5JibUWsPOVNw/0?wx_fmt=jpeg" alt=""></p>
-<ol>
-<li>背景<br>我所在的公司是一家互联网金融领域的初创型公司，这类公司向来都是奉行快速迭代敏捷开发，所以基本我们的APP两周一个迭代有时候工期比较紧可能一周一个迭代，在缺乏专业QA人员的情况下单凭团队内其他做产品和运营的小伙伴的用最原始的人工点击测试下难免会遗漏一些潜在bug，于是当我们的应用发布之后，经过十多万用户的随机点击和产生的随机数据突然发现了一个严重bug需要进行紧急修复的时候公司各方就会忙得焦头烂额：还原bug、修复、重新打包App、测试、向各个应用市场和渠道换包、提示用户升级、用户下载、覆盖安装。有时候仅仅是为了修改了一行代码，也要付出巨大的成本进行换包和重新发布。 这时候就产生了一个问题：有没有办法以补丁的方式动态修复紧急Bug，不再需要重新发布App，不再需要用户重新下载，覆盖安装？ 虽然Android系统并没有提供这个技术，但是很幸运的告诉大家，答案是：可以的！而且在最初由QQ空间团队提出的热补丁动态修复技术方案后各大公司也都纷纷效仿，网上也出现了很多开源的解决方案。</li>
-<li>实际案例<br>让我们先来看一下网上都有哪些解决方案：<br>Xposed<br>dexposed<br>AndFix<br>DroidFix<br>DynamicAPK<br>Nuwa<br>根据其描述，原理都来自：Android dex分包方案（<a href="http://codecloud.net/android-hot-load-6575.html）。这里就不对这些框架做过多对比了，因为原理都一致，实现的代码可能有些差异并不是特别大。" target="_blank" rel="external">http://codecloud.net/android-hot-load-6575.html）。这里就不对这些框架做过多对比了，因为原理都一致，实现的代码可能有些差异并不是特别大。</a><br>这里我就先讲讲我是怎么去对热修复框架进行选型的吧，大家也看到了能实现这个功能的开源框架最近出了很多但并不是每个都适合我们现在的应用，Xposed它因为需要手机获得root权限才能生效所以首先pass。<br>dexposed和AndFix是阿里基于Xposed的思路沉淀出的两套热修复解决方案，但是经过实际测试后发现它由于缺少动态库so文件所以在大部分机型上都不能正常运行：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa36rlj7sRtNbBSU1dlzQs3C2CJicaff53m5FZJMTlsoLjGNn6Bykb3AicA/0?wx_fmt=jpeg" alt=""><br>在其官方github上有类似很多的问题所以也只能放弃虽然它的补丁生成器做的很完善但是然并卵……<br>DynamicAPK这个是携程最新公布的一个解决方案，但是由于它功能实在过于庞大而且其主要功能是用来做多apk动态加载的所以对热修复这块并不是重点实现。<br>最后我把注意力放在了Nuwa上，但是经过实际部署测试后发现总是编译出错于是翻看了github上的issue列表发现有很多人也遇到了类似问题最后通过排除掉Nuwa.init所在的类后就fix好了，原来是Nuwa所在的class文件是无法进行修复的，所以在这个文件中尽量只写一些初始化代码和配置保证不会出问题。然后接下来遇到的就是补丁包生成不了的窘境了……继续google：<br><a href="https://github.com/jasonross/Nuwa/issues/23在这篇文章中找到了答案。" target="_blank" rel="external">https://github.com/jasonross/Nuwa/issues/23在这篇文章中找到了答案。</a><br>好了接下来就是考虑到我们有20个渠道并且可能出现不同版本的补丁包的情况了，于是我申请了一台ftp服务器专门用来做为每次补丁包的存放路径，在这个路径下：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa3XSZl0ibtOQVAd3Ou2Nk8HHujN8jNy6Ze8H3TFWeMIDHc31ib9CYwkcQg/0?wx_fmt=jpeg" alt=""><br>这样在客户端通过每次拉取config配置文件的api进行判断当前版本是否需要打补丁，如果需要则根据当前渠道号从对应的ftp服务器下载，当用户第二次打开应用的时候就会load这个patch，这样就在用户毫不知情的情况下完成了问题修复。</li>
-</ol>
-<hr>
-<p><img src="http://logan62334.github.io/css/images/avatar.jpg" alt="关注公众号，更多分享……"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cilac71mn000dait1ke5okt2o" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-热修复/">Android 热修复</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-      <nav id="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-      </nav>
-    </section>
+</section>
       
         <aside id="sidebar">
   
