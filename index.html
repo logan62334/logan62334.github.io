@@ -106,11 +106,11 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        9
+        10
         <span>posts</span>
       </div>
       <div class="article-info-block">
-        7
+        8
         <span>tags</span>
       </div>
     </div>
@@ -139,6 +139,67 @@
 
       
       <section id="main">
+      <article id="post-Android-冷启动时间优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/03/Android-冷启动时间优化/">Android冷启动时间优化</a>
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2016/03/03/Android-冷启动时间优化/">
+      <time datetime="2016-03-03T05:12:49.000Z" itemprop="datePublished">2016-03-03</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <p>冷启动时间是指当用户点击你的app那一刻到系统调用Activity.onCreate()之间的时间段。在这个时间段内，WindowManager会先加载app主题样式中的windowBackground做为app的预览元素，然后再真正去加载activity的layout布局，而通常情况下这个默认背景是黑色或者白色所以如果不加以优化会让用户感觉到app很卡很慢。</p>
+<p>知道了Android冷启动时间的原理之后，就可以通过一些小技巧来对冷启动时间进行优化，从而让你app加载变得”快“一些（视觉体验上的快）。我是通过使用app闪屏页的图片来做为windowBackground这样可以传达企业的形象。</p>
+<p>1、为启动的Activity自定义一个Theme</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;style name=&#34;AppTheme.Launcher&#34;&#62;&#10;    &#60;item name=&#34;android:windowBackground&#34;&#62;@drawable/window_background&#60;/item&#62;&#10;&#60;/style&#62;</span><br></pre></td></tr></table></figure>
+<p>2、将新的Theme应用到设置到 AndroidManifest.xml 中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;activity&#10;  android:name=&#34;.MainActivity&#34;&#10;  android:theme=&#34;@style/AppTheme.Launcher&#34;&#62;&#10;  &#60;intent-filter&#62;&#10;    &#60;action android:name=&#34;android.intent.action.MAIN&#34; /&#62;&#10;    &#60;category android:name=&#34;android.intent.category.LAUNCHER&#34; /&#62;&#10;  &#60;/intent-filter&#62;&#10;&#60;/activity&#62;</span><br></pre></td></tr></table></figure>
+<p>3、由于给MainActivity设置了一个新的Theme，这样做会覆盖原来的Theme，所以在MainActivity中需要设置回原来的Theme</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;&#10;    @Override&#10;    protected void onCreate(Bundle savedInstanceState) &#123;&#10;  // Make sure this line comes before calling super.onCreate().&#10;  setTheme(R.style.AppTheme);&#10;  super.onCreate(savedInstanceState);&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>最后推荐大家一个开源项目也是用来实现冷启动优化的不过是MaterialDesign风格的：<a href="https://github.com/DreaminginCodeZH/MaterialColdStart" target="_blank" rel="external">https://github.com/DreaminginCodeZH/MaterialColdStart</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://logan62334.github.io/2016/03/03/Android-冷启动时间优化/" data-id="cilbthmqk000wyvt1u482rj39" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
       <article id="post-Android-应用崩溃-Crash-日志报告" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -185,7 +246,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/02/Android-应用崩溃-Crash-日志报告/" data-id="cilac71n3000sait16dr3k888" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/03/02/Android-应用崩溃-Crash-日志报告/" data-id="cilbthmqh000syvt1c94dylxx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a></li></ul>
@@ -260,7 +321,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/01/Git-简易指南/" data-id="cilac71mj0008ait1483c1lvg" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/03/01/Git-简易指南/" data-id="cilbthmpy0008yvt13fefy7k4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -320,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cilac71n6000wait170ceitf4" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cilbthmqn0010yvt1tyuz4t1r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
@@ -386,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cilac71lk0000ait1nxzm1kn3" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cilbthmoy0000yvt1g2083v03" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
@@ -485,69 +546,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cilac71mr000iait17gj1k462" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cilbthmq5000iyvt17spi8apt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-      <article id="post-Android热修复技术实践" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/01/Android热修复技术实践/">Android热修复技术实践</a>
-    </h1>
-  
-
-        <div class="article-meta">
-          
-  <div class="article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/02/01/Android热修复技术实践/">
-      <time datetime="2016-02-01T09:54:53.000Z" itemprop="datePublished">2016-02-01</time>
-    </a>
-  </div>
-
-
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a>
-  </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <p><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa37AOYw5GicMOgc2He8n1STv3nOS3mhvJXScQPVnyFYOxj5JibUWsPOVNw/0?wx_fmt=jpeg" alt=""></p>
-<ol>
-<li>背景<br>我所在的公司是一家互联网金融领域的初创型公司，这类公司向来都是奉行快速迭代敏捷开发，所以基本我们的APP两周一个迭代有时候工期比较紧可能一周一个迭代，在缺乏专业QA人员的情况下单凭团队内其他做产品和运营的小伙伴的用最原始的人工点击测试下难免会遗漏一些潜在bug，于是当我们的应用发布之后，经过十多万用户的随机点击和产生的随机数据突然发现了一个严重bug需要进行紧急修复的时候公司各方就会忙得焦头烂额：还原bug、修复、重新打包App、测试、向各个应用市场和渠道换包、提示用户升级、用户下载、覆盖安装。有时候仅仅是为了修改了一行代码，也要付出巨大的成本进行换包和重新发布。 这时候就产生了一个问题：有没有办法以补丁的方式动态修复紧急Bug，不再需要重新发布App，不再需要用户重新下载，覆盖安装？ 虽然Android系统并没有提供这个技术，但是很幸运的告诉大家，答案是：可以的！而且在最初由QQ空间团队提出的热补丁动态修复技术方案后各大公司也都纷纷效仿，网上也出现了很多开源的解决方案。</li>
-<li>实际案例<br>让我们先来看一下网上都有哪些解决方案：<br>Xposed<br>dexposed<br>AndFix<br>DroidFix<br>DynamicAPK<br>Nuwa<br>根据其描述，原理都来自：Android dex分包方案（<a href="http://codecloud.net/android-hot-load-6575.html）。这里就不对这些框架做过多对比了，因为原理都一致，实现的代码可能有些差异并不是特别大。" target="_blank" rel="external">http://codecloud.net/android-hot-load-6575.html）。这里就不对这些框架做过多对比了，因为原理都一致，实现的代码可能有些差异并不是特别大。</a><br>这里我就先讲讲我是怎么去对热修复框架进行选型的吧，大家也看到了能实现这个功能的开源框架最近出了很多但并不是每个都适合我们现在的应用，Xposed它因为需要手机获得root权限才能生效所以首先pass。<br>dexposed和AndFix是阿里基于Xposed的思路沉淀出的两套热修复解决方案，但是经过实际测试后发现它由于缺少动态库so文件所以在大部分机型上都不能正常运行：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa36rlj7sRtNbBSU1dlzQs3C2CJicaff53m5FZJMTlsoLjGNn6Bykb3AicA/0?wx_fmt=jpeg" alt=""><br>在其官方github上有类似很多的问题所以也只能放弃虽然它的补丁生成器做的很完善但是然并卵……<br>DynamicAPK这个是携程最新公布的一个解决方案，但是由于它功能实在过于庞大而且其主要功能是用来做多apk动态加载的所以对热修复这块并不是重点实现。<br>最后我把注意力放在了Nuwa上，但是经过实际部署测试后发现总是编译出错于是翻看了github上的issue列表发现有很多人也遇到了类似问题最后通过排除掉Nuwa.init所在的类后就fix好了，原来是Nuwa所在的class文件是无法进行修复的，所以在这个文件中尽量只写一些初始化代码和配置保证不会出问题。然后接下来遇到的就是补丁包生成不了的窘境了……继续google：<br><a href="https://github.com/jasonross/Nuwa/issues/23在这篇文章中找到了答案。" target="_blank" rel="external">https://github.com/jasonross/Nuwa/issues/23在这篇文章中找到了答案。</a><br>好了接下来就是考虑到我们有20个渠道并且可能出现不同版本的补丁包的情况了，于是我申请了一台ftp服务器专门用来做为每次补丁包的存放路径，在这个路径下：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa3XSZl0ibtOQVAd3Ou2Nk8HHujN8jNy6Ze8H3TFWeMIDHc31ib9CYwkcQg/0?wx_fmt=jpeg" alt=""><br>这样在客户端通过每次拉取config配置文件的api进行判断当前版本是否需要打补丁，如果需要则根据当前渠道号从对应的ftp服务器下载，当用户第二次打开应用的时候就会load这个patch，这样就在用户毫不知情的情况下完成了问题修复。</li>
-</ol>
-<hr>
-<p><img src="http://logan62334.github.io/css/images/avatar.jpg" alt="关注公众号，更多分享……"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cilac71mn000dait1ke5okt2o" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-热修复/">Android 热修复</a></li></ul>
 
     </footer>
   </div>
@@ -569,6 +571,23 @@
     <h3 class="widget-title">recents</h3>
     <div class="widget">
       <ul id="recent-post" class="">
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2016/03/03/Android-冷启动时间优化/" class="thumbnail">
+  
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a></p>
+              <p class="item-title"><a href="/2016/03/03/Android-冷启动时间优化/" class="title">Android冷启动时间优化</a></p>
+              <p class="item-date"><time datetime="2016-03-03T05:12:49.000Z" itemprop="datePublished">2016-03-03</time></p>
+            </div>
+          </li>
         
           <li>
             
@@ -639,24 +658,6 @@
             </div>
           </li>
         
-          <li>
-            
-            <div class="item-thumbnail">
-              <a href="/2016/02/02/Android持续集成技术实践/" class="thumbnail">
-  
-    <span style="background-image:url(https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8Ma7EIVLxZmey6CXPwHmyLQ0CbfxnzFgenx1C2S2Osa7HEkVckSgP4tQ/0?wx_fmt=png
-)" alt="Android持续集成技术实践" class="thumbnail-image"></span>
-  
-</a>
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category"><a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a></p>
-              <p class="item-title"><a href="/2016/02/02/Android持续集成技术实践/" class="title">Android持续集成技术实践</a></p>
-              <p class="item-date"><time datetime="2016-02-02T08:08:59.000Z" itemprop="datePublished">2016-02-02</time></p>
-            </div>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -666,7 +667,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -675,7 +676,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -684,7 +685,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tag cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 20px;">Android布局UI</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
+      <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 20px;">Android布局UI</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
     </div>
   </div>
 
@@ -693,7 +694,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
