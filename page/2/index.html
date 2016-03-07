@@ -106,11 +106,11 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        10
+        11
         <span>posts</span>
       </div>
       <div class="article-info-block">
-        8
+        9
         <span>tags</span>
       </div>
     </div>
@@ -139,6 +139,105 @@
 
       
       <section id="main">
+      <article id="post-Android持续集成技术实践" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/02/Android持续集成技术实践/">Android持续集成技术实践</a>
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2016/02/02/Android持续集成技术实践/">
+      <time datetime="2016-02-02T08:08:59.000Z" itemprop="datePublished">2016-02-02</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <p><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8Ma7EIVLxZmey6CXPwHmyLQ0CbfxnzFgenx1C2S2Osa7HEkVckSgP4tQ/0?wx_fmt=png" alt=""></p>
+<p><strong>背景</strong></p>
+<p>随着业务需求的演进，工程的复杂度会逐渐增加，自动化的践行日益强烈。事实上，工程的自动化一直是我们努力追求的目标，能有效提高我们的生产效率，最大化减少人为出错的概率，实现一些复杂的业务需求应变。</p>
+<p>以我现在的公司为例，我们有22个渠道包，而且分为测试环境和生产环境，新的迭代开始除去要经常给测试人员直接烧测试版APP偶尔还会被商务和运营打断要求新增一个渠道包。尤其临近发版的一周，几乎每天都要新版本。这样的话，有两方面的影响：第一，打断了开发人员的开发进度；第二，开发人员打包效率低下。</p>
+<p>要解决这个问题，必须实现移动端应用的自动化构建。具体说来就是，使用持续集成（CI）系统jenkins，自动检测并拉取Git上的最新代码，自动打包成不同的渠道apk，自动上传到内测分发平台蒲公英上和自建的FTP服务器上。（接下来，测试人员只要打开一个（或多个）固定的网址，扫描一下二维码，就能下载最新的版本了…）</p>
+<p><strong>环境</strong></p>
+<p>因为公司内网的服务器都是Windows操作系统，所以下面的操作都是以Windows为例，无论是哪个操作系统，jenkins的配置是一样的。</p>
+<p>安装Jenkins</p>
+<p>官网地址： <a href="http://jenkins-ci.org/，具体安装过程就不详写了跟平常装软件没什么区别。" target="_blank" rel="external">http://jenkins-ci.org/，具体安装过程就不详写了跟平常装软件没什么区别。</a><br>默认访问 <a href="http://localhost:8080/" target="_blank" rel="external">http://localhost:8080/</a> , 可进入jenkins配置页面。</p>
+<p>安装Jenkins相关插件</p>
+<p>点击系统管理&gt;管理插件&gt;可选插件，可搜索以下插件安装</p>
+<p>git插件(GIT plugin)</p>
+<p>ssh插件(SSH Credentials Plugin)</p>
+<p>Gradle插件(Gradle plugin) - android专用</p>
+<p>注：</p>
+<ol>
+<li>这里要用VPN或者修改系统的hosts文件才可以搜索到插件；</li>
+<li>还有就是Windows中要装好JDK、Git、Gradle的环境。</li>
+</ol>
+<p>装好后的效果图：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8MyicibAVSP5SkZ4iclLPZtGRxrzdEWEOT5cmr4ibT95A3z2ezuDudFanLmA/0?wx_fmt=jpeg" alt=""></p>
+<p>新建Job</p>
+<p>主页面，新建 -&gt; 构建一个自由风格的软件项目即可。</p>
+<p>配置git仓库</p>
+<p>如果安装了git插件，在源码管理会出现Git，选中之后：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8MlSLIia7DnVsQib5k9jBakpg7Zuqwv62nVibHpVN6lr2VrXUvJV5Htx0nA/0?wx_fmt=jpeg" alt=""></p>
+<p>配置自动拉取最新代码</p>
+<p>在构建触发器中，有两种自动拉取代码并编译的策略:</p>
+<ol>
+<li>设置Poll SCM，设置定时器，定时检查代码更新，有更新则编译，否则不编译。</li>
+<li>也可以设置Build periodically，周期性的执行编译任务。<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8MjDqTjKicIEyXMbd2oftcYicavAVvx6KOFKKMf0LdropR5qXlPXY2BCIQ/0?wx_fmt=jpeg" alt=""></li>
+</ol>
+<p>配置gradle</p>
+<p>如果安装gradle插件成功的话，应该会出现下图的Invoke Gradle script，配置一下:<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8MWSQ8gjriafdzYZcYQrkJKmSwwAdP8AuLrFHfXFG21GA1MFu09YBgQLA/0?wx_fmt=jpeg" alt=""></p>
+<p>这样，就能自动在project下的app的build/outputs/apk下生成相应的apk.</p>
+<p>因为要区分测试环境和生产环境，所以我建了两个任务分别对应git上的主分支和子分支：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8MJn970Z1MZlJpHuINeMz88icDntpPJicciafXyquIwQolK3CEI4ej2PoVA/0?wx_fmt=jpeg" alt=""></p>
+<p>FTP服务器搭建：</p>
+<p>如果不会利用IIS搭建FTP的同学可以自行百度这里就不详细介绍了，记得把FTP根路径指向编译结果的目录：D:\Jenkins\jobs\XXForAndroidTest\workspace\app\build\outputs\apk<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY0KwRDyJ3icheLlS36ROSM8MA2lnFIibtdxoicqSjlBnKbE6dMxbbYrxrBvicyDqia2yhQHkZrRqs8bRVg/0?wx_fmt=jpeg" alt=""></p>
+<p>如果编译失败，请检查以下问题：</p>
+<ol>
+<li>确保gradle、git、jdk的环境变量都配好</li>
+<li>找不到local.properties中sdk定义，因为一般来说local.properties不会添加到版本库。</li>
+<li>还有就是子项目中build.gradle的签名秘钥的路径问题</li>
+</ol>
+<p>关于local.properties的定义：</p>
+<pre><code>sdk.dir=xx/xx/android-sdk
+</code></pre><p>再编译一般就会编译成功，当然当那些第三方库需要重新下载的话，编译可能会很慢。</p>
+<p><strong>总结一下</strong></p>
+<p>经过以上的折腾，以后终于可以彻底解放开发人员的双手去专心写代码了，我们在以后的工作中也要尽量去把精力放在业务上面提高工作效率。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cili4dgah000dadt1ytxlpdex" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
       <article id="post-Android热修复技术实践" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -185,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cilhr7tm50008bft1hdh6v15y" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cili4dgad0008adt1eno23hsd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-热修复/">Android 热修复</a></li></ul>
@@ -245,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/01/02/Android 实现APP开屏广告/" data-id="cilhr7tmz0012bft15ipfln8d" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/01/02/Android 实现APP开屏广告/" data-id="cili4dgb90017adt1zi3pviu2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a></li></ul>
@@ -359,7 +458,7 @@ popupWindow.setBackgroundDrawable(dw);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/" data-id="cilhr7tmi000mbft192xd9ssa" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/" data-id="cili4dgao000madt1u4k283h1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
@@ -546,7 +645,7 @@ popupWindow.setBackgroundDrawable(dw);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2014/12/22/Android实现button一边圆角一边直角/" data-id="cilhr7tmc000hbft1d6454ot5" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2014/12/22/Android实现button一边圆角一边直角/" data-id="cili4dgak000hadt1b5g5zaev" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
@@ -571,6 +670,24 @@ popupWindow.setBackgroundDrawable(dw);
     <h3 class="widget-title">recents</h3>
     <div class="widget">
       <ul id="recent-post" class="">
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/" class="thumbnail">
+  
+    <span style="background-image:url(https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY1lEMFMo2Ely8ibzD2jTmwBgxkJH43RYcf6FY6fNbt3LFNVvR62fA1IMeKp5Bqv2ib0znaBZjibD1N7A/0?wx_fmt=jpeg
+)" alt="西瓜小贴士图片浏览功能实现思路" class="thumbnail-image"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/Android笔记/">Android笔记</a></p>
+              <p class="item-title"><a href="/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/" class="title">西瓜小贴士图片浏览功能实现思路</a></p>
+              <p class="item-date"><time datetime="2016-03-07T15:04:02.000Z" itemprop="datePublished">2016-03-07</time></p>
+            </div>
+          </li>
         
           <li>
             
@@ -641,23 +758,6 @@ popupWindow.setBackgroundDrawable(dw);
             </div>
           </li>
         
-          <li>
-            
-            <div class="item-thumbnail">
-              <a href="/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" class="thumbnail">
-  
-    <span class="thumbnail-image thumbnail-none"></span>
-  
-</a>
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category"><a class="article-category-link" href="/categories/Android布局问题总结/">Android布局问题总结</a></p>
-              <p class="item-title"><a href="/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" class="title">Activity启动后EditText是否自动弹出输入法虚拟键盘的问题</a></p>
-              <p class="item-date"><time datetime="2016-02-27T09:54:53.000Z" itemprop="datePublished">2016-02-27</time></p>
-            </div>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -667,7 +767,7 @@ popupWindow.setBackgroundDrawable(dw);
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -676,7 +776,7 @@ popupWindow.setBackgroundDrawable(dw);
   <div class="widget-wrap">
     <h3 class="widget-title">tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -685,7 +785,7 @@ popupWindow.setBackgroundDrawable(dw);
   <div class="widget-wrap">
     <h3 class="widget-title">tag cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 20px;">Android布局UI</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
+      <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 20px;">Android布局UI</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
     </div>
   </div>
 
@@ -694,7 +794,7 @@ popupWindow.setBackgroundDrawable(dw);
   <div class="widget-wrap">
     <h3 class="widget-title">archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
