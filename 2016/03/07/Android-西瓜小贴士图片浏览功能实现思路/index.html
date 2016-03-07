@@ -8,8 +8,9 @@
   <meta name="description" content="最近翻到前段时间的一版设计稿，如下图这样的一个效果，当时都已经实现了但后来由于需求变更所以……没能让它和广大用户见面，但感觉这种效果还是不错的所以拿出来分享一下。
 
 功能需求1、右上角是页数指示器2、左右两个操作按钮要求触摸时时消失3、可以左右滑动
-####实现思路1、图片预存在本地通过Fresco来加载2、滑动效果通过ViewPager+fragment实现
-MainActivity.java">
+实现思路1、图片预存在本地通过Fresco来加载2、滑动效果通过ViewPager+fragment实现
+MainActivity.java
+1pub">
 <meta property="og:type" content="article">
 <meta property="og:title" content="西瓜小贴士图片浏览功能实现思路">
 <meta property="og:url" content="http://logan62334.github.io/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/index.html">
@@ -17,17 +18,19 @@ MainActivity.java">
 <meta property="og:description" content="最近翻到前段时间的一版设计稿，如下图这样的一个效果，当时都已经实现了但后来由于需求变更所以……没能让它和广大用户见面，但感觉这种效果还是不错的所以拿出来分享一下。
 
 功能需求1、右上角是页数指示器2、左右两个操作按钮要求触摸时时消失3、可以左右滑动
-####实现思路1、图片预存在本地通过Fresco来加载2、滑动效果通过ViewPager+fragment实现
-MainActivity.java">
+实现思路1、图片预存在本地通过Fresco来加载2、滑动效果通过ViewPager+fragment实现
+MainActivity.java
+1pub">
 <meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY1lEMFMo2Ely8ibzD2jTmwBgxkJH43RYcf6FY6fNbt3LFNVvR62fA1IMeKp5Bqv2ib0znaBZjibD1N7A/0?wx_fmt=jpeg">
-<meta property="og:updated_time" content="2016-03-07T15:05:11.000Z">
+<meta property="og:updated_time" content="2016-03-07T15:06:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="西瓜小贴士图片浏览功能实现思路">
 <meta name="twitter:description" content="最近翻到前段时间的一版设计稿，如下图这样的一个效果，当时都已经实现了但后来由于需求变更所以……没能让它和广大用户见面，但感觉这种效果还是不错的所以拿出来分享一下。
 
 功能需求1、右上角是页数指示器2、左右两个操作按钮要求触摸时时消失3、可以左右滑动
-####实现思路1、图片预存在本地通过Fresco来加载2、滑动效果通过ViewPager+fragment实现
-MainActivity.java">
+实现思路1、图片预存在本地通过Fresco来加载2、滑动效果通过ViewPager+fragment实现
+MainActivity.java
+1pub">
   
   
     <link rel="icon" href="favicon.png">
@@ -190,7 +193,7 @@ MainActivity.java">
         <p>最近翻到前段时间的一版设计稿，如下图这样的一个效果，当时都已经实现了但后来由于需求变更所以……没能让它和广大用户见面，但感觉这种效果还是不错的所以拿出来分享一下。</p>
 <p><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY1lEMFMo2Ely8ibzD2jTmwBgxkJH43RYcf6FY6fNbt3LFNVvR62fA1IMeKp5Bqv2ib0znaBZjibD1N7A/0?wx_fmt=jpeg" alt=""></p>
 <h4 id="u529F_u80FD_u9700_u6C42"><a href="#u529F_u80FD_u9700_u6C42" class="headerlink" title="功能需求"></a>功能需求</h4><p>1、右上角是页数指示器<br>2、左右两个操作按钮要求触摸时时消失<br>3、可以左右滑动</p>
-<p>####实现思路<br>1、图片预存在本地通过Fresco来加载<br>2、滑动效果通过ViewPager+fragment实现</p>
+<h4 id="u5B9E_u73B0_u601D_u8DEF"><a href="#u5B9E_u73B0_u601D_u8DEF" class="headerlink" title="实现思路"></a>实现思路</h4><p>1、图片预存在本地通过Fresco来加载<br>2、滑动效果通过ViewPager+fragment实现</p>
 <p>MainActivity.java</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;&#10;&#10;    private static final Integer[] IMAGES = new Integer[] &#123;&#10;            R.mipmap.tip1,R.mipmap.tip2,R.mipmap.tip3,R.mipmap.tip4,R.mipmap.tip5,R.mipmap.tip6,R.mipmap.tip7,R.mipmap.tip8&#10;    &#125;;&#10;&#10;    @Override&#10;    protected void onCreate(Bundle savedInstanceState) &#123;&#10;        super.onCreate(savedInstanceState);&#10;        setContentView(R.layout.activity_main);&#10;        Fresco.initialize(this);&#10;&#10;        final ViewPager pager = (ViewPager) findViewById(R.id.pager);&#10;        PageIndicator mPageIndicator= (PageIndicator) findViewById(R.id.indicator);&#10;        ImageView ivLeft= (ImageView) findViewById(R.id.ivLeft);&#10;        ImageView ivRight= (ImageView) findViewById(R.id.ivRight);&#10;&#10;        ivLeft.setOnClickListener(new View.OnClickListener() &#123;&#10;            @Override&#10;            public void onClick(View v) &#123;&#10;                pager.setCurrentItem(pager.getCurrentItem()-1);&#10;            &#125;&#10;        &#125;);&#10;        ivRight.setOnClickListener(new View.OnClickListener() &#123;&#10;            @Override&#10;            public void onClick(View v) &#123;&#10;                pager.setCurrentItem(pager.getCurrentItem()+1);&#10;            &#125;&#10;        &#125;);&#10;&#10;&#10;        SlidePagerAdapter pagerAdapter =&#10;                new SlidePagerAdapter(getSupportFragmentManager());&#10;&#10;        // set pictures&#10;        pagerAdapter.addAll(Arrays.asList(IMAGES));&#10;&#10;        pager.setAdapter(pagerAdapter);&#10;        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() &#123;&#10;            @Override&#10;            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) &#123;&#10;&#10;            &#125;&#10;&#10;            @Override&#10;            public void onPageSelected(int position) &#123;&#10;&#10;            &#125;&#10;&#10;            @Override&#10;            public void onPageScrollStateChanged(int state) &#123;&#10;&#10;            &#125;&#10;        &#125;);&#10;&#10;        mPageIndicator.setViewPager(pager);&#10;    &#125;</span><br></pre></td></tr></table></figure>
 <p>SlidePageFragment.java</p>
@@ -202,7 +205,7 @@ MainActivity.java">
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/" data-id="cili4dgas000padt13fghpt44" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/" data-id="cili4es58000pe3t1mvznelf3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a></li></ul>
