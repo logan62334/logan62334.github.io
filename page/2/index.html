@@ -117,11 +117,11 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        11
+        12
         <span>posts</span>
       </div>
       <div class="article-info-block">
-        9
+        10
         <span>tags</span>
       </div>
     </div>
@@ -150,6 +150,72 @@
 
       
       <section id="main">
+      <article id="post-Activity启动后EditText是否自动弹出输入法虚拟键盘的问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/">Activity启动后EditText是否自动弹出输入法虚拟键盘的问题</a>
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/">
+      <time datetime="2016-02-27T09:54:53.000Z" itemprop="datePublished">2016-02-27</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/Android布局问题总结/">Android布局问题总结</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <p>在开发过程中，我们经常会遇到Activity中包含EditText控件时会自动弹出虚拟键盘的情况，这是由于EditText自动获得焦点的缘故，只要让EditText失去焦点就行了，解决办法如下：</p>
+<p>1、在Manifest.xml文件中相应的Activity下添加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:windowSoftInputMode=&#34;stateHidden&#34;</span><br></pre></td></tr></table></figure>
+<p>2、让EditText失去焦点，用EditText的clearFocus：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EditText edt = (EditText)findViewById(R.id.edt);&#10;edt.clearFocus();</span><br></pre></td></tr></table></figure>
+<p>3、强制隐藏Android输入法窗口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EditText edt = (EditText)findViewById(R.id.edt);  &#10;InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);  &#10;imm.hideSoftInputFromWindow(edt.getWindowToken(), 0);</span><br></pre></td></tr></table></figure>
+<p>4、要求EditText始终不弹出虚拟键盘：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EditText edt = (EditText)findViewById(R.id.edt);  &#10;edt.setInputType(InputType.TYPE_NULL);</span><br></pre></td></tr></table></figure>
+<p>但有时我们确实是想让EditText自动获得焦点并弹出软键盘，在设置了EditText自动获得焦点后，软件盘不会弹出。<br>注意：此时是由于刚跳到一个新的界面，界面未加载完全而无法弹出软键盘。此时应该适当的延迟弹出软键盘，如500毫秒（保证界面的数据加载完成，如果500毫秒仍未弹出，则延长至1000毫秒）。</p>
+<p>1、可以在EditText后面加上一段代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Timer timer = new Timer();  &#10;timer.schedule(new TimerTask() &#123;  &#10;&#10;    public void run() &#123;  &#10;        InputMethodManager inputManager = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);  &#10;        inputManager.showSoftInput(editText, 0);  &#10;    &#125;  &#10;&#10;&#125;, 500);</span><br></pre></td></tr></table></figure>
+<p>2、给activity配置加入属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:windowSoftInputMode=&#34;adjustResize&#34;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cilwcs5zc001gn6t1dvux33ei" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
       <article id="post-Android持续集成技术实践" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -236,7 +302,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cilw8zdmi000d9vt1w6xr9gfl" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cilwcs5yf000in6t1k8b3993n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a></li></ul>
@@ -295,7 +361,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cilw8zdmf00089vt1qlbyeoe7" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cilwcs5yc000dn6t1tf5apd7e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-热修复/">Android 热修复</a></li></ul>
@@ -355,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/01/02/Android 实现APP开屏广告/" data-id="cilw8zdn700179vt1omd88681" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/01/02/Android 实现APP开屏广告/" data-id="cilwcs5z9001bn6t1tzqzgiys" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a></li></ul>
@@ -469,7 +535,7 @@ popupWindow.setBackgroundDrawable(dw);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/" data-id="cilw8zdmp000m9vt1j1p5km88" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/" data-id="cilwcs5yp000rn6t1svw87dml" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
@@ -656,7 +722,7 @@ popupWindow.setBackgroundDrawable(dw);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2014/12/22/Android实现button一边圆角一边直角/" data-id="cilw8zdml000h9vt1sbvokq7m" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2014/12/22/Android实现button一边圆角一边直角/" data-id="cilwcs5yl000mn6t10jyuugdi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
@@ -681,6 +747,24 @@ popupWindow.setBackgroundDrawable(dw);
     <h3 class="widget-title">recents</h3>
     <div class="widget">
       <ul id="recent-post" class="">
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2016/03/17/西瓜理财APP用到的开源库和工具整理/" class="thumbnail">
+  
+    <span style="background-image:url(https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2slMKU4btqhXc6mhHbFiaYLX9tGQ5zhTIH4UChjNRH6I5sG56ykiceRgt0ibZA44Mb0uzvGxWW9bzGw/0?wx_fmt=gif
+)" alt="西瓜理财APP用到的开源库和工具整理" class="thumbnail-image"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/Android笔记/">Android笔记</a></p>
+              <p class="item-title"><a href="/2016/03/17/西瓜理财APP用到的开源库和工具整理/" class="title">西瓜理财APP用到的开源库和工具整理</a></p>
+              <p class="item-date"><time datetime="2016-03-17T14:08:15.000Z" itemprop="datePublished">2016-03-17</time></p>
+            </div>
+          </li>
         
           <li>
             
@@ -751,24 +835,6 @@ popupWindow.setBackgroundDrawable(dw);
             </div>
           </li>
         
-          <li>
-            
-            <div class="item-thumbnail">
-              <a href="/2016/02/28/Android-WebView内存泄露终结解决方案/" class="thumbnail">
-  
-    <span style="background-image:url(https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY3gcGU1tdEM5EvhnIXmv3P394da0iclBU8LkfrlP21GGGHPJ79tvKojNf0txSOvBZRqCvHicNSOc97Q/0?wx_fmt=png
-)" alt="WebView内存泄露终结解决方案" class="thumbnail-image"></span>
-  
-</a>
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category"><a class="article-category-link" href="/categories/Android疑难杂症/">Android疑难杂症</a></p>
-              <p class="item-title"><a href="/2016/02/28/Android-WebView内存泄露终结解决方案/" class="title">WebView内存泄露终结解决方案</a></p>
-              <p class="item-date"><time datetime="2016-02-28T14:46:50.000Z" itemprop="datePublished">2016-02-28</time></p>
-            </div>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -778,7 +844,7 @@ popupWindow.setBackgroundDrawable(dw);
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -787,7 +853,7 @@ popupWindow.setBackgroundDrawable(dw);
   <div class="widget-wrap">
     <h3 class="widget-title">tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -796,7 +862,7 @@ popupWindow.setBackgroundDrawable(dw);
   <div class="widget-wrap">
     <h3 class="widget-title">tag cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 20px;">Android布局UI</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
+      <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 20px;">Android布局UI</a> <a href="/tags/Android笔记/" style="font-size: 10px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
     </div>
   </div>
 
@@ -805,7 +871,7 @@ popupWindow.setBackgroundDrawable(dw);
   <div class="widget-wrap">
     <h3 class="widget-title">archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
