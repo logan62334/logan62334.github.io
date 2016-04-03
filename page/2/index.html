@@ -117,11 +117,11 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        13
+        14
         <span>posts</span>
       </div>
       <div class="article-info-block">
-        10
+        11
         <span>tags</span>
       </div>
     </div>
@@ -150,6 +150,81 @@
 
       
       <section id="main">
+      <article id="post-Git-简易指南" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/01/Git-简易指南/">Git简易指南</a>
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2016/03/01/Git-简易指南/">
+      <time datetime="2016-03-01T14:48:52.000Z" itemprop="datePublished">2016-03-01</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <p>今天来分享一下我在使用Git的过程中经常用到的一些命令：</p>
+<p>1、创建新仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+<p>2、检出仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone username@host:/path/to/repository</span><br></pre></td></tr></table></figure>
+<p>3、添加与提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add *&#10;git commit -m &#34;&#20195;&#30721;&#25552;&#20132;&#20449;&#24687;&#34;</span><br></pre></td></tr></table></figure>
+<p>4、推送改动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<p>5、创建分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b feature_x</span><br></pre></td></tr></table></figure>
+<p>6、切换分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure>
+<p>7、删除本地分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d feature_x</span><br></pre></td></tr></table></figure>
+<p>8、删除远程分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin :feature_x</span><br></pre></td></tr></table></figure>
+<p>9、将分支推送到远端仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin &#60;branch&#62;</span><br></pre></td></tr></table></figure>
+<p>10、更新你的本地仓库至最新改动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<p>11、合并其他分支到你的当前分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge &#60;branch&#62;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://logan62334.github.io/2016/03/01/Git-简易指南/" data-id="cimkf2rlf0008wit19txv1rjr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
       <article id="post-Android-WebView内存泄露终结解决方案" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -197,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cimhtcwa60019t3t179dc4g2r" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cimkf2rmu001ewit1kdy0uydw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
@@ -263,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cimhtcwab001jt3t13jnq4lg8" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cimkf2rn3001owit1l7uortrn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
@@ -362,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cimhtcw9j000it3t1lveakclj" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cimkf2rln000iwit1278vlhu9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a></li></ul>
@@ -421,7 +496,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cimhtcw9c000dt3t131w2n9lb" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cimkf2rlh000dwit1paclt4fs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-热修复/">Android 热修复</a></li></ul>
@@ -481,124 +556,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/01/02/Android 实现APP开屏广告/" data-id="cimhtcwa9001et3t1x45a50im" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/01/02/Android 实现APP开屏广告/" data-id="cimkf2rmx001jwit1bt9xfz76" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-      <article id="post-Android实现PopupWindow背景半透明（兼容方案）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/">Android实现PopupWindow背景半透明（兼容方案）</a>
-    </h1>
-  
-
-        <div class="article-meta">
-          
-  <div class="article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/">
-      <time datetime="2015-12-27T03:37:42.000Z" itemprop="datePublished">2015-12-27</time>
-    </a>
-  </div>
-
-
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Android布局问题总结/">Android布局问题总结</a>
-  </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <p>大家想必对PopupWindow不会很陌生吧，我们在开发中经常会遇到要求使其背景半透明的需求，但网上的很多解决方案只能是在大部分机型上满足要求，像华为这样的机型就会发现我们原来设置的背景变暗效果的代码并没有起效果。<br>这里我贴出最终的兼容方案：</p>
-<pre><code>View contentView;
-    LayoutInflater mLayoutInflater = LayoutInflater.from(activity);
-    contentView = mLayoutInflater.inflate(R.layout.layout_popupwindow,
-            null);
-    pop = new PopupWindow(contentView,
-            ViewGroup.LayoutParams.MATCH_PARENT, (int) context.getResources().getDimension(R.dimen.y568));
-    TextView tvTitle = (TextView) contentView.findViewById(R.id.text);
-    tvTitle.setText(strTitle);
-    ListView listView = (ListView) contentView.findViewById(R.id.list);
-    // 产生背景变暗效果
-    WindowManager.LayoutParams lp = activity.getWindow()
-            .getAttributes();
-    lp.alpha = 0.4f;
-    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-    activity.getWindow().setAttributes(lp);
-    pop.setTouchable(true);
-    pop.setFocusable(true);
-    pop.setBackgroundDrawable(new BitmapDrawable());
-    pop.setOutsideTouchable(true);
-    pop.showAtLocation(contentView, Gravity.BOTTOM, 0, 0);
-    pop.update();
-    pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-        // 在dismiss中恢复透明度
-        public void onDismiss() {
-            WindowManager.LayoutParams lp = activity.getWindow()
-                    .getAttributes();
-            lp.alpha = 1f;
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            activity.getWindow().setAttributes(lp);
-        }
-    });
-    listView.setOnItemClickListener(onItemClickListener);
-    listView.setAdapter(adapter);
-</code></pre><p>注：特别是下面几行代码</p>
-<pre><code>// 产生背景变暗效果
-    WindowManager.LayoutParams lp = activity.getWindow()
-            .getAttributes();
-    lp.alpha = 0.4f;
-    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-    activity.getWindow().setAttributes(lp);
-    pop.setTouchable(true);
-    pop.setFocusable(true);
-    pop.setBackgroundDrawable(new BitmapDrawable());
-    pop.setOutsideTouchable(true);
-    pop.showAtLocation(contentView, Gravity.BOTTOM, 0, 0);
-    pop.update();
-    pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-        // 在dismiss中恢复透明度
-        public void onDismiss() {
-            WindowManager.LayoutParams lp = activity.getWindow()
-                    .getAttributes();
-            lp.alpha = 1f;
-              activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            activity.getWindow().setAttributes(lp);
-        }
-    });
-</code></pre><p>网上很多方案都要求加下面这两行代码，但其实加上反而会影响华为这种机型的显示效果</p>
-<pre><code>ColorDrawable dw = new ColorDrawable(-00000);
-popupWindow.setBackgroundDrawable(dw);
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/" data-id="cimhtcw9q000rt3t1mw03jxcx" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
 
     </footer>
   </div>
@@ -620,6 +581,24 @@ popupWindow.setBackgroundDrawable(dw);
     <h3 class="widget-title">recents</h3>
     <div class="widget">
       <ul id="recent-post" class="">
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2016/04/03/Android-移动开发技术周报-198/" class="thumbnail">
+  
+    <span style="background-image:url(http://upload-images.jianshu.io/upload_images/1044671-95dea9cfff0a5c01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+)" alt="[Android] 移动开发技术周报 #198" class="thumbnail-image"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/Android移动开发技术周报/">Android移动开发技术周报</a></p>
+              <p class="item-title"><a href="/2016/04/03/Android-移动开发技术周报-198/" class="title">[Android] 移动开发技术周报 #198</a></p>
+              <p class="item-date"><time datetime="2016-04-03T10:18:35.000Z" itemprop="datePublished">2016-04-03</time></p>
+            </div>
+          </li>
         
           <li>
             
@@ -691,23 +670,6 @@ popupWindow.setBackgroundDrawable(dw);
             </div>
           </li>
         
-          <li>
-            
-            <div class="item-thumbnail">
-              <a href="/2016/03/02/Android-应用崩溃-Crash-日志报告/" class="thumbnail">
-  
-    <span class="thumbnail-image thumbnail-none"></span>
-  
-</a>
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category"><a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a></p>
-              <p class="item-title"><a href="/2016/03/02/Android-应用崩溃-Crash-日志报告/" class="title">Android应用崩溃(Crash)日志报告</a></p>
-              <p class="item-date"><time datetime="2016-03-02T04:19:39.000Z" itemprop="datePublished">2016-03-02</time></p>
-            </div>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -717,7 +679,7 @@ popupWindow.setBackgroundDrawable(dw);
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android移动开发技术周报/">Android移动开发技术周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -726,7 +688,7 @@ popupWindow.setBackgroundDrawable(dw);
   <div class="widget-wrap">
     <h3 class="widget-title">tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -735,7 +697,7 @@ popupWindow.setBackgroundDrawable(dw);
   <div class="widget-wrap">
     <h3 class="widget-title">tag cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 20px;">Android布局UI</a> <a href="/tags/Android笔记/" style="font-size: 15px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
+      <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 20px;">Android布局UI</a> <a href="/tags/Android移动开发技术周报/" style="font-size: 10px;">Android移动开发技术周报</a> <a href="/tags/Android笔记/" style="font-size: 15px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
     </div>
   </div>
 
@@ -744,7 +706,7 @@ popupWindow.setBackgroundDrawable(dw);
   <div class="widget-wrap">
     <h3 class="widget-title">archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
