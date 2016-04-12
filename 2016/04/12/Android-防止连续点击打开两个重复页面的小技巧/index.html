@@ -3,24 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Android实现PopupWindow背景半透明（兼容方案） | 马飞的技术博客</title>
+  <title>[Android] 防止连续点击打开两个重复页面的小技巧 | 马飞的技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="大家想必对PopupWindow不会很陌生吧，我们在开发中经常会遇到要求使其背景半透明的需求，但网上的很多解决方案只能是在大部分机型上满足要求，像华为这样的机型就会发现我们原来设置的背景变暗效果的代码并没有起效果。这里我贴出最终的兼容方案：
-View contentView;
-    LayoutInflater mLayoutInflater = LayoutInflater.from(acti">
+  <meta name="description" content="我们在开发APP的过程中经常会遇到在某些低端机或者在机器响应比较慢的情况下手抖连续点击某个页面（当然不排除有些人故意这么做）重复弹出好几个相同的页面，不过我发现微信这样的应用都没有做处理……但还是要分享一下我是怎么解决的。
+
+1、通过判断两次点击的时间间隔来防止重复点击工具类：1 /**&amp;#10; * Created by mafei on 15/12/8.&amp;#10; */&amp;#10;public">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android实现PopupWindow背景半透明（兼容方案）">
-<meta property="og:url" content="http://logan62334.github.io/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/index.html">
+<meta property="og:title" content="[Android] 防止连续点击打开两个重复页面的小技巧">
+<meta property="og:url" content="http://logan62334.github.io/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/index.html">
 <meta property="og:site_name" content="马飞的技术博客">
-<meta property="og:description" content="大家想必对PopupWindow不会很陌生吧，我们在开发中经常会遇到要求使其背景半透明的需求，但网上的很多解决方案只能是在大部分机型上满足要求，像华为这样的机型就会发现我们原来设置的背景变暗效果的代码并没有起效果。这里我贴出最终的兼容方案：
-View contentView;
-    LayoutInflater mLayoutInflater = LayoutInflater.from(acti">
-<meta property="og:updated_time" content="2016-02-02T03:38:56.000Z">
+<meta property="og:description" content="我们在开发APP的过程中经常会遇到在某些低端机或者在机器响应比较慢的情况下手抖连续点击某个页面（当然不排除有些人故意这么做）重复弹出好几个相同的页面，不过我发现微信这样的应用都没有做处理……但还是要分享一下我是怎么解决的。
+
+1、通过判断两次点击的时间间隔来防止重复点击工具类：1 /**&amp;#10; * Created by mafei on 15/12/8.&amp;#10; */&amp;#10;public">
+<meta property="og:updated_time" content="2016-04-12T15:01:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android实现PopupWindow背景半透明（兼容方案）">
-<meta name="twitter:description" content="大家想必对PopupWindow不会很陌生吧，我们在开发中经常会遇到要求使其背景半透明的需求，但网上的很多解决方案只能是在大部分机型上满足要求，像华为这样的机型就会发现我们原来设置的背景变暗效果的代码并没有起效果。这里我贴出最终的兼容方案：
-View contentView;
-    LayoutInflater mLayoutInflater = LayoutInflater.from(acti">
+<meta name="twitter:title" content="[Android] 防止连续点击打开两个重复页面的小技巧">
+<meta name="twitter:description" content="我们在开发APP的过程中经常会遇到在某些低端机或者在机器响应比较慢的情况下手抖连续点击某个页面（当然不排除有些人故意这么做）重复弹出好几个相同的页面，不过我发现微信这样的应用都没有做处理……但还是要分享一下我是怎么解决的。
+
+1、通过判断两次点击的时间间隔来防止重复点击工具类：1 /**&amp;#10; * Created by mafei on 15/12/8.&amp;#10; */&amp;#10;public">
   
   
     <link rel="icon" href="favicon.png">
@@ -156,7 +156,7 @@ View contentView;
 </aside>
 
       
-      <section id="main"><article id="post-Android实现PopupWindow背景半透明（兼容方案）" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-Android-防止连续点击打开两个重复页面的小技巧" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -165,7 +165,7 @@ View contentView;
         
   
     <h1 class="article-title" itemprop="name">
-      Android实现PopupWindow背景半透明（兼容方案）
+      [Android] 防止连续点击打开两个重复页面的小技巧
     </h1>
   
 
@@ -173,8 +173,8 @@ View contentView;
           
   <div class="article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/">
-      <time datetime="2015-12-27T03:37:42.000Z" itemprop="datePublished">2015-12-27</time>
+    <a href="/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/">
+      <time datetime="2016-04-12T15:00:28.000Z" itemprop="datePublished">2016-04-12</time>
     </a>
   </div>
 
@@ -182,7 +182,7 @@ View contentView;
           
   <div class="article-category">
   	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Android布局问题总结/">Android布局问题总结</a>
+    <a class="article-category-link" href="/categories/Android笔记/">Android笔记</a>
   </div>
 
         </div>
@@ -191,76 +191,21 @@ View contentView;
     <div class="article-entry" itemprop="articleBody">
       
                 
-        <p>大家想必对PopupWindow不会很陌生吧，我们在开发中经常会遇到要求使其背景半透明的需求，但网上的很多解决方案只能是在大部分机型上满足要求，像华为这样的机型就会发现我们原来设置的背景变暗效果的代码并没有起效果。<br>这里我贴出最终的兼容方案：</p>
-<pre><code>View contentView;
-    LayoutInflater mLayoutInflater = LayoutInflater.from(activity);
-    contentView = mLayoutInflater.inflate(R.layout.layout_popupwindow,
-            null);
-    pop = new PopupWindow(contentView,
-            ViewGroup.LayoutParams.MATCH_PARENT, (int) context.getResources().getDimension(R.dimen.y568));
-    TextView tvTitle = (TextView) contentView.findViewById(R.id.text);
-    tvTitle.setText(strTitle);
-    ListView listView = (ListView) contentView.findViewById(R.id.list);
-    // 产生背景变暗效果
-    WindowManager.LayoutParams lp = activity.getWindow()
-            .getAttributes();
-    lp.alpha = 0.4f;
-    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-    activity.getWindow().setAttributes(lp);
-    pop.setTouchable(true);
-    pop.setFocusable(true);
-    pop.setBackgroundDrawable(new BitmapDrawable());
-    pop.setOutsideTouchable(true);
-    pop.showAtLocation(contentView, Gravity.BOTTOM, 0, 0);
-    pop.update();
-    pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+        <blockquote>
+<p>我们在开发APP的过程中经常会遇到在某些低端机或者在机器响应比较慢的情况下手抖连续点击某个页面（当然不排除有些人故意这么做）重复弹出好几个相同的页面，不过我发现微信这样的应用都没有做处理……但还是要分享一下我是怎么解决的。</p>
+</blockquote>
+<h4 id="1_u3001_u901A_u8FC7_u5224_u65AD_u4E24_u6B21_u70B9_u51FB_u7684_u65F6_u95F4_u95F4_u9694_u6765_u9632_u6B62_u91CD_u590D_u70B9_u51FB"><a href="#1_u3001_u901A_u8FC7_u5224_u65AD_u4E24_u6B21_u70B9_u51FB_u7684_u65F6_u95F4_u95F4_u9694_u6765_u9632_u6B62_u91CD_u590D_u70B9_u51FB" class="headerlink" title="1、通过判断两次点击的时间间隔来防止重复点击"></a>1、通过判断两次点击的时间间隔来防止重复点击</h4><p>工具类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> /**&#10; * Created by mafei on 15/12/8.&#10; */&#10;public class NoDoubleClickUtils &#123;&#10;    private static long lastClickTime;&#10;    private final static int SPACE_TIME = 500;&#10;&#10;    public static void initLastClickTime() &#123;&#10;        lastClickTime = 0;&#10;    &#125;&#10;&#10;    public synchronized static boolean isDoubleClick() &#123;&#10;        long currentTime = System.currentTimeMillis();&#10;        boolean isClick2;&#10;        if (currentTime - lastClickTime &#62;&#10;                SPACE_TIME) &#123;&#10;            isClick2 = false;&#10;        &#125; else &#123;&#10;            isClick2 = true;&#10;        &#125;&#10;        lastClickTime = currentTime;&#10;        return isClick2;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10;     * &#28857;&#20987;&#20107;&#20214;&#10;     */&#10;    private View.OnClickListener logListener = new View.OnClickListener() &#123;&#10;        @Override&#10;        public void onClick(View view) &#123;&#10;            if (!NoDoubleClickUtils.isDoubleClick()) &#123;&#10;                &#20107;&#20214;&#21709;&#24212;&#26041;&#27861;&#10;            &#125;&#10;        &#125;&#10;    &#125;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2_u3001_u901A_u8FC7_u4FEE_u6539manifest_u4E2D_u9875_u9762_u7684launchMode_u5C5E_u6027_u6539_u4E3A_u5355_u4F8B_u6A21_u5F0F"><a href="#2_u3001_u901A_u8FC7_u4FEE_u6539manifest_u4E2D_u9875_u9762_u7684launchMode_u5C5E_u6027_u6539_u4E3A_u5355_u4F8B_u6A21_u5F0F" class="headerlink" title="2、通过修改manifest中页面的launchMode属性改为单例模式"></a>2、通过修改manifest中页面的launchMode属性改为单例模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;!-- &#24066;&#22330;&#32593;&#36151;&#20135;&#21697;&#39029; --&#62;&#10;        &#60;activity&#10;            android:name=&#34;.activity.market.CreditRecordActivity&#34;&#10;            android:launchMode=&#34;singleTask&#34;&#10;            android:screenOrientation=&#34;portrait&#34; /&#62;</span><br></pre></td></tr></table></figure>
+<h4 id="3_u3001_u5229_u7528RxBinding_u5B9E_u73B0_u9632_u91CD_u590D_u70B9_u51FB"><a href="#3_u3001_u5229_u7528RxBinding_u5B9E_u73B0_u9632_u91CD_u590D_u70B9_u51FB" class="headerlink" title="3、利用RxBinding实现防重复点击"></a>3、利用RxBinding实现防重复点击</h4><p>RxBinding 是 Jake Wharton 的一个开源库，它提供了一套在 Android 平台上的基于 RxJava 的 Binding API。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RxView.clickEvents(button)&#10;    .throttleFirst(500, TimeUnit.MILLISECONDS)&#10;    .subscribe(clickAction);</span><br></pre></td></tr></table></figure></p>
 
-        // 在dismiss中恢复透明度
-        public void onDismiss() {
-            WindowManager.LayoutParams lp = activity.getWindow()
-                    .getAttributes();
-            lp.alpha = 1f;
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            activity.getWindow().setAttributes(lp);
-        }
-    });
-    listView.setOnItemClickListener(onItemClickListener);
-    listView.setAdapter(adapter);
-</code></pre><p>注：特别是下面几行代码</p>
-<pre><code>// 产生背景变暗效果
-    WindowManager.LayoutParams lp = activity.getWindow()
-            .getAttributes();
-    lp.alpha = 0.4f;
-    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-    activity.getWindow().setAttributes(lp);
-    pop.setTouchable(true);
-    pop.setFocusable(true);
-    pop.setBackgroundDrawable(new BitmapDrawable());
-    pop.setOutsideTouchable(true);
-    pop.showAtLocation(contentView, Gravity.BOTTOM, 0, 0);
-    pop.update();
-    pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-        // 在dismiss中恢复透明度
-        public void onDismiss() {
-            WindowManager.LayoutParams lp = activity.getWindow()
-                    .getAttributes();
-            lp.alpha = 1f;
-              activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            activity.getWindow().setAttributes(lp);
-        }
-    });
-</code></pre><p>网上很多方案都要求加下面这两行代码，但其实加上反而会影响华为这种机型的显示效果</p>
-<pre><code>ColorDrawable dw = new ColorDrawable(-00000);
-popupWindow.setBackgroundDrawable(dw);
-</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/" data-id="cimxk33wg000rf1t1r5dwdnto" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" data-id="cimxk33wl000uf1t1mojlsf0v" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android笔记/">Android笔记</a></li></ul>
 
     </footer>
   </div>
@@ -268,19 +213,10 @@ popupWindow.setBackgroundDrawable(dw);
     
 <nav id="article-nav">
   
-    <a href="/2016/01/02/Android 实现APP开屏广告/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Android实现APP开屏广告
-        
-      </div>
-    </a>
   
-  
-    <a href="/2014/12/22/Android实现button一边圆角一边直角/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/04/03/Android-移动开发技术周报-198/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Android实现button一边圆角一边直角</div>
+      <div class="article-nav-title">[Android] 移动开发技术周报 #198</div>
     </a>
   
 </nav>
