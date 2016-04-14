@@ -15,8 +15,8 @@
 <meta property="og:description" content="我们在开发APP的过程中经常会遇到在某些低端机或者在机器响应比较慢的情况下手抖连续点击某个页面（当然不排除有些人故意这么做）重复弹出好几个相同的页面，不过我发现微信这样的应用都没有做处理……但还是要分享一下我是怎么解决的。
 
 1、通过判断两次点击的时间间隔来防止重复点击工具类：1 /**&amp;#10; * Created by mafei on 15/12/8.&amp;#10; */&amp;#10;public">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044671-95dea9cfff0a5c01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-04-12T15:21:30.000Z">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg">
+<meta property="og:updated_time" content="2016-04-14T11:08:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android] 防止连续点击打开两个重复页面的小技巧">
 <meta name="twitter:description" content="我们在开发APP的过程中经常会遇到在某些低端机或者在机器响应比较慢的情况下手抖连续点击某个页面（当然不排除有些人故意这么做）重复弹出好几个相同的页面，不过我发现微信这样的应用都没有做处理……但还是要分享一下我是怎么解决的。
@@ -200,12 +200,12 @@
 <h4 id="2_u3001_u901A_u8FC7_u4FEE_u6539manifest_u4E2D_u9875_u9762_u7684launchMode_u5C5E_u6027_u6539_u4E3A_u5355_u4F8B_u6A21_u5F0F"><a href="#2_u3001_u901A_u8FC7_u4FEE_u6539manifest_u4E2D_u9875_u9762_u7684launchMode_u5C5E_u6027_u6539_u4E3A_u5355_u4F8B_u6A21_u5F0F" class="headerlink" title="2、通过修改manifest中页面的launchMode属性改为单例模式"></a>2、通过修改manifest中页面的launchMode属性改为单例模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;!-- &#24066;&#22330;&#32593;&#36151;&#20135;&#21697;&#39029; --&#62;&#10;        &#60;activity&#10;            android:name=&#34;.activity.market.CreditRecordActivity&#34;&#10;            android:launchMode=&#34;singleTask&#34;&#10;            android:screenOrientation=&#34;portrait&#34; /&#62;</span><br></pre></td></tr></table></figure>
 <h4 id="3_u3001_u5229_u7528RxBinding_u5B9E_u73B0_u9632_u91CD_u590D_u70B9_u51FB"><a href="#3_u3001_u5229_u7528RxBinding_u5B9E_u73B0_u9632_u91CD_u590D_u70B9_u51FB" class="headerlink" title="3、利用RxBinding实现防重复点击"></a>3、利用RxBinding实现防重复点击</h4><p>RxBinding 是 Jake Wharton 的一个开源库，它提供了一套在 Android 平台上的基于 RxJava 的 Binding API。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RxView.clickEvents(button)&#10;    .throttleFirst(500, TimeUnit.MILLISECONDS)&#10;    .subscribe(clickAction);</span><br></pre></td></tr></table></figure></p>
 <hr>
-<p><img src="http://upload-images.jianshu.io/upload_images/1044671-95dea9cfff0a5c01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FullStackEngineer的公众号，更多分享"></p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" data-id="cin06jmdk000uxit1v6cj6qn0" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" data-id="cin06q6q9000udrt1tw10skrn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android笔记/">Android笔记</a></li></ul>
@@ -244,7 +244,7 @@
             <div class="item-thumbnail">
               <a href="/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" class="thumbnail">
   
-    <span style="background-image:url(http://upload-images.jianshu.io/upload_images/1044671-95dea9cfff0a5c01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
 )" alt="[Android] 防止连续点击打开两个重复页面的小技巧" class="thumbnail-image"></span>
   
 </a>
@@ -262,7 +262,7 @@
             <div class="item-thumbnail">
               <a href="/2016/04/03/Android-移动开发技术周报-198/" class="thumbnail">
   
-    <span style="background-image:url(http://upload-images.jianshu.io/upload_images/1044671-95dea9cfff0a5c01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
 )" alt="[Android] 移动开发技术周报 #198" class="thumbnail-image"></span>
   
 </a>
@@ -280,7 +280,8 @@
             <div class="item-thumbnail">
               <a href="/2016/03/29/Android-西瓜理财APP开源库的使用/" class="thumbnail">
   
-    <span class="thumbnail-image thumbnail-none"></span>
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
+)" alt="西瓜理财APP开源库的使用" class="thumbnail-image"></span>
   
 </a>
             </div>

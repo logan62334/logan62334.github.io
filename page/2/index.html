@@ -192,11 +192,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10;    * &#21021;&#22987;&#21270;&#31243;&#24207;&#23849;&#28291;&#25429;&#25417;&#22788;&#29702;&#10;    */&#10;   protected void initCrashHandler() &#123;&#10;       if (BuildConfig.isDebug) &#123;&#10;           CustomActivityOnCrash.install(this);&#10;       &#125; else &#123;&#10;           CrashHandler handler = CrashHandler.getInstance();&#10;           handler.init(getApplicationContext());&#10;           Thread.setDefaultUncaughtExceptionHandler(handler);&#10;       &#125;&#10;   &#125;</span><br></pre></td></tr></table></figure>
 <p>CrashHandler类文件：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> public class CrashHandler implements UncaughtExceptionHandler &#123;&#10;    /** Debug Log tag*/&#10;    public static final String TAG = &#34;CrashHandler&#34;;&#10;    /** &#26159;&#21542;&#24320;&#21551;&#26085;&#24535;&#36755;&#20986;,&#22312;Debug&#29366;&#24577;&#19979;&#24320;&#21551;,&#10;     * &#22312;Release&#29366;&#24577;&#19979;&#20851;&#38381;&#20197;&#25552;&#31034;&#31243;&#24207;&#24615;&#33021;&#10;     * */&#10;    public static final boolean DEBUG = false;&#10;    /** &#31995;&#32479;&#40664;&#35748;&#30340;UncaughtException&#22788;&#29702;&#31867; */&#10;    private UncaughtExceptionHandler mDefaultHandler;&#10;    /** CrashHandler&#23454;&#20363; */&#10;    private static CrashHandler INSTANCE;&#10;    /** &#31243;&#24207;&#30340;Context&#23545;&#35937; */&#10;    private Context mContext;&#10;    /** &#20351;&#29992;Properties&#26469;&#20445;&#23384;&#35774;&#22791;&#30340;&#20449;&#24687;&#21644;&#38169;&#35823;&#22534;&#26632;&#20449;&#24687;*/&#10;    private Properties mDeviceCrashInfo = new Properties();&#10;    private static final String VERSION_NAME = &#34;versionName&#34;;&#10;    private static final String VERSION_CODE = &#34;versionCode&#34;;&#10;    private static final String STACK_TRACE = &#34;STACK_TRACE&#34;;&#10;    /** &#38169;&#35823;&#25253;&#21578;&#25991;&#20214;&#30340;&#25193;&#23637;&#21517; */&#10;    private static final String CRASH_REPORTER_EXTENSION = &#34;.cr&#34;;&#10;&#10;    /** &#20445;&#35777;&#21482;&#26377;&#19968;&#20010;CrashHandler&#23454;&#20363; */&#10;    private CrashHandler() &#123;&#125;&#10;&#10;    /** &#33719;&#21462;CrashHandler&#23454;&#20363; ,&#21333;&#20363;&#27169;&#24335;*/&#10;    public static CrashHandler getInstance() &#123;&#10;        if (INSTANCE == null) &#123;&#10;            INSTANCE = new CrashHandler();&#10;        &#125;&#10;        return INSTANCE;&#10;    &#125;&#10;&#10;    /**&#10;     * &#21021;&#22987;&#21270;,&#27880;&#20876;Context&#23545;&#35937;,&#10;     * &#33719;&#21462;&#31995;&#32479;&#40664;&#35748;&#30340;UncaughtException&#22788;&#29702;&#22120;,&#10;     * &#35774;&#32622;&#35813;CrashHandler&#20026;&#31243;&#24207;&#30340;&#40664;&#35748;&#22788;&#29702;&#22120;&#10;     * @param ctx&#10;     */&#10;    public void init(Context ctx) &#123;&#10;        mContext = ctx;&#10;        mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();&#10;        Thread.setDefaultUncaughtExceptionHandler(this);&#10;    &#125;&#10;&#10;    /**&#10;     * &#24403;UncaughtException&#21457;&#29983;&#26102;&#20250;&#36716;&#20837;&#35813;&#20989;&#25968;&#26469;&#22788;&#29702;&#10;     */&#10;    @Override&#10;    public void uncaughtException(Thread thread, Throwable ex) &#123;&#10;        if (!handleException(ex) &#38;&#38; mDefaultHandler != null) &#123;&#10;            //&#22914;&#26524;&#29992;&#25143;&#27809;&#26377;&#22788;&#29702;&#21017;&#35753;&#31995;&#32479;&#40664;&#35748;&#30340;&#24322;&#24120;&#22788;&#29702;&#22120;&#26469;&#22788;&#29702;&#10;            mDefaultHandler.uncaughtException(thread, ex);&#10;        &#125; else &#123;&#10;            //Sleep&#19968;&#20250;&#21518;&#32467;&#26463;&#31243;&#24207;&#10;            try &#123;&#10;                Thread.sleep(5000);&#10;            &#125; catch (InterruptedException e) &#123;&#10;                Log.e(TAG, &#34;Error : &#34;, e);&#10;            &#125;&#10;            android.os.Process.killProcess(android.os.Process.myPid());&#10;            System.exit(10);&#10;        &#125;&#10;    &#125;&#10;&#10;    /**&#10;     * &#33258;&#23450;&#20041;&#38169;&#35823;&#22788;&#29702;,&#25910;&#38598;&#38169;&#35823;&#20449;&#24687;&#10;     * &#21457;&#36865;&#38169;&#35823;&#25253;&#21578;&#31561;&#25805;&#20316;&#22343;&#22312;&#27492;&#23436;&#25104;.&#10;     * &#24320;&#21457;&#32773;&#21487;&#20197;&#26681;&#25454;&#33258;&#24049;&#30340;&#24773;&#20917;&#26469;&#33258;&#23450;&#20041;&#24322;&#24120;&#22788;&#29702;&#36923;&#36753;&#10;     * @param ex&#10;     * @return true:&#22914;&#26524;&#22788;&#29702;&#20102;&#35813;&#24322;&#24120;&#20449;&#24687;;&#21542;&#21017;&#36820;&#22238;false&#10;     */&#10;    private boolean handleException(Throwable ex) &#123;&#10;        if (ex == null) &#123;&#10;            Log.w(TAG, &#34;handleException --- ex==null&#34;);&#10;            return true;&#10;        &#125;&#10;        final String msg = ex.getLocalizedMessage();&#10;        if(msg == null) &#123;&#10;            return false;&#10;        &#125;&#10;        //&#20351;&#29992;Toast&#26469;&#26174;&#31034;&#24322;&#24120;&#20449;&#24687;&#10;        new Thread() &#123;&#10;            @Override&#10;            public void run() &#123;&#10;                Looper.prepare();&#10;                Toast toast = Toast.makeText(mContext, &#34;&#31243;&#24207;&#20986;&#38169;&#65292;&#21363;&#23558;&#36864;&#20986;&#34;,&#10;                        Toast.LENGTH_LONG);&#10;                toast.setGravity(Gravity.CENTER, 0, 0);&#10;                toast.show();&#10;//              MsgPrompt.showMsg(mContext, &#34;&#31243;&#24207;&#20986;&#38169;&#21862;&#34;, msg+&#34;\n&#28857;&#30830;&#35748;&#36864;&#20986;&#34;);&#10;                Looper.loop();&#10;            &#125;&#10;        &#125;.start();&#10;        //&#25910;&#38598;&#35774;&#22791;&#20449;&#24687;&#10;        collectCrashDeviceInfo(mContext);&#10;        //&#20445;&#23384;&#38169;&#35823;&#25253;&#21578;&#25991;&#20214;&#10;        saveCrashInfoToFile(ex);&#10;        //&#21457;&#36865;&#38169;&#35823;&#25253;&#21578;&#21040;&#26381;&#21153;&#22120;&#10;        //sendCrashReportsToServer(mContext);&#10;        return true;&#10;    &#125;&#10;&#10;    /**&#10;     * &#22312;&#31243;&#24207;&#21551;&#21160;&#26102;&#20505;, &#21487;&#20197;&#35843;&#29992;&#35813;&#20989;&#25968;&#26469;&#21457;&#36865;&#20197;&#21069;&#27809;&#26377;&#21457;&#36865;&#30340;&#25253;&#21578;&#10;     */&#10;    public void sendPreviousReportsToServer() &#123;&#10;        sendCrashReportsToServer(mContext);&#10;    &#125;&#10;    /**&#10;     * &#25226;&#38169;&#35823;&#25253;&#21578;&#21457;&#36865;&#32473;&#26381;&#21153;&#22120;,&#21253;&#21547;&#26032;&#20135;&#29983;&#30340;&#21644;&#20197;&#21069;&#27809;&#21457;&#36865;&#30340;.&#10;     * @param ctx&#10;     */&#10;    private void sendCrashReportsToServer(Context ctx) &#123;&#10;        String[] crFiles = getCrashReportFiles(ctx);&#10;        if (crFiles != null &#38;&#38; crFiles.length &#62; 0) &#123;&#10;            TreeSet&#60;String&#62; sortedFiles = new TreeSet&#60;String&#62;();&#10;            sortedFiles.addAll(Arrays.asList(crFiles));&#10;            for (String fileName : sortedFiles) &#123;&#10;                File cr = new File(ctx.getFilesDir(), fileName);&#10;                postReport(cr);&#10;                cr.delete();// &#21024;&#38500;&#24050;&#21457;&#36865;&#30340;&#25253;&#21578;&#10;            &#125;&#10;        &#125;&#10;    &#125;&#10;    private void postReport(File file) &#123;&#10;        // TODO &#21457;&#36865;&#38169;&#35823;&#25253;&#21578;&#21040;&#26381;&#21153;&#22120;&#10;    &#125;&#10;&#10;    /**&#10;     * &#33719;&#21462;&#38169;&#35823;&#25253;&#21578;&#25991;&#20214;&#21517;&#10;     * @param ctx&#10;     * @return&#10;     */&#10;    private String[] getCrashReportFiles(Context ctx) &#123;&#10;        File filesDir = ctx.getFilesDir();&#10;        FilenameFilter filter = new FilenameFilter() &#123;&#10;            public boolean accept(File dir, String name) &#123;&#10;                return name.endsWith(CRASH_REPORTER_EXTENSION);&#10;            &#125;&#10;        &#125;;&#10;        return filesDir.list(filter);&#10;    &#125;&#10;&#10;    /**&#10;     * &#20445;&#23384;&#38169;&#35823;&#20449;&#24687;&#21040;&#25991;&#20214;&#20013;&#10;     * @param ex&#10;     * @return&#10;     */&#10;    private String saveCrashInfoToFile(Throwable ex) &#123;&#10;        Writer info = new StringWriter();&#10;        PrintWriter printWriter = new PrintWriter(info);&#10;        ex.printStackTrace(printWriter);&#10;        Throwable cause = ex.getCause();&#10;        while (cause != null) &#123;&#10;            cause.printStackTrace(printWriter);&#10;            cause = cause.getCause();&#10;        &#125;&#10;        String result = info.toString();&#10;        printWriter.close();&#10;        mDeviceCrashInfo.put(&#34;EXEPTION&#34;, ex.getLocalizedMessage());&#10;        mDeviceCrashInfo.put(STACK_TRACE, result);&#10;        try &#123;&#10;            //long timestamp = System.currentTimeMillis();&#10;            Time t = new Time(&#34;GMT+8&#34;);&#10;            t.setToNow(); // &#21462;&#24471;&#31995;&#32479;&#26102;&#38388;&#10;            int date = t.year * 10000 + t.month * 100 + t.monthDay;&#10;            int time = t.hour * 10000 + t.minute * 100 + t.second;&#10;            String fileName = &#34;crash-&#34; + date + &#34;-&#34; + time + CRASH_REPORTER_EXTENSION;&#10;            FileOutputStream trace = mContext.openFileOutput(fileName,&#10;                    Context.MODE_PRIVATE);&#10;            mDeviceCrashInfo.store(trace, &#34;&#34;);&#10;            trace.flush();&#10;            trace.close();&#10;            return fileName;&#10;        &#125; catch (Exception e) &#123;&#10;            Log.e(TAG, &#34;an error occured while writing report file...&#34;, e);&#10;        &#125;&#10;        return null;&#10;    &#125;&#10;&#10;    /**&#10;     * &#25910;&#38598;&#31243;&#24207;&#23849;&#28291;&#30340;&#35774;&#22791;&#20449;&#24687;&#10;     *&#10;     * @param ctx&#10;     */&#10;    public void collectCrashDeviceInfo(Context ctx) &#123;&#10;        try &#123;&#10;            PackageManager pm = ctx.getPackageManager();&#10;            PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(),&#10;                    PackageManager.GET_ACTIVITIES);&#10;            if (pi != null) &#123;&#10;                mDeviceCrashInfo.put(VERSION_NAME,&#10;                        pi.versionName == null ? &#34;not set&#34; : pi.versionName);&#10;                mDeviceCrashInfo.put(VERSION_CODE, &#34;&#34;+pi.versionCode);&#10;            &#125;&#10;        &#125; catch (PackageManager.NameNotFoundException e) &#123;&#10;            Log.e(TAG, &#34;Error while collect package info&#34;, e);&#10;        &#125;&#10;        //&#20351;&#29992;&#21453;&#23556;&#26469;&#25910;&#38598;&#35774;&#22791;&#20449;&#24687;.&#22312;Build&#31867;&#20013;&#21253;&#21547;&#21508;&#31181;&#35774;&#22791;&#20449;&#24687;,&#10;        //&#20363;&#22914;: &#31995;&#32479;&#29256;&#26412;&#21495;,&#35774;&#22791;&#29983;&#20135;&#21830; &#31561;&#24110;&#21161;&#35843;&#35797;&#31243;&#24207;&#30340;&#26377;&#29992;&#20449;&#24687;&#10;        //&#20855;&#20307;&#20449;&#24687;&#35831;&#21442;&#32771;&#21518;&#38754;&#30340;&#25130;&#22270;&#10;        Field[] fields = Build.class.getDeclaredFields();&#10;        for (Field field : fields) &#123;&#10;            try &#123;&#10;                field.setAccessible(true);&#10;                mDeviceCrashInfo.put(field.getName(), &#34;&#34;+field.get(null));&#10;                if (DEBUG) &#123;&#10;                    Log.d(TAG, field.getName() + &#34; : &#34; + field.get(null));&#10;                &#125;&#10;            &#125; catch (Exception e) &#123;&#10;                Log.e(TAG, &#34;Error while collect crash info&#34;, e);&#10;            &#125;&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/02/Android-应用崩溃-Crash-日志报告/" data-id="cin06jme10019xit1o3zumh63" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/03/02/Android-应用崩溃-Crash-日志报告/" data-id="cin06q6qo0019drt12fj7xjp0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a></li></ul>
@@ -267,11 +269,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
 <p>11、合并其他分支到你的当前分支</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge &#60;branch&#62;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/01/Git-简易指南/" data-id="cin06jmcx0008xit1ak01j51h" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/03/01/Git-简易指南/" data-id="cin06q6p70008drt1tf08xnrw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -327,11 +331,13 @@
 <p>2、解决webview内存泄露：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Bind(R.id.pb)&#10;    ProgressBar pb;&#10;    @Bind(R.id.mWebView)&#10;    BridgeWebView mWebView;&#10;&#10;    pb.setMax(100);&#10;    mWebView.setWebChromeClient(new WebViewClient());&#10;    mWebView.loadUrl(strWebsite);&#10;&#10;    private class WebViewClient extends WebChromeClient &#123;&#10;        @Override&#10;        public void onProgressChanged(WebView view, int newProgress) &#123;&#10;            try &#123;&#10;                pb.setProgress(newProgress);&#10;                if (newProgress == 100) &#123;&#10;                    pb.setVisibility(View.GONE);&#10;                &#125;&#10;            &#125; catch (Exception e) &#123;&#10;                e.printStackTrace();&#10;            &#125;&#10;            super.onProgressChanged(view, newProgress);&#10;        &#125;&#10;    &#125;&#10;&#10;    @Override&#10;    protected void onDestroy() &#123;&#10;        super.onDestroy();&#10;        try &#123;&#10;            if (mWebView != null) &#123;&#10;                mWebView.removeAllViews();&#10;                mWebView.destroy();&#10;                mWebView = null;&#10;            &#125;&#10;        &#125; catch (Exception e) &#123;&#10;            e.printStackTrace();&#10;        &#125;&#10;    &#125;</span><br></pre></td></tr></table></figure>
 <p>最后介绍大家一个用来检测应用内存泄露的工具：leakcanary<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY3gcGU1tdEM5EvhnIXmv3P394da0iclBU8LkfrlP21GGGHPJ79tvKojNf0txSOvBZRqCvHicNSOc97Q/0?wx_fmt=png" alt=""><br>github地址：<a href="https://github.com/square/leakcanary" target="_blank" rel="external">https://github.com/square/leakcanary</a></p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cin06jme8001hxit1oex6o906" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cin06q6qu001hdrt1l3jctyil" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
@@ -393,11 +399,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Timer timer = new Timer();  &#10;timer.schedule(new TimerTask() &#123;  &#10;&#10;    public void run() &#123;  &#10;        InputMethodManager inputManager = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);  &#10;        inputManager.showSoftInput(editText, 0);  &#10;    &#125;  &#10;&#10;&#125;, 500);</span><br></pre></td></tr></table></figure>
 <p>2、给activity配置加入属性：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:windowSoftInputMode=&#34;adjustResize&#34;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cin06jmef001rxit14bd8k6br" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cin06q6r1001rdrt1n0l55wos" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
@@ -492,11 +500,13 @@
 </code></pre><p>再编译一般就会编译成功，当然当那些第三方库需要重新下载的话，编译可能会很慢。</p>
 <p><strong>总结一下</strong></p>
 <p>经过以上的折腾，以后终于可以彻底解放开发人员的双手去专心写代码了，我们在以后的工作中也要尽量去把精力放在业务上面提高工作效率。</p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cin06jmd6000ixit140yoseip" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cin06q6pf000idrt1fy70969c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a></li></ul>
@@ -550,12 +560,12 @@
 <li>实际案例<br>让我们先来看一下网上都有哪些解决方案：<br>Xposed<br>dexposed<br>AndFix<br>DroidFix<br>DynamicAPK<br>Nuwa<br>根据其描述，原理都来自：Android dex分包方案（<a href="http://codecloud.net/android-hot-load-6575.html）。这里就不对这些框架做过多对比了，因为原理都一致，实现的代码可能有些差异并不是特别大。" target="_blank" rel="external">http://codecloud.net/android-hot-load-6575.html）。这里就不对这些框架做过多对比了，因为原理都一致，实现的代码可能有些差异并不是特别大。</a><br>这里我就先讲讲我是怎么去对热修复框架进行选型的吧，大家也看到了能实现这个功能的开源框架最近出了很多但并不是每个都适合我们现在的应用，Xposed它因为需要手机获得root权限才能生效所以首先pass。<br>dexposed和AndFix是阿里基于Xposed的思路沉淀出的两套热修复解决方案，但是经过实际测试后发现它由于缺少动态库so文件所以在大部分机型上都不能正常运行：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa36rlj7sRtNbBSU1dlzQs3C2CJicaff53m5FZJMTlsoLjGNn6Bykb3AicA/0?wx_fmt=jpeg" alt=""><br>在其官方github上有类似很多的问题所以也只能放弃虽然它的补丁生成器做的很完善但是然并卵……<br>DynamicAPK这个是携程最新公布的一个解决方案，但是由于它功能实在过于庞大而且其主要功能是用来做多apk动态加载的所以对热修复这块并不是重点实现。<br>最后我把注意力放在了Nuwa上，但是经过实际部署测试后发现总是编译出错于是翻看了github上的issue列表发现有很多人也遇到了类似问题最后通过排除掉Nuwa.init所在的类后就fix好了，原来是Nuwa所在的class文件是无法进行修复的，所以在这个文件中尽量只写一些初始化代码和配置保证不会出问题。然后接下来遇到的就是补丁包生成不了的窘境了……继续google：<br><a href="https://github.com/jasonross/Nuwa/issues/23在这篇文章中找到了答案。" target="_blank" rel="external">https://github.com/jasonross/Nuwa/issues/23在这篇文章中找到了答案。</a><br>好了接下来就是考虑到我们有20个渠道并且可能出现不同版本的补丁包的情况了，于是我申请了一台ftp服务器专门用来做为每次补丁包的存放路径，在这个路径下：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa3XSZl0ibtOQVAd3Ou2Nk8HHujN8jNy6Ze8H3TFWeMIDHc31ib9CYwkcQg/0?wx_fmt=jpeg" alt=""><br>这样在客户端通过每次拉取config配置文件的api进行判断当前版本是否需要打补丁，如果需要则根据当前渠道号从对应的ftp服务器下载，当用户第二次打开应用的时候就会load这个patch，这样就在用户毫不知情的情况下完成了问题修复。</li>
 </ol>
 <hr>
-<p><img src="http://logan62334.github.io/css/images/avatar.jpg" alt="关注公众号，更多分享……"></p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cin06jmd0000dxit1kr62l7vm" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cin06q6pb000ddrt1fl5xu8wo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-热修复/">Android 热修复</a></li></ul>
@@ -586,7 +596,7 @@
             <div class="item-thumbnail">
               <a href="/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" class="thumbnail">
   
-    <span style="background-image:url(http://upload-images.jianshu.io/upload_images/1044671-95dea9cfff0a5c01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
 )" alt="[Android] 防止连续点击打开两个重复页面的小技巧" class="thumbnail-image"></span>
   
 </a>
@@ -604,7 +614,7 @@
             <div class="item-thumbnail">
               <a href="/2016/04/03/Android-移动开发技术周报-198/" class="thumbnail">
   
-    <span style="background-image:url(http://upload-images.jianshu.io/upload_images/1044671-95dea9cfff0a5c01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
 )" alt="[Android] 移动开发技术周报 #198" class="thumbnail-image"></span>
   
 </a>
@@ -622,7 +632,8 @@
             <div class="item-thumbnail">
               <a href="/2016/03/29/Android-西瓜理财APP开源库的使用/" class="thumbnail">
   
-    <span class="thumbnail-image thumbnail-none"></span>
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
+)" alt="西瓜理财APP开源库的使用" class="thumbnail-image"></span>
   
 </a>
             </div>

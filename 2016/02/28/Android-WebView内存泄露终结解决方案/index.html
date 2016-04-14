@@ -16,7 +16,8 @@
 不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。
 需求背景：需要一个带有加载进度条的w">
 <meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY3gcGU1tdEM5EvhnIXmv3P394da0iclBU8LkfrlP21GGGHPJ79tvKojNf0txSOvBZRqCvHicNSOc97Q/0?wx_fmt=png">
-<meta property="og:updated_time" content="2016-02-28T14:50:05.000Z">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg">
+<meta property="og:updated_time" content="2016-04-14T11:09:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WebView内存泄露终结解决方案">
 <meta name="twitter:description" content="但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。
@@ -200,11 +201,13 @@
 <p>2、解决webview内存泄露：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Bind(R.id.pb)&#10;    ProgressBar pb;&#10;    @Bind(R.id.mWebView)&#10;    BridgeWebView mWebView;&#10;&#10;    pb.setMax(100);&#10;    mWebView.setWebChromeClient(new WebViewClient());&#10;    mWebView.loadUrl(strWebsite);&#10;&#10;    private class WebViewClient extends WebChromeClient &#123;&#10;        @Override&#10;        public void onProgressChanged(WebView view, int newProgress) &#123;&#10;            try &#123;&#10;                pb.setProgress(newProgress);&#10;                if (newProgress == 100) &#123;&#10;                    pb.setVisibility(View.GONE);&#10;                &#125;&#10;            &#125; catch (Exception e) &#123;&#10;                e.printStackTrace();&#10;            &#125;&#10;            super.onProgressChanged(view, newProgress);&#10;        &#125;&#10;    &#125;&#10;&#10;    @Override&#10;    protected void onDestroy() &#123;&#10;        super.onDestroy();&#10;        try &#123;&#10;            if (mWebView != null) &#123;&#10;                mWebView.removeAllViews();&#10;                mWebView.destroy();&#10;                mWebView = null;&#10;            &#125;&#10;        &#125; catch (Exception e) &#123;&#10;            e.printStackTrace();&#10;        &#125;&#10;    &#125;</span><br></pre></td></tr></table></figure>
 <p>最后介绍大家一个用来检测应用内存泄露的工具：leakcanary<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY3gcGU1tdEM5EvhnIXmv3P394da0iclBU8LkfrlP21GGGHPJ79tvKojNf0txSOvBZRqCvHicNSOc97Q/0?wx_fmt=png" alt=""><br>github地址：<a href="https://github.com/square/leakcanary" target="_blank" rel="external">https://github.com/square/leakcanary</a></p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cin06jme8001hxit1oex6o906" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cin06q6qu001hdrt1l3jctyil" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
@@ -252,7 +255,7 @@
             <div class="item-thumbnail">
               <a href="/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" class="thumbnail">
   
-    <span style="background-image:url(http://upload-images.jianshu.io/upload_images/1044671-95dea9cfff0a5c01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
 )" alt="[Android] 防止连续点击打开两个重复页面的小技巧" class="thumbnail-image"></span>
   
 </a>
@@ -270,7 +273,7 @@
             <div class="item-thumbnail">
               <a href="/2016/04/03/Android-移动开发技术周报-198/" class="thumbnail">
   
-    <span style="background-image:url(http://upload-images.jianshu.io/upload_images/1044671-95dea9cfff0a5c01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
 )" alt="[Android] 移动开发技术周报 #198" class="thumbnail-image"></span>
   
 </a>
@@ -288,7 +291,8 @@
             <div class="item-thumbnail">
               <a href="/2016/03/29/Android-西瓜理财APP开源库的使用/" class="thumbnail">
   
-    <span class="thumbnail-image thumbnail-none"></span>
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
+)" alt="西瓜理财APP开源库的使用" class="thumbnail-image"></span>
   
 </a>
             </div>

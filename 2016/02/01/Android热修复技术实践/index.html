@@ -14,8 +14,8 @@
 <meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa37AOYw5GicMOgc2He8n1STv3nOS3mhvJXScQPVnyFYOxj5JibUWsPOVNw/0?wx_fmt=jpeg">
 <meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa36rlj7sRtNbBSU1dlzQs3C2CJicaff53m5FZJMTlsoLjGNn6Bykb3AicA/0?wx_fmt=jpeg">
 <meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa3XSZl0ibtOQVAd3Ou2Nk8HHujN8jNy6Ze8H3TFWeMIDHc31ib9CYwkcQg/0?wx_fmt=jpeg">
-<meta property="og:image" content="http://logan62334.github.io/css/images/avatar.jpg">
-<meta property="og:updated_time" content="2016-02-01T10:05:17.000Z">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg">
+<meta property="og:updated_time" content="2016-04-14T11:10:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android热修复技术实践">
 <meta name="twitter:description" content="背景我所在的公司是一家互联网金融领域的初创型公司，这类公司向来都是奉行快速迭代敏捷开发，所以基本我们的APP两周一个迭代有时候工期比较紧可能一周一个迭代，在缺乏专业QA人员的情况下单凭团队内其他做产品和运营的小伙伴的用最原始的人工点击测试下难免会遗漏一些潜在bug，于是当我们的应用发布之后，经过十多万用户的随机点击和产生的随机数据突然发现了一个严重bug需要进行紧急修复的时候公司各方就会忙得焦头烂">
@@ -195,12 +195,12 @@
 <li>实际案例<br>让我们先来看一下网上都有哪些解决方案：<br>Xposed<br>dexposed<br>AndFix<br>DroidFix<br>DynamicAPK<br>Nuwa<br>根据其描述，原理都来自：Android dex分包方案（<a href="http://codecloud.net/android-hot-load-6575.html）。这里就不对这些框架做过多对比了，因为原理都一致，实现的代码可能有些差异并不是特别大。" target="_blank" rel="external">http://codecloud.net/android-hot-load-6575.html）。这里就不对这些框架做过多对比了，因为原理都一致，实现的代码可能有些差异并不是特别大。</a><br>这里我就先讲讲我是怎么去对热修复框架进行选型的吧，大家也看到了能实现这个功能的开源框架最近出了很多但并不是每个都适合我们现在的应用，Xposed它因为需要手机获得root权限才能生效所以首先pass。<br>dexposed和AndFix是阿里基于Xposed的思路沉淀出的两套热修复解决方案，但是经过实际测试后发现它由于缺少动态库so文件所以在大部分机型上都不能正常运行：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa36rlj7sRtNbBSU1dlzQs3C2CJicaff53m5FZJMTlsoLjGNn6Bykb3AicA/0?wx_fmt=jpeg" alt=""><br>在其官方github上有类似很多的问题所以也只能放弃虽然它的补丁生成器做的很完善但是然并卵……<br>DynamicAPK这个是携程最新公布的一个解决方案，但是由于它功能实在过于庞大而且其主要功能是用来做多apk动态加载的所以对热修复这块并不是重点实现。<br>最后我把注意力放在了Nuwa上，但是经过实际部署测试后发现总是编译出错于是翻看了github上的issue列表发现有很多人也遇到了类似问题最后通过排除掉Nuwa.init所在的类后就fix好了，原来是Nuwa所在的class文件是无法进行修复的，所以在这个文件中尽量只写一些初始化代码和配置保证不会出问题。然后接下来遇到的就是补丁包生成不了的窘境了……继续google：<br><a href="https://github.com/jasonross/Nuwa/issues/23在这篇文章中找到了答案。" target="_blank" rel="external">https://github.com/jasonross/Nuwa/issues/23在这篇文章中找到了答案。</a><br>好了接下来就是考虑到我们有20个渠道并且可能出现不同版本的补丁包的情况了，于是我申请了一台ftp服务器专门用来做为每次补丁包的存放路径，在这个路径下：<br><img src="https://mmbiz.qlogo.cn/mmbiz/Fz2IUTupRY2rs0ygXlQy8iblWNfefJfa3XSZl0ibtOQVAd3Ou2Nk8HHujN8jNy6Ze8H3TFWeMIDHc31ib9CYwkcQg/0?wx_fmt=jpeg" alt=""><br>这样在客户端通过每次拉取config配置文件的api进行判断当前版本是否需要打补丁，如果需要则根据当前渠道号从对应的ftp服务器下载，当用户第二次打开应用的时候就会load这个patch，这样就在用户毫不知情的情况下完成了问题修复。</li>
 </ol>
 <hr>
-<p><img src="http://logan62334.github.io/css/images/avatar.jpg" alt="关注公众号，更多分享……"></p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cin06jmd0000dxit1kr62l7vm" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cin06q6pb000ddrt1fl5xu8wo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-热修复/">Android 热修复</a></li></ul>
@@ -248,7 +248,7 @@
             <div class="item-thumbnail">
               <a href="/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" class="thumbnail">
   
-    <span style="background-image:url(http://upload-images.jianshu.io/upload_images/1044671-95dea9cfff0a5c01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
 )" alt="[Android] 防止连续点击打开两个重复页面的小技巧" class="thumbnail-image"></span>
   
 </a>
@@ -266,7 +266,7 @@
             <div class="item-thumbnail">
               <a href="/2016/04/03/Android-移动开发技术周报-198/" class="thumbnail">
   
-    <span style="background-image:url(http://upload-images.jianshu.io/upload_images/1044671-95dea9cfff0a5c01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
 )" alt="[Android] 移动开发技术周报 #198" class="thumbnail-image"></span>
   
 </a>
@@ -284,7 +284,8 @@
             <div class="item-thumbnail">
               <a href="/2016/03/29/Android-西瓜理财APP开源库的使用/" class="thumbnail">
   
-    <span class="thumbnail-image thumbnail-none"></span>
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
+)" alt="西瓜理财APP开源库的使用" class="thumbnail-image"></span>
   
 </a>
             </div>
