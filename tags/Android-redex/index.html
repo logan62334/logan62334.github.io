@@ -3,26 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>WebView内存泄露终结解决方案 | 马飞的技术博客</title>
+  <title>Tag: Android redex | 马飞的技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。
-不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。
-需求背景：需要一个带有加载进度条的w">
-<meta property="og:type" content="article">
-<meta property="og:title" content="WebView内存泄露终结解决方案">
-<meta property="og:url" content="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/index.html">
+  <meta name="description" content="产品改变世界，技术驱动未来">
+<meta property="og:type" content="website">
+<meta property="og:title" content="马飞的技术博客">
+<meta property="og:url" content="http://logan62334.github.io/tags/Android-redex/index.html">
 <meta property="og:site_name" content="马飞的技术博客">
-<meta property="og:description" content="但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。
-不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。
-需求背景：需要一个带有加载进度条的w">
-<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/5.jpg">
-<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg">
-<meta property="og:updated_time" content="2016-04-14T11:14:28.000Z">
+<meta property="og:description" content="产品改变世界，技术驱动未来">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WebView内存泄露终结解决方案">
-<meta name="twitter:description" content="但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。
-不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。
-需求背景：需要一个带有加载进度条的w">
+<meta name="twitter:title" content="马飞的技术博客">
+<meta name="twitter:description" content="产品改变世界，技术驱动未来">
   
   
     <link rel="icon" href="favicon.png">
@@ -158,89 +149,50 @@
 </aside>
 
       
-      <section id="main"><article id="post-Android-WebView内存泄露终结解决方案" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
+      <section id="main">
+    <section class="archives-wrap">
+    <div class="archive-tag-wrap">
+      <span class="archive-tag">#Android redex</span>
+    </div>
+    <div class="archives">
     
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
     
-    
-      <header class="article-header">
-        
+    <div class="archive-article-thumbnail">
+      <a href="/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/" class="thumbnail">
   
-    <h1 class="article-title" itemprop="name">
-      WebView内存泄露终结解决方案
+    <span style="background-image:url(http://upload-images.jianshu.io/upload_images/1044671-c8546f03f99fd574?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+)" alt="[Android] Facebook Redex 压缩优化Apk实践" class="thumbnail-image"></span>
+  
+</a>
+    </div>
+    
+    <header class="archive-article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/">[Android] Facebook Redex 压缩优化Apk实践</a>
     </h1>
   
 
-        <div class="article-meta">
-          
-  <div class="article-date">
+      
+        
+  <div class="archive-article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2016/02/28/Android-WebView内存泄露终结解决方案/">
-      <time datetime="2016-02-28T14:46:50.000Z" itemprop="datePublished">2016-02-28</time>
+    <a href="/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/">
+      <time datetime="2016-04-16T05:29:11.000Z" itemprop="datePublished">2016 Apr 16</time>
     </a>
   </div>
 
 
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Android疑难杂症/">Android疑难杂症</a>
+      
+    </header>
   </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <p>但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。</p>
-<p>不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。</p>
-<p>需求背景：<br>需要一个带有加载进度条的webview来正常的显示合作方和自己的web页面。</p>
-<p>1、解决webview对一些js的支持：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#29992;JsBridge&#20195;&#26367;&#31995;&#32479;&#21407;&#29983;&#30340;webview&#65292;&#10;github&#22320;&#22336;&#65306;https://github.com/lzyzsd/JsBridge</span><br></pre></td></tr></table></figure>
-<p>2、解决webview内存泄露：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Bind(R.id.pb)&#10;    ProgressBar pb;&#10;    @Bind(R.id.mWebView)&#10;    BridgeWebView mWebView;&#10;&#10;    pb.setMax(100);&#10;    mWebView.setWebChromeClient(new WebViewClient());&#10;    mWebView.loadUrl(strWebsite);&#10;&#10;    private class WebViewClient extends WebChromeClient &#123;&#10;        @Override&#10;        public void onProgressChanged(WebView view, int newProgress) &#123;&#10;            try &#123;&#10;                pb.setProgress(newProgress);&#10;                if (newProgress == 100) &#123;&#10;                    pb.setVisibility(View.GONE);&#10;                &#125;&#10;            &#125; catch (Exception e) &#123;&#10;                e.printStackTrace();&#10;            &#125;&#10;            super.onProgressChanged(view, newProgress);&#10;        &#125;&#10;    &#125;&#10;&#10;    @Override&#10;    protected void onDestroy() &#123;&#10;        super.onDestroy();&#10;        try &#123;&#10;            if (mWebView != null) &#123;&#10;                mWebView.removeAllViews();&#10;                mWebView.destroy();&#10;                mWebView = null;&#10;            &#125;&#10;        &#125; catch (Exception e) &#123;&#10;            e.printStackTrace();&#10;        &#125;&#10;    &#125;</span><br></pre></td></tr></table></figure>
-<p>最后介绍大家一个用来检测应用内存泄露的工具：leakcanary<br><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/5.jpg" alt=""><br>github地址：<a href="https://github.com/square/leakcanary" target="_blank" rel="external">https://github.com/square/leakcanary</a></p>
-<hr>
-<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cin2pfnli001hlut13j27oy6q" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2016/03/01/Git-简易指南/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Git简易指南
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Activity启动后EditText是否自动弹出输入法虚拟键盘的问题</div>
-    </a>
-  
-</nav>
-
-
-  
 </article>
-
-
-</section>
+    
+    </div></section>
+    </section>
       
         <aside id="sidebar">
   

@@ -117,11 +117,11 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        15
+        16
         <span>posts</span>
       </div>
       <div class="article-info-block">
-        11
+        12
         <span>tags</span>
       </div>
     </div>
@@ -150,6 +150,78 @@
 
       
       <section id="main">
+      <article id="post-Android-Facebook-Redex-压缩优化Apk实践" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/">[Android] Facebook Redex 压缩优化Apk实践</a>
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/">
+      <time datetime="2016-04-16T05:29:11.000Z" itemprop="datePublished">2016-04-16</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <blockquote>
+<p>最近Facebook 又放出了一个用于Android apk字节码优化的工具包——redex，经过redex的优化apk会变的体积更小，速度更快。至于原理大家可以到<a href="https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。" target="_blank" rel="external">https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。</a></p>
+</blockquote>
+<p>前两天刚看到FB放出的这个工具包就迫不及待的去尝试了下，结果一直报下面这个错误：<br><figure class="highlight"><figcaption><span>error: Please install double-conversion library```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#20294;&#20854;&#23454;&#36825;&#20123;library&#37117;&#24050;&#32463;&#23433;&#35013;&#22909;&#20102;&#30340;&#65292;&#37027;&#22825;&#20498;&#33150;&#20102;&#22909;&#20037;&#20063;&#36319;&#32676;&#37324;&#30340;&#26379;&#21451;&#20132;&#27969;&#36807;&#65292;&#24863;&#35273;&#24212;&#35813;&#26159;FB&#30340;&#19968;&#20010;&#23567;bug&#20110;&#26159;&#21435;github&#19978;&#25552;&#20102;issue&#65292;&#26524;&#28982;&#31532;&#20108;&#22825;&#24471;&#21040;&#20102;&#22238;&#24212;&#23448;&#26041;&#26356;&#26032;&#20102;&#20351;&#29992;&#35828;&#26126;&#12290;&#19979;&#38754;&#26159;&#25105;&#22312;Mac OS X&#19978;&#30340;&#23454;&#36341;&#36807;&#31243;&#65306;&#10;&#10;1&#12289;&#39318;&#20808;&#38656;&#35201;&#20320;&#30340;Xcode&#23433;&#35013;&#20102;&#21629;&#20196;&#34892;&#24037;&#20855;&#65306;&#10;&#10;```xcode-select --install</span><br></pre></td></tr></table></figure></p>
+<p>2、利用homebrew安装依赖包：</p>
+<figure class="highlight"><figcaption><span>install autoconf automake libtool python3 ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```brew install boost double-conversion gflags glog libevent openssl</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><figcaption><span>link openssl --force```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;3&#12289;&#36890;&#36807;Git&#23558;redex&#30340;&#28304;&#30721;checkout&#21040;&#30005;&#33041;&#19978;&#65306;&#10;&#10;```git clone https://github.com/facebook/redex.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><figcaption><span>redex ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```git submodule update --init</span><br></pre></td></tr></table></figure>
+<p>4、通过autoconf和make来构建redex：</p>
+<figure class="highlight"><figcaption><span>-ivf && ./configure && make ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```sudo make install</span><br></pre></td></tr></table></figure>
+<p>在执行步骤四的时候就出现了问题：<br><figure class="highlight"><figcaption><span>error: Please install google-gflags library ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```configure: error: ./configure failed for third-party/folly/folly</span><br></pre></td></tr></table></figure></p>
+<p>于是我又提了issue，下面是跟沟通的过程：<br><img src="http://upload-images.jianshu.io/upload_images/1044671-c8546f03f99fd574?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">按照他的方法执行下面的命令：</p>
+<figure class="highlight"><figcaption><span>--install ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```sudo xcode-select --switch /Library/Developer/CommandLineTools/</span><br></pre></td></tr></table></figure>
+<p>再执行步骤四就OK了当然如果看到很多warn也不用担心，最终可以编译通过。<br>接下来就可以通过redex执行最后的优化命令了：</p>
+<figure class="highlight"><figcaption><span>path/to/your.apk -o path/to/output.apk```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#19981;&#36807;&#36825;&#37324;&#21448;&#20986;&#29616;&#20102;&#20010;&#38382;&#39064;&#65306;&#10;![](http://upload-images.jianshu.io/upload_images/1044671-bc9e402810150605?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)&#21448;&#26159;&#29615;&#22659;&#38382;&#39064;&#128514; ,&#19979;&#38754;&#26159;&#37197;&#32622;&#36807;&#31243;&#65306;&#10;```mafeideAir:~ mafei$ vi ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><figcaption><span>PATH=/Users/mafei/Development/adt-bundle-mac-x86_64-20140702/sdk/build-tools/23.0.2:$PATH```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#22240;&#20026;&#36825;&#20010;&#26159;&#31995;&#32479;&#21482;&#35835;&#25991;&#20214;&#25152;&#20197;&#36864;&#20986;&#30340;&#26102;&#20505;&#35201;&#36755;&#20837;!wq&#25165;&#34892;&#10;&#36825;&#19979;&#25191;&#34892;&#19979;&#38754;&#30340;&#21629;&#20196;&#23601;&#23436;&#20840;&#27809;&#38382;&#39064;&#21862;&#65281;&#10;&#10;```mafeideAir:~ mafei$ cd GitHub/</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><figcaption><span>mafei$ cd redex/```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```mafeideAir:redex mafei$ redex metis_release_v1.0.2.apk -o out.apk</span><br></pre></td></tr></table></figure>
+<p>刚刚又去看了下redex的官网发现FB已经把这几天遇到的一些典型问题都汇总了一下：<br><img src="http://upload-images.jianshu.io/upload_images/1044671-cdcb98694a5abdec?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<hr>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044671-aa539aba3b513027.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FullStackEngineer的公众号，更多分享"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://logan62334.github.io/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/" data-id="cin2pfnlo001mlut17xotg01c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-redex/">Android redex</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
       <article id="post-Android-防止连续点击打开两个重复页面的小技巧" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -198,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" data-id="cin1nte2q000u0zt1hw2igwpi" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" data-id="cin2pfnky000ulut1c39pg5nq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android笔记/">Android笔记</a></li></ul>
@@ -260,7 +332,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/04/03/Android-移动开发技术周报-198/" data-id="cin1nte3300140zt1qwcwnzk7" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/04/03/Android-移动开发技术周报-198/" data-id="cin2pfnl80014lut1ha7oi20i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a></li></ul>
@@ -325,7 +397,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/29/Android-西瓜理财APP开源库的使用/" data-id="cin1nte2t000x0zt16vskf7yp" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/03/29/Android-西瓜理财APP开源库的使用/" data-id="cin2pfnl0000xlut1a405xapx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android笔记/">Android笔记</a></li></ul>
@@ -384,7 +456,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/17/西瓜理财APP用到的开源库和工具整理/" data-id="cin1nte1r00030zt1bvru76yv" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/03/17/西瓜理财APP用到的开源库和工具整理/" data-id="cin2pfnk70003lut1ukxk1yzu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android笔记/">Android笔记</a></li></ul>
@@ -449,73 +521,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/" data-id="cin1nte2z00100zt1qal75mkl" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/" data-id="cin2pfnl40010lut1fuy53khm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-      <article id="post-Android-冷启动时间优化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/03/Android-冷启动时间优化/">Android冷启动时间优化</a>
-    </h1>
-  
-
-        <div class="article-meta">
-          
-  <div class="article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/03/03/Android-冷启动时间优化/">
-      <time datetime="2016-03-03T05:12:49.000Z" itemprop="datePublished">2016-03-03</time>
-    </a>
-  </div>
-
-
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a>
-  </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <p>冷启动时间是指当用户点击你的app那一刻到系统调用Activity.onCreate()之间的时间段。在这个时间段内，WindowManager会先加载app主题样式中的windowBackground做为app的预览元素，然后再真正去加载activity的layout布局，而通常情况下这个默认背景是黑色或者白色所以如果不加以优化会让用户感觉到app很卡很慢。</p>
-<p>知道了Android冷启动时间的原理之后，就可以通过一些小技巧来对冷启动时间进行优化，从而让你app加载变得”快“一些（视觉体验上的快）。我是通过使用app闪屏页的图片来做为windowBackground这样可以传达企业的形象。</p>
-<p>1、为启动的Activity自定义一个Theme</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;style name=&#34;AppTheme.Launcher&#34;&#62;&#10;    &#60;item name=&#34;android:windowBackground&#34;&#62;@drawable/window_background&#60;/item&#62;&#10;&#60;/style&#62;</span><br></pre></td></tr></table></figure>
-<p>2、将新的Theme应用到设置到 AndroidManifest.xml 中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;activity&#10;  android:name=&#34;.MainActivity&#34;&#10;  android:theme=&#34;@style/AppTheme.Launcher&#34;&#62;&#10;  &#60;intent-filter&#62;&#10;    &#60;action android:name=&#34;android.intent.action.MAIN&#34; /&#62;&#10;    &#60;category android:name=&#34;android.intent.category.LAUNCHER&#34; /&#62;&#10;  &#60;/intent-filter&#62;&#10;&#60;/activity&#62;</span><br></pre></td></tr></table></figure>
-<p>3、由于给MainActivity设置了一个新的Theme，这样做会覆盖原来的Theme，所以在MainActivity中需要设置回原来的Theme</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;&#10;    @Override&#10;    protected void onCreate(Bundle savedInstanceState) &#123;&#10;  // Make sure this line comes before calling super.onCreate().&#10;  setTheme(R.style.AppTheme);&#10;  super.onCreate(savedInstanceState);&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<p>最后推荐大家一个开源项目也是用来实现冷启动优化的不过是MaterialDesign风格的：<a href="https://github.com/DreaminginCodeZH/MaterialColdStart" target="_blank" rel="external">https://github.com/DreaminginCodeZH/MaterialColdStart</a></p>
-<hr>
-<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/03/Android-冷启动时间优化/" data-id="cin1nte39001d0zt1jxsp1l8e" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a></li></ul>
 
     </footer>
   </div>
@@ -537,6 +546,24 @@
     <h3 class="widget-title">recents</h3>
     <div class="widget">
       <ul id="recent-post" class="">
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/" class="thumbnail">
+  
+    <span style="background-image:url(http://upload-images.jianshu.io/upload_images/1044671-c8546f03f99fd574?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+)" alt="[Android] Facebook Redex 压缩优化Apk实践" class="thumbnail-image"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a></p>
+              <p class="item-title"><a href="/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/" class="title">[Android] Facebook Redex 压缩优化Apk实践</a></p>
+              <p class="item-date"><time datetime="2016-04-16T05:29:11.000Z" itemprop="datePublished">2016-04-16</time></p>
+            </div>
+          </li>
         
           <li>
             
@@ -610,24 +637,6 @@
             </div>
           </li>
         
-          <li>
-            
-            <div class="item-thumbnail">
-              <a href="/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/" class="thumbnail">
-  
-    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/Android/4.jpg
-)" alt="西瓜小贴士图片浏览功能实现思路" class="thumbnail-image"></span>
-  
-</a>
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category"><a class="article-category-link" href="/categories/Android笔记/">Android笔记</a></p>
-              <p class="item-title"><a href="/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/" class="title">西瓜小贴士图片浏览功能实现思路</a></p>
-              <p class="item-date"><time datetime="2016-03-07T15:04:02.000Z" itemprop="datePublished">2016-03-07</time></p>
-            </div>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -637,7 +646,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android移动开发技术周报/">Android移动开发技术周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android移动开发技术周报/">Android移动开发技术周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -646,7 +655,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-redex/">Android redex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -655,7 +664,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tag cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 20px;">Android布局UI</a> <a href="/tags/Android移动开发技术周报/" style="font-size: 10px;">Android移动开发技术周报</a> <a href="/tags/Android笔记/" style="font-size: 20px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
+      <a href="/tags/Android-redex/" style="font-size: 10px;">Android redex</a> <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 20px;">Android布局UI</a> <a href="/tags/Android移动开发技术周报/" style="font-size: 10px;">Android移动开发技术周报</a> <a href="/tags/Android笔记/" style="font-size: 20px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a>
     </div>
   </div>
 
@@ -664,7 +673,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 

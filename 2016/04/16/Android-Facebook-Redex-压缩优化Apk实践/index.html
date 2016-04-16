@@ -3,26 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>WebView内存泄露终结解决方案 | 马飞的技术博客</title>
+  <title>[Android] Facebook Redex 压缩优化Apk实践 | 马飞的技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。
-不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。
-需求背景：需要一个带有加载进度条的w">
+  <meta name="description" content="最近Facebook 又放出了一个用于Android apk字节码优化的工具包——redex，经过redex的优化apk会变的体积更小，速度更快。至于原理大家可以到https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。
+
+前两天刚看到">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WebView内存泄露终结解决方案">
-<meta property="og:url" content="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/index.html">
+<meta property="og:title" content="[Android] Facebook Redex 压缩优化Apk实践">
+<meta property="og:url" content="http://logan62334.github.io/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/index.html">
 <meta property="og:site_name" content="马飞的技术博客">
-<meta property="og:description" content="但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。
-不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。
-需求背景：需要一个带有加载进度条的w">
-<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/5.jpg">
-<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg">
-<meta property="og:updated_time" content="2016-04-14T11:14:28.000Z">
+<meta property="og:description" content="最近Facebook 又放出了一个用于Android apk字节码优化的工具包——redex，经过redex的优化apk会变的体积更小，速度更快。至于原理大家可以到https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。
+
+前两天刚看到">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044671-c8546f03f99fd574?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044671-cdcb98694a5abdec?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044671-aa539aba3b513027.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-04-16T05:29:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WebView内存泄露终结解决方案">
-<meta name="twitter:description" content="但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。
-不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。
-需求背景：需要一个带有加载进度条的w">
+<meta name="twitter:title" content="[Android] Facebook Redex 压缩优化Apk实践">
+<meta name="twitter:description" content="最近Facebook 又放出了一个用于Android apk字节码优化的工具包——redex，经过redex的优化apk会变的体积更小，速度更快。至于原理大家可以到https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。
+
+前两天刚看到">
   
   
     <link rel="icon" href="favicon.png">
@@ -158,7 +159,7 @@
 </aside>
 
       
-      <section id="main"><article id="post-Android-WebView内存泄露终结解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-Android-Facebook-Redex-压缩优化Apk实践" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -167,7 +168,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      WebView内存泄露终结解决方案
+      [Android] Facebook Redex 压缩优化Apk实践
     </h1>
   
 
@@ -175,8 +176,8 @@
           
   <div class="article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2016/02/28/Android-WebView内存泄露终结解决方案/">
-      <time datetime="2016-02-28T14:46:50.000Z" itemprop="datePublished">2016-02-28</time>
+    <a href="/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/">
+      <time datetime="2016-04-16T05:29:11.000Z" itemprop="datePublished">2016-04-16</time>
     </a>
   </div>
 
@@ -184,7 +185,7 @@
           
   <div class="article-category">
   	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Android疑难杂症/">Android疑难杂症</a>
+    <a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a>
   </div>
 
         </div>
@@ -193,24 +194,34 @@
     <div class="article-entry" itemprop="articleBody">
       
                 
-        <p>但凡是做Android开发的相信都对webview不会陌生，而且也对系统自带的webview本身存在的问题也是怨念很久了，一方面是本身对js的支持不是很好另外一方面就是经常被人诟病的内存泄露了。</p>
-<p>不知道各位遇到同样问题的朋友是怎么解决的，网上也有很多解析和方案但至少在我的项目中是没任何效果的，今天我就分享一下我最终是怎么解决这些问题的（其实是很蠢的一个办法）。</p>
-<p>需求背景：<br>需要一个带有加载进度条的webview来正常的显示合作方和自己的web页面。</p>
-<p>1、解决webview对一些js的支持：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#29992;JsBridge&#20195;&#26367;&#31995;&#32479;&#21407;&#29983;&#30340;webview&#65292;&#10;github&#22320;&#22336;&#65306;https://github.com/lzyzsd/JsBridge</span><br></pre></td></tr></table></figure>
-<p>2、解决webview内存泄露：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Bind(R.id.pb)&#10;    ProgressBar pb;&#10;    @Bind(R.id.mWebView)&#10;    BridgeWebView mWebView;&#10;&#10;    pb.setMax(100);&#10;    mWebView.setWebChromeClient(new WebViewClient());&#10;    mWebView.loadUrl(strWebsite);&#10;&#10;    private class WebViewClient extends WebChromeClient &#123;&#10;        @Override&#10;        public void onProgressChanged(WebView view, int newProgress) &#123;&#10;            try &#123;&#10;                pb.setProgress(newProgress);&#10;                if (newProgress == 100) &#123;&#10;                    pb.setVisibility(View.GONE);&#10;                &#125;&#10;            &#125; catch (Exception e) &#123;&#10;                e.printStackTrace();&#10;            &#125;&#10;            super.onProgressChanged(view, newProgress);&#10;        &#125;&#10;    &#125;&#10;&#10;    @Override&#10;    protected void onDestroy() &#123;&#10;        super.onDestroy();&#10;        try &#123;&#10;            if (mWebView != null) &#123;&#10;                mWebView.removeAllViews();&#10;                mWebView.destroy();&#10;                mWebView = null;&#10;            &#125;&#10;        &#125; catch (Exception e) &#123;&#10;            e.printStackTrace();&#10;        &#125;&#10;    &#125;</span><br></pre></td></tr></table></figure>
-<p>最后介绍大家一个用来检测应用内存泄露的工具：leakcanary<br><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/5.jpg" alt=""><br>github地址：<a href="https://github.com/square/leakcanary" target="_blank" rel="external">https://github.com/square/leakcanary</a></p>
+        <blockquote>
+<p>最近Facebook 又放出了一个用于Android apk字节码优化的工具包——redex，经过redex的优化apk会变的体积更小，速度更快。至于原理大家可以到<a href="https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。" target="_blank" rel="external">https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。</a></p>
+</blockquote>
+<p>前两天刚看到FB放出的这个工具包就迫不及待的去尝试了下，结果一直报下面这个错误：<br><figure class="highlight"><figcaption><span>error: Please install double-conversion library```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#20294;&#20854;&#23454;&#36825;&#20123;library&#37117;&#24050;&#32463;&#23433;&#35013;&#22909;&#20102;&#30340;&#65292;&#37027;&#22825;&#20498;&#33150;&#20102;&#22909;&#20037;&#20063;&#36319;&#32676;&#37324;&#30340;&#26379;&#21451;&#20132;&#27969;&#36807;&#65292;&#24863;&#35273;&#24212;&#35813;&#26159;FB&#30340;&#19968;&#20010;&#23567;bug&#20110;&#26159;&#21435;github&#19978;&#25552;&#20102;issue&#65292;&#26524;&#28982;&#31532;&#20108;&#22825;&#24471;&#21040;&#20102;&#22238;&#24212;&#23448;&#26041;&#26356;&#26032;&#20102;&#20351;&#29992;&#35828;&#26126;&#12290;&#19979;&#38754;&#26159;&#25105;&#22312;Mac OS X&#19978;&#30340;&#23454;&#36341;&#36807;&#31243;&#65306;&#10;&#10;1&#12289;&#39318;&#20808;&#38656;&#35201;&#20320;&#30340;Xcode&#23433;&#35013;&#20102;&#21629;&#20196;&#34892;&#24037;&#20855;&#65306;&#10;&#10;```xcode-select --install</span><br></pre></td></tr></table></figure></p>
+<p>2、利用homebrew安装依赖包：</p>
+<figure class="highlight"><figcaption><span>install autoconf automake libtool python3 ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```brew install boost double-conversion gflags glog libevent openssl</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><figcaption><span>link openssl --force```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;3&#12289;&#36890;&#36807;Git&#23558;redex&#30340;&#28304;&#30721;checkout&#21040;&#30005;&#33041;&#19978;&#65306;&#10;&#10;```git clone https://github.com/facebook/redex.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><figcaption><span>redex ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```git submodule update --init</span><br></pre></td></tr></table></figure>
+<p>4、通过autoconf和make来构建redex：</p>
+<figure class="highlight"><figcaption><span>-ivf && ./configure && make ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```sudo make install</span><br></pre></td></tr></table></figure>
+<p>在执行步骤四的时候就出现了问题：<br><figure class="highlight"><figcaption><span>error: Please install google-gflags library ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```configure: error: ./configure failed for third-party/folly/folly</span><br></pre></td></tr></table></figure></p>
+<p>于是我又提了issue，下面是跟沟通的过程：<br><img src="http://upload-images.jianshu.io/upload_images/1044671-c8546f03f99fd574?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">按照他的方法执行下面的命令：</p>
+<figure class="highlight"><figcaption><span>--install ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```sudo xcode-select --switch /Library/Developer/CommandLineTools/</span><br></pre></td></tr></table></figure>
+<p>再执行步骤四就OK了当然如果看到很多warn也不用担心，最终可以编译通过。<br>接下来就可以通过redex执行最后的优化命令了：</p>
+<figure class="highlight"><figcaption><span>path/to/your.apk -o path/to/output.apk```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#19981;&#36807;&#36825;&#37324;&#21448;&#20986;&#29616;&#20102;&#20010;&#38382;&#39064;&#65306;&#10;![](http://upload-images.jianshu.io/upload_images/1044671-bc9e402810150605?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)&#21448;&#26159;&#29615;&#22659;&#38382;&#39064;&#128514; ,&#19979;&#38754;&#26159;&#37197;&#32622;&#36807;&#31243;&#65306;&#10;```mafeideAir:~ mafei$ vi ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><figcaption><span>PATH=/Users/mafei/Development/adt-bundle-mac-x86_64-20140702/sdk/build-tools/23.0.2:$PATH```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#22240;&#20026;&#36825;&#20010;&#26159;&#31995;&#32479;&#21482;&#35835;&#25991;&#20214;&#25152;&#20197;&#36864;&#20986;&#30340;&#26102;&#20505;&#35201;&#36755;&#20837;!wq&#25165;&#34892;&#10;&#36825;&#19979;&#25191;&#34892;&#19979;&#38754;&#30340;&#21629;&#20196;&#23601;&#23436;&#20840;&#27809;&#38382;&#39064;&#21862;&#65281;&#10;&#10;```mafeideAir:~ mafei$ cd GitHub/</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><figcaption><span>mafei$ cd redex/```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```mafeideAir:redex mafei$ redex metis_release_v1.0.2.apk -o out.apk</span><br></pre></td></tr></table></figure>
+<p>刚刚又去看了下redex的官网发现FB已经把这几天遇到的一些典型问题都汇总了一下：<br><img src="http://upload-images.jianshu.io/upload_images/1044671-cdcb98694a5abdec?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <hr>
-<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044671-aa539aba3b513027.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FullStackEngineer的公众号，更多分享"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cin2pfnli001hlut13j27oy6q" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/" data-id="cin2pfnlo001mlut17xotg01c" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-redex/">Android redex</a></li></ul>
 
     </footer>
   </div>
@@ -218,19 +229,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/03/01/Git-简易指南/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Git简易指南
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Activity启动后EditText是否自动弹出输入法虚拟键盘的问题</div>
+      <div class="article-nav-title">[Android] 防止连续点击打开两个重复页面的小技巧</div>
     </a>
   
 </nav>
