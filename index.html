@@ -188,18 +188,20 @@
         <blockquote>
 <p>最近Facebook 又放出了一个用于Android apk字节码优化的工具包——redex，经过redex的优化apk会变的体积更小，速度更快。至于原理大家可以到<a href="https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。" target="_blank" rel="external">https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。</a></p>
 </blockquote>
-<p>前两天刚看到FB放出的这个工具包就迫不及待的去尝试了下，结果一直报下面这个错误：<br><figure class="highlight"><figcaption><span>error: Please install double-conversion library```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#20294;&#20854;&#23454;&#36825;&#20123;library&#37117;&#24050;&#32463;&#23433;&#35013;&#22909;&#20102;&#30340;&#65292;&#37027;&#22825;&#20498;&#33150;&#20102;&#22909;&#20037;&#20063;&#36319;&#32676;&#37324;&#30340;&#26379;&#21451;&#20132;&#27969;&#36807;&#65292;&#24863;&#35273;&#24212;&#35813;&#26159;FB&#30340;&#19968;&#20010;&#23567;bug&#20110;&#26159;&#21435;github&#19978;&#25552;&#20102;issue&#65292;&#26524;&#28982;&#31532;&#20108;&#22825;&#24471;&#21040;&#20102;&#22238;&#24212;&#23448;&#26041;&#26356;&#26032;&#20102;&#20351;&#29992;&#35828;&#26126;&#12290;&#19979;&#38754;&#26159;&#25105;&#22312;Mac OS X&#19978;&#30340;&#23454;&#36341;&#36807;&#31243;&#65306;&#10;&#10;1&#12289;&#39318;&#20808;&#38656;&#35201;&#20320;&#30340;Xcode&#23433;&#35013;&#20102;&#21629;&#20196;&#34892;&#24037;&#20855;&#65306;&#10;&#10;```xcode-select --install</span><br></pre></td></tr></table></figure></p>
+<p>前两天刚看到FB放出的这个工具包就迫不及待的去尝试了下，结果一直报下面这个错误：</p>
+<figure class="highlight"><figcaption><span>error: Please install double-conversion library```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#20294;&#20854;&#23454;&#36825;&#20123;library&#37117;&#24050;&#32463;&#23433;&#35013;&#22909;&#20102;&#30340;&#65292;&#37027;&#22825;&#20498;&#33150;&#20102;&#22909;&#20037;&#20063;&#36319;&#32676;&#37324;&#30340;&#26379;&#21451;&#20132;&#27969;&#36807;&#65292;&#24863;&#35273;&#24212;&#35813;&#26159;FB&#30340;&#19968;&#20010;&#23567;bug&#20110;&#26159;&#21435;github&#19978;&#25552;&#20102;issue&#65292;&#26524;&#28982;&#31532;&#20108;&#22825;&#24471;&#21040;&#20102;&#22238;&#24212;&#23448;&#26041;&#26356;&#26032;&#20102;&#20351;&#29992;&#35828;&#26126;&#12290;&#19979;&#38754;&#26159;&#25105;&#22312;Mac OS X&#19978;&#30340;&#23454;&#36341;&#36807;&#31243;&#65306;&#10;&#10;1&#12289;&#39318;&#20808;&#38656;&#35201;&#20320;&#30340;Xcode&#23433;&#35013;&#20102;&#21629;&#20196;&#34892;&#24037;&#20855;&#65306;&#10;&#10;```xcode-select --install</span><br></pre></td></tr></table></figure>
 <p>2、利用homebrew安装依赖包：</p>
 <figure class="highlight"><figcaption><span>install autoconf automake libtool python3 ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```brew install boost double-conversion gflags glog libevent openssl</span><br></pre></td></tr></table></figure>
 <figure class="highlight"><figcaption><span>link openssl --force```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;3&#12289;&#36890;&#36807;Git&#23558;redex&#30340;&#28304;&#30721;checkout&#21040;&#30005;&#33041;&#19978;&#65306;&#10;&#10;```git clone https://github.com/facebook/redex.git</span><br></pre></td></tr></table></figure>
 <figure class="highlight"><figcaption><span>redex ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```git submodule update --init</span><br></pre></td></tr></table></figure>
 <p>4、通过autoconf和make来构建redex：</p>
 <figure class="highlight"><figcaption><span>-ivf && ./configure && make ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```sudo make install</span><br></pre></td></tr></table></figure>
-<p>在执行步骤四的时候就出现了问题：<br><figure class="highlight"><figcaption><span>error: Please install google-gflags library ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```configure: error: ./configure failed for third-party/folly/folly</span><br></pre></td></tr></table></figure></p>
+<p>在执行步骤四的时候就出现了问题：</p>
+<figure class="highlight"><figcaption><span>error: Please install google-gflags library ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```configure: error: ./configure failed for third-party/folly/folly</span><br></pre></td></tr></table></figure>
 <p>于是我又提了issue，下面是跟沟通的过程：<br><img src="http://upload-images.jianshu.io/upload_images/1044671-c8546f03f99fd574?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">按照他的方法执行下面的命令：</p>
 <figure class="highlight"><figcaption><span>--install ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```sudo xcode-select --switch /Library/Developer/CommandLineTools/</span><br></pre></td></tr></table></figure>
 <p>再执行步骤四就OK了当然如果看到很多warn也不用担心，最终可以编译通过。<br>接下来就可以通过redex执行最后的优化命令了：</p>
-<figure class="highlight"><figcaption><span>path/to/your.apk -o path/to/output.apk```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#19981;&#36807;&#36825;&#37324;&#21448;&#20986;&#29616;&#20102;&#20010;&#38382;&#39064;&#65306;&#10;![](http://upload-images.jianshu.io/upload_images/1044671-bc9e402810150605?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)&#21448;&#26159;&#29615;&#22659;&#38382;&#39064;&#128514; ,&#19979;&#38754;&#26159;&#37197;&#32622;&#36807;&#31243;&#65306;&#10;```mafeideAir:~ mafei$ vi ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><figcaption><span>path/to/your.apk -o path/to/output.apk```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#19981;&#36807;&#36825;&#37324;&#21448;&#20986;&#29616;&#20102;&#20010;&#38382;&#39064;&#65306;&#10;![](http://upload-images.jianshu.io/upload_images/1044671-bc9e402810150605?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)&#21448;&#26159;&#29615;&#22659;&#38382;&#39064;&#128514; ,&#19979;&#38754;&#26159;&#37197;&#32622;&#36807;&#31243;&#65306;&#10;&#10;```mafeideAir:~ mafei$ vi ~/.bash_profile</span><br></pre></td></tr></table></figure>
 <figure class="highlight"><figcaption><span>PATH=/Users/mafei/Development/adt-bundle-mac-x86_64-20140702/sdk/build-tools/23.0.2:$PATH```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#22240;&#20026;&#36825;&#20010;&#26159;&#31995;&#32479;&#21482;&#35835;&#25991;&#20214;&#25152;&#20197;&#36864;&#20986;&#30340;&#26102;&#20505;&#35201;&#36755;&#20837;!wq&#25165;&#34892;&#10;&#36825;&#19979;&#25191;&#34892;&#19979;&#38754;&#30340;&#21629;&#20196;&#23601;&#23436;&#20840;&#27809;&#38382;&#39064;&#21862;&#65281;&#10;&#10;```mafeideAir:~ mafei$ cd GitHub/</span><br></pre></td></tr></table></figure>
 <figure class="highlight"><figcaption><span>mafei$ cd redex/```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```mafeideAir:redex mafei$ redex metis_release_v1.0.2.apk -o out.apk</span><br></pre></td></tr></table></figure>
 <p>刚刚又去看了下redex的官网发现FB已经把这几天遇到的一些典型问题都汇总了一下：<br><img src="http://upload-images.jianshu.io/upload_images/1044671-cdcb98694a5abdec?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
@@ -209,7 +211,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/" data-id="cin2pfnlo001mlut17xotg01c" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/" data-id="cin2pmxqk001m0et1ura9tayy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-redex/">Android redex</a></li></ul>
@@ -270,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" data-id="cin2pfnky000ulut1c39pg5nq" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" data-id="cin2pmxpu000u0et17d8hxkyx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android笔记/">Android笔记</a></li></ul>
@@ -332,7 +334,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/04/03/Android-移动开发技术周报-198/" data-id="cin2pfnl80014lut1ha7oi20i" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/04/03/Android-移动开发技术周报-198/" data-id="cin2pmxq500140et1x0c14cvk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a></li></ul>
@@ -397,7 +399,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/29/Android-西瓜理财APP开源库的使用/" data-id="cin2pfnl0000xlut1a405xapx" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/03/29/Android-西瓜理财APP开源库的使用/" data-id="cin2pmxpx000x0et1taud43ct" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android笔记/">Android笔记</a></li></ul>
@@ -456,7 +458,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/17/西瓜理财APP用到的开源库和工具整理/" data-id="cin2pfnk70003lut1ukxk1yzu" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/03/17/西瓜理财APP用到的开源库和工具整理/" data-id="cin2pmxox00030et1s8sells2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android笔记/">Android笔记</a></li></ul>
@@ -521,7 +523,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/" data-id="cin2pfnl40010lut1fuy53khm" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/" data-id="cin2pmxq200100et16zbhfa2s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a></li></ul>
