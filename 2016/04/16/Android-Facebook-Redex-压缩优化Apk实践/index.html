@@ -15,11 +15,11 @@
 <meta property="og:description" content="最近Facebook 又放出了一个用于Android apk字节码优化的工具包——redex，经过redex的优化apk会变的体积更小，速度更快。至于原理大家可以到https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。
 
 前两天刚看到">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044671-c8546f03f99fd574?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044671-bc9e402810150605?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044671-cdcb98694a5abdec?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/16.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/17.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/18.png">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044671-aa539aba3b513027.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-04-16T08:22:56.000Z">
+<meta property="og:updated_time" content="2016-04-16T08:50:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android] Facebook Redex 压缩优化Apk实践">
 <meta name="twitter:description" content="最近Facebook 又放出了一个用于Android apk字节码优化的工具包——redex，经过redex的优化apk会变的体积更小，速度更快。至于原理大家可以到https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。
@@ -209,21 +209,21 @@
 <p>4、通过autoconf和make来构建redex：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autoreconf -ivf &#38;&#38; ./configure &#38;&#38; make&#160;&#10;sudo make install</span><br></pre></td></tr></table></figure>
 <p>在执行步骤四的时候就出现了问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure: error: Please install google-gflags library&#160;&#10;configure: error: ./configure failed for third-party/folly/folly</span><br></pre></td></tr></table></figure></p>
-<p>于是我又提了issue，下面是跟沟通的过程：<br><img src="http://upload-images.jianshu.io/upload_images/1044671-c8546f03f99fd574?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">按照他的方法执行下面的命令：</p>
+<p>于是我又提了issue，下面是跟沟通的过程：<br><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/16.png" alt="">按照他的方法执行下面的命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --install&#160;&#10;sudo xcode-select --switch /Library/Developer/CommandLineTools/</span><br></pre></td></tr></table></figure>
 <p>再执行步骤四就OK了当然如果看到很多warn也不用担心，最终可以编译通过。<br>接下来就可以通过redex执行最后的优化命令了：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redex path/to/your.apk -o path/to/output.apk</span><br></pre></td></tr></table></figure>
-<p>不过这里又出现了个问题：<br><img src="http://upload-images.jianshu.io/upload_images/1044671-bc9e402810150605?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">又是环境问题😂 ,下面是配置过程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mafeideAir:~ mafei$ vi ~/.bash_profile&#160;&#10;export PATH=/Users/mafei/Development/adt-bundle-mac-x86_64-20140702/sdk/build-tools/23.0.2:$PATH</span><br></pre></td></tr></table></figure></p>
+<p>不过这里又出现了个问题：<br><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/17.png" alt="">又是环境问题😂 ,下面是配置过程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mafeideAir:~ mafei$ vi ~/.bash_profile&#160;&#10;export PATH=/Users/mafei/Development/adt-bundle-mac-x86_64-20140702/sdk/build-tools/23.0.2:$PATH</span><br></pre></td></tr></table></figure></p>
 <p>因为这个是系统只读文件所以退出的时候要输入!wq才行<br>这下执行下面的命令就完全没问题啦！</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mafeideAir:~ mafei$ cd GitHub/&#10;mafeideAir:GitHub mafei$ cd redex/&#10;mafeideAir:redex mafei$ redex metis_release_v1.0.2.apk -o out.apk</span><br></pre></td></tr></table></figure>
-<p>刚刚又去看了下redex的官网发现FB已经把这几天遇到的一些典型问题都汇总了一下：<br><img src="http://upload-images.jianshu.io/upload_images/1044671-cdcb98694a5abdec?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>刚刚又去看了下redex的官网发现FB已经把这几天遇到的一些典型问题都汇总了一下：<br><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/18.png" alt=""></p>
 <hr>
 <p><img src="http://upload-images.jianshu.io/upload_images/1044671-aa539aba3b513027.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FullStackEngineer的公众号，更多分享"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/" data-id="cin2vm6kh001m7lt1dawc8o91" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/" data-id="cin2wld6p001m3vt1iagbcmsd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-redex/">Android redex</a></li></ul>
@@ -262,7 +262,7 @@
             <div class="item-thumbnail">
               <a href="/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/" class="thumbnail">
   
-    <span style="background-image:url(http://upload-images.jianshu.io/upload_images/1044671-c8546f03f99fd574?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/Android/16.png
 )" alt="[Android] Facebook Redex 压缩优化Apk实践" class="thumbnail-image"></span>
   
 </a>
