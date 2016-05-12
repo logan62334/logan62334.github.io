@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>马飞的技术博客</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="产品改变世界，技术驱动未来">
+<meta property="og:type" content="website">
+<meta property="og:title" content="马飞的技术博客">
+<meta property="og:url" content="http://logan62334.github.io/index.html">
+<meta property="og:site_name" content="马飞的技术博客">
+<meta property="og:description" content="产品改变世界，技术驱动未来">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="马飞的技术博客">
+<meta name="twitter:description" content="产品改变世界，技术驱动未来">
+
+
+<link rel="icon" href="http://mafei.me/favicon.png">
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src="http://mafei.me/g;m.parentNode.insertBefore(a,m)"
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75194613-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="http://mafei.me/css/style.css" type="text/css">
+<link rel="stylesheet" href="http://mafei.me/font-awesome/css/font-awesome.min.css" type="text/css">
+
+
+
+
+
+</head>
+
+<body>
+<div id="container">
+<header id="header">
+<div id="header-main" class="header-inner">
+<div class="outer">
+<a href="http://mafei.me/" id="logo"><i class="logo" style="background-image: url(/css/images/logo.png)"></i><span class="site-title">马飞的技术博客</span></a>
+<nav id="main-nav">
+
+<a class="main-nav-link" href="http://mafei.me/.">Home</a>
+
+<a class="main-nav-link" href="http://mafei.me/archives">Archives</a>
+
+<a class="main-nav-link" href="http://mafei.me/categories">Categories</a>
+
+<a class="main-nav-link" href="http://mafei.me/tags">Tags</a>
+
+<a class="main-nav-link" href="http://mafei.me/about">About</a>
+
+</nav>
+
+<nav id="sub-nav">
+<div class="profile" id="profile-nav">
+<a id="profile-anchor" href="javascript:;"><img class="avatar" src="http://mafei.me/css/images/avatar.jpg"><i class="fa fa-caret-down"></i></a>
+</div>
+</nav>
+
+<div id="search-form-wrap">
+
+<form class="search-form">
+<input type="text" class="st-default-search-input search-form-input" placeholder="Search">
+<button type="submit" class="search-form-submit"></button>
+</form>
+
+</div>
+</div>
+</div>
+<div id="main-nav-mobile" class="header-sub header-inner">
+<table class="menu outer">
+<tr>
+
+<td><a class="main-nav-link" href="http://mafei.me/.">Home</a></td>
+
+<td><a class="main-nav-link" href="http://mafei.me/archives">Archives</a></td>
+
+<td><a class="main-nav-link" href="http://mafei.me/categories">Categories</a></td>
+
+<td><a class="main-nav-link" href="http://mafei.me/tags">Tags</a></td>
+
+<td><a class="main-nav-link" href="http://mafei.me/about">About</a></td>
+
+<td>
+
+<div class="search-form">
+<input type="text" class="st-default-search-input search-form-input" placeholder="Search">
+</div>
+
+</td>
+</tr>
+</table>
+</div>
+</header>
+
+<div class="outer">
+
+<aside id="profile">
+<div class="inner profile-inner">
+<div class="base-info profile-block">
+<img id="avatar" src="http://mafei.me/css/images/avatar.jpg">
+<h2 id="name">马飞</h2>
+<h3 id="title">Android Developer &amp; Designer</h3>
+<span id="location"><i class="fa fa-map-marker"></i>ShangHai, China</span>
+<a id="follow" href="https://github.com/logan62334">FOLLOW</a>
+</div>
+<div class="article-info profile-block">
+<div class="article-info-block">
+19
+<span>posts</span>
+</div>
+<div class="article-info-block">
+13
+<span>tags</span>
+</div>
+</div>
+
+<div class="contact-info profile-block">
+<table class="contact-list">
+<tr>
+
+<td><a href="https://github.com/logan62334" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
+
+<td><a href="https://twitter.com/logan62334" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></td>
+
+<td><a href="https://www.facebook.com/profile.php?id=100011220522795" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></td>
+
+<td><a href="http://mafei.me/#" target="_blank" title="dribbble"><i class="fa fa-dribbble"></i></a></td>
+
+<td><a href="http://mafei.me/atom.xml" target="_blank" title="rss"><i class="fa fa-rss"></i></a></td>
+
+</tr>
+</table>
+</div>
+
+
+</div>
+</aside>
+
+
+<section id="main">
+<article id="post-一周阅读清单-Gradle、CI、阅读、工具推荐" class="article article-type-post" itemscope itemprop="blogPost">
+<div class="article-inner">
+
+
+
+<header class="article-header">
+
+
+<h1 itemprop="name">
+<a class="article-title" href="http://mafei.me/2016/05/09/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95-Gradle%E3%80%81CI%E3%80%81%E9%98%85%E8%AF%BB%E3%80%81%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/">[一周阅读清单] Gradle、CI、阅读、工具推荐</a>
+</h1>
+
+
+<div class="article-meta">
+
+<div class="article-date">
+<i class="fa fa-calendar"></i>
+<a href="http://mafei.me/2016/05/09/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95-Gradle%E3%80%81CI%E3%80%81%E9%98%85%E8%AF%BB%E3%80%81%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/">
+<time datetime="2016-05-09T08:39:58.000Z" itemprop="datePublished">2016-05-09</time>
+</a>
+</div>
+
+
+<div class="article-category">
+<i class="fa fa-folder"></i>
+<a class="article-category-link" href="http://mafei.me/categories/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">一周阅读清单</a>
+</div>
+
+</div>
+</header>
+
+<div class="article-entry" itemprop="articleBody">
+
+
+<blockquote>
+<p>『一周阅读清单』第三期与大家见面了，上周要说最火的事件应该就是百度和莆田系医院了，网上关于这一事件的文章论点铺天盖地，同时也涌现了很多用来公示和鉴别莆田系医院的工具和插件，文末我会推荐一个Chrome浏览器插件——打开莆田系医院网站，发出警告提醒、显示医院信息。</p>
+</blockquote>
+<h4 id="u6587_u7AE0"><a href="http://mafei.me/#u6587_u7AE0" class="headerlink" title="文章"></a>文章</h4><p><a href="http://blog.fir.im/fir_im_weekly160505/?hmsr=gold.xitu.io/&amp;utm_medium=gold.xitu.io&amp;utm_source=gold.xitu.io" target="_blank" rel="external">fir.im weekly - 「 持续集成 」实践教程合集</a><br>我们常看到许多团队和开发者分享他们的持续集成实践经验，这里收集了 iOS，Android，PHP ，NodeJS 等项目搭建持续集成的实践，以及一些国内外公司的内部持续集成系统的经验，供大家集中研究，参考借鉴。</p>
+<p><a href="http://www.jianshu.com/p/f3455ecaa56e" target="_blank" rel="external">5分钟搞定android混淆</a><br>混淆是上线前很重要的一个环节（是个脑力兼体力活）Android使用的ProGuard，可以起到压缩，混淆，预检，优化的作用。这篇文章教你掌握正确的写混淆文件的姿势。</p>
+<p><a href="https://drakeet.me/mailotto-sample" target="_blank" rel="external">使用 MailOtto 做完美预加载</a><br>Android预加载的实际案例。</p>
+<p><a href="http://blog.csdn.net/lmj623565791/article/details/51304204" target="_blank" rel="external">Retrofit2 完全解析探索与okhttp之间的关系</a><br>其底层对网络的访问默认也是基于okhttp，不过retrofit非常适合于restful url格式的请求，更多使用注解的方式提供功能。</p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzIxODI4NzQ1Nw==&amp;mid=504989817&amp;idx=1&amp;sn=05ac378c5b146e520226fc8120ff5d66#rd" target="_blank" rel="external">Android N开发 你需要知道的一切</a><br>Android N预览版运行是2016年3月9日，计划于2016年第三季度发布。一共有5个预览版，正常情况下，4到6个星期更新一个预览版，现在第二个预览版已经更新。在前三预览版google提供了一个测试和开发环境，你可以找出你的应用程序跟Android N系统的兼容性.</p>
+<h4 id="u4E66_u5355"><a href="http://mafei.me/#u4E66_u5355" class="headerlink" title="书单"></a>书单</h4><p><a href="http://mafei.me/">《深入理解Android内核设计思想》</a><br>这本书从计算机操作系统的原理出发讲解了Android系统内核的设计思想，通过我们熟知的一些操作系统和网络知识来类比在Android中的应用。</p>
+<p><a href="http://mafei.me/">《深入理解Android之Gradle》</a><br>把gradle当做编程框架去学习，这样就不用每次去google如何如何配置脚本了，而且可以根据需要自己写脚本。</p>
+<h4 id="u5F00_u6E90_u9879_u76EE"><a href="http://mafei.me/#u5F00_u6E90_u9879_u76EE" class="headerlink" title="开源项目"></a>开源项目</h4><p><a href="https://github.com/cachapa/ExpandableLayout" target="_blank" rel="external">ExpandableLayout</a><br>一个支持子view的展开与折叠的布局。</p>
+<p><a href="https://github.com/jayrambhia/Tooltip" target="_blank" rel="external">Tooltip</a><br>轻量级的起泡提示。可以根据触发的位置灵活显示。</p>
+<h4 id="u5DE5_u5177_u63A8_u8350"><a href="http://mafei.me/#u5DE5_u5177_u63A8_u8350" class="headerlink" title="工具推荐"></a>工具推荐</h4><p><a href="http://w3cboy.com/post/2014/08/free-over-the-wall-tools-and-mirrors/" target="_blank" rel="external">免费翻墙镜像和工具</a><br>科学上网必备。</p>
+<p><a href="https://github.com/hustcc/PTHospital.chrome" target="_blank" rel="external">莆田系医院网站提醒的Chrome插件</a><br>本项目的意图是利用open-power-workgroup/Hospital收集汇总与国内一些医疗机构有关的信息，制作出来的一个莆田系医院网站提醒的Chrome插件，供广大寻医问药的患者及家属参考。</p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
+
+
+</div>
+<footer class="article-footer">
+<a data-url="http://logan62334.github.io/2016/05/09/一周阅读清单-Gradle、CI、阅读、工具推荐/" data-id="cio3o8kbw000g0ut16f54qzn3" class="article-share-link">Share</a>
+
+
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="http://mafei.me/tags/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">一周阅读清单</a></li></ul>
+
+</footer>
+</div>
+
+</article>
+
+
+<article id="post-一周阅读清单-RxAndroid、Dagger2、动态配置、小工具推荐" class="article article-type-post" itemscope itemprop="blogPost">
+<div class="article-inner">
+
+
+
+<header class="article-header">
+
+
+<h1 itemprop="name">
+<a class="article-title" href="http://mafei.me/2016/05/01/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95-RxAndroid%E3%80%81Dagger2%E3%80%81%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/">[一周阅读清单] RxAndroid、Dagger2、动态配置、小工具推荐</a>
+</h1>
+
+
+<div class="article-meta">
+
+<div class="article-date">
+<i class="fa fa-calendar"></i>
+<a href="http://mafei.me/2016/05/01/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95-RxAndroid%E3%80%81Dagger2%E3%80%81%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/">
+<time datetime="2016-05-01T08:52:25.000Z" itemprop="datePublished">2016-05-01</time>
+</a>
+</div>
+
+
+<div class="article-category">
+<i class="fa fa-folder"></i>
+<a class="article-category-link" href="http://mafei.me/categories/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">一周阅读清单</a>
+</div>
+
+</div>
+</header>
+
+<div class="article-entry" itemprop="articleBody">
+
+
+<blockquote>
+<p>『一周阅读清单』第二期与大家见面了，上周我去参加了中国架构师大会，后面我会将大会中的PPT下载地址贴出来分享给大家~</p>
+</blockquote>
+<h3 id="u6587_u7AE0"><a href="http://mafei.me/#u6587_u7AE0" class="headerlink" title="文章"></a>文章</h3><p><a href="http://mp.weixin.qq.com/s?__biz=MzA4MjA0MTc4NQ==&amp;mid=504089555&amp;idx=3&amp;sn=094a2c4f7072fb9e113b12541001f622#rd" target="_blank" rel="external">从案例学RxAndroid开发 （上、下）</a><br>上周推荐了一篇讲RxJava的好文，相信你一定很想了解RxJava如何在Android应用中使用它，这篇文章作者从实际案例出发讲解了这一实践过程。</p>
+<p><a href="https://github.com/xitu/gold-miner/blob/master/TODO/rxjava-production-line.md" target="_blank" rel="external">用工厂流水线的方式来理解 RxJava 的概念</a><br>RxJava 是款十分强大的工具。但不幸的是如果你之前没有通过“流”的形式写过代码你可能很难理解它并学会如何去用它。因为它十分不同于以往平常的安卓开发，所以我们需要一些比代码更形象的东西去理解它。这篇文章能帮助你更好地理解 RxJava 是如何工作的。</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzAwMzg1ODMwNw==&amp;mid=2653791136&amp;idx=1&amp;sn=691e25291af2acbc0f85ac36a6858f90&amp;scene=1&amp;srcid=0428Uig2TaubzBSzZDQ1KzhI&amp;key=b28b03434249256b2e2628e1591d46a78a42b9b56481481a91a2fc4b8595d385a87c2770ecd0bea343b118991b1b713c&amp;ascene=0&amp;uin=MTUwODYwODg0MA%3D%3D&amp;devicetype=iMac+MacBookAir6%2C1+OSX+OSX+10.11.3+build(15D21" target="_blank" rel="external">APP实时配置系统</a>&amp;version=11020201&amp;pass_ticket=u%2FZBkB7zNcwIWqm7QWEqFXY9owAqv%2FNZTiIyX7eTHz21%2BNmsm0zUCP%2F9uJ0NpkS0)<br>随着公司业务的发展，产品上经常需要对APP的逻辑进行更精准快速的变更，通过发布新版本的方式来调整逻辑已经满足不了这一需求了，所以各大公司开始实践动态配置方案，之前天猫无线团队也发表了一篇讲如何设计动态配置中心的文章。</p>
+<p><a href="http://www.jianshu.com/p/cd2c1c9f68d4" target="_blank" rel="external">Android：dagger2让你爱不释手</a><br>这篇是滴滴出行的牛晓伟发表的一系列文章，总共三篇是目前我看到过最能把Dagger2讲的通俗易懂的文章了，看完确实爱不释手了！</p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzAwNzc4OTYwMA==&amp;mid=2653509666&amp;idx=1&amp;sn=75ebecea7535fa74717459846bb58134&amp;scene=1&amp;srcid=0430HaGVTuxwtDoi6tCxUoIz&amp;from=groupmessage&amp;isappinstalled=0#wechat_redirect" target="_blank" rel="external">Android单元测试(四)：Mock以及Mockito的使用</a><br>这一系列文章很详细的讲了如何将单元测试运用到实际开发工作中，虽然很多人说在移动端做单元测试太浪费时间，蘑菇街的邹勇打了个比方我觉得挺形象的：相信很少人会说开车这件事情需要很多时间而是：1. 学习开车需要一定的时间；2. 如果路面不平的话，那么修路需要一定的时间，单元测试也是如此。</p>
+<h4 id="u5F00_u6E90_u9879_u76EE"><a href="http://mafei.me/#u5F00_u6E90_u9879_u76EE" class="headerlink" title="开源项目"></a>开源项目</h4><p><a href="https://github.com/danielzeller/Depth-LIB-Android-" target="_blank" rel="external">Depth-LIB-Android-</a><br>一个给予view深度的library，同时也包含一些Canvas绘制技术的例子，比如波浪和噪点效果。</p>
+<p><a href="https://github.com/pili-engineering/PLDroidPlayer" target="_blank" rel="external">PLDroidPlayer</a><br>PLDroidPlayer 是一个适用于 Android 平台的音视频播放器 SDK，可高度定制化和二次开发，为 Android 开发者提供了简单、快捷的接口，帮助开发者在 Android 平台上快速开发播放器应用。</p>
+<p><a href="https://github.com/google/agera" target="_blank" rel="external">agera</a><br>谷歌的响应式编程框架，for Android。</p>
+<h4 id="u5C0F_u5DE5_u5177_u63A8_u8350"><a href="http://mafei.me/#u5C0F_u5DE5_u5177_u63A8_u8350" class="headerlink" title="小工具推荐"></a>小工具推荐</h4><p><a href="http://mafei.me/">Snapseed</a><br>谷歌出品，图片后期处理利器。</p>
+<p><a href="http://tool.lu/coderunner" target="_blank" rel="external">Java 开发常用的在线工具</a><br>对于一些简单的逻辑验证完全可以在这上面去编写运行。</p>
+<p>最后附上中国架构师大会的PPT资料地址：<br><a href="http://note.youdao.com/share/?id=210afe4bc654668b08f709749b9f07d5&amp;type=note#/" target="_blank" rel="external">http://note.youdao.com/share/?id=210afe4bc654668b08f709749b9f07d5&amp;type=note#/</a></p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
+
+
+</div>
+<footer class="article-footer">
+<a data-url="http://logan62334.github.io/2016/05/01/一周阅读清单-RxAndroid、Dagger2、动态配置、小工具推荐/" data-id="cio3o8kbt000d0ut106mievz9" class="article-share-link">Share</a>
+
+
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="http://mafei.me/tags/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">一周阅读清单</a></li></ul>
+
+</footer>
+</div>
+
+</article>
+
+
+<article id="post-一周阅读清单-RxJava、Gradle、动态化、小工具推荐" class="article article-type-post" itemscope itemprop="blogPost">
+<div class="article-inner">
+
+
+
+<header class="article-header">
+
+
+<h1 itemprop="name">
+<a class="article-title" href="http://mafei.me/2016/04/24/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95-RxJava%E3%80%81Gradle%E3%80%81%E5%8A%A8%E6%80%81%E5%8C%96%E3%80%81%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/">[一周阅读清单] RxJava、Gradle、动态化、小工具推荐</a>
+</h1>
+
+
+<div class="article-meta">
+
+<div class="article-date">
+<i class="fa fa-calendar"></i>
+<a href="http://mafei.me/2016/04/24/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95-RxJava%E3%80%81Gradle%E3%80%81%E5%8A%A8%E6%80%81%E5%8C%96%E3%80%81%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/">
+<time datetime="2016-04-23T17:59:24.000Z" itemprop="datePublished">2016-04-24</time>
+</a>
+</div>
+
+
+<div class="article-category">
+<i class="fa fa-folder"></i>
+<a class="article-category-link" href="http://mafei.me/categories/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">一周阅读清单</a>
+</div>
+
+</div>
+</header>
+
+<div class="article-entry" itemprop="articleBody">
+
+
+<h4 id="u6587_u7AE0"><a href="http://mafei.me/#u6587_u7AE0" class="headerlink" title="文章"></a>文章</h4><p><a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external">给Android开发者的RxJava详解</a><br>其实网上有很多讲RxJava系列的文章但是对于Android开发者来说大部分都不能很清楚的讲明白什么是RxJava以及如何在Android中应用，这篇文章给以上问题做了一个很好的回答，值得一读。</p>
+<p><a href="https://realm.io/cn/news/droidcon-jake-wharton-simple-http-retrofit-2/" target="_blank" rel="external">用Retrofit 2简化HTTP请求</a><br>这篇文章是Jake Wharton在Droidcon NYC 2015上的一次演讲，他很好的讲解了Retrofit的发展历史以及原理和应用。</p>
+<p><a href="https://ourai.ws/posts/working-with-git-in-team/" target="_blank" rel="external">团队中的Git实践</a><br>这篇文章非常值得一读，讲解了在多人团队开发过程中需要注意的一些细节和概念。</p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzA4MjU5NTY0NA==&amp;mid=2653418506&amp;idx=1&amp;sn=e60736665e3ddc56b4fc15dba1c209e0&amp;scene=2&amp;srcid=0418eoxFrjqk6mhsL3DgqxJc&amp;from=timeline&amp;isappinstalled=0#wechat_redirect" target="_blank" rel="external">关于Android 进程保活，你所需要知道的一切</a><br>这篇文章比较全面的讲解了Android做进程保活的一些场景和对应的方案。</p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzA3ODg4MDk0Ng==&amp;mid=2651112099&amp;idx=1&amp;sn=4f6f16f045ea80ce10bad67b85b10a7d&amp;scene=2&amp;srcid=04208tJNyfG1lWFvtGISk4ZR&amp;from=timeline&amp;isappinstalled=0#wechat_redirect" target="_blank" rel="external">包建强：为什么我说Android插件化从入门到放弃？</a><br>最近冒出了很多从入门到XX的书籍，哈哈 不过这篇文章是川哥的一篇采访录，文中包老师讲了些他自己对于Android插件化的一些看法，读后对插件化的概念和发展有了新的认识。</p>
+<p><a href="http://growth.phodal.com/#helloworld-1" target="_blank" rel="external">Growth: 全栈增长工程师指南</a><br>这篇文章适合对全栈工程师感兴趣的同学阅读，用来科普比较不错。</p>
+<p><a href="http://www.figotan.org/2016/04/01/gradle-on-android-best-practise/" target="_blank" rel="external">GRADLE构建最佳实践</a><br>这是阿里一位朋友写的，现在网上太多讲gradle的文章了，这篇是看下来感觉比较接地气而且很系统的讲了gradle的一些实用方法。</p>
+<h4 id="u5F00_u6E90_u9879_u76EE"><a href="http://mafei.me/#u5F00_u6E90_u9879_u76EE" class="headerlink" title="开源项目"></a>开源项目</h4><p><a href="https://github.com/facebook/redex" target="_blank" rel="external">Facebook开源的Redex工具包</a><br>FB最近放出了很多优秀的开源项目，总是能让人兴奋其中这个Redex是用来压缩和优化apk的，至于详细的实践过程可以参考我的上篇文章<a href="http://mp.weixin.qq.com/s?__biz=MzIyMzE3MTY3MA==&amp;mid=2651317626&amp;idx=1&amp;sn=6a8ef626902f4c86612deb275fefdf99&amp;scene=21#wechat_redirect" target="_blank" rel="external">[Android] Facebook Redex 压缩优化Apk实践</a>。</p>
+<p><a href="https://realm.io/cn/" target="_blank" rel="external">Realm</a><br>Realm，为移动设备而生 替代 SQLite 和 Core Data。为你省下数周的时间和数千行的代码，帮你创造出更棒的用户体验。正如他官网所描述的又是一个杀手级插件。</p>
+<p><a href="http://alibaba.github.io/weex/index.html#subscriptionWeex" target="_blank" rel="external">Weex</a><br>阿里对动态化的又一实践，这次阿里为了避免再出现开源项目无人维护的尴尬场景，于是这次像发布一个产品一样去发布了Weex，Weex支持iOS、安卓、YunOS及Web等多端部署，现已经开放内侧到6月份开源。</p>
+<h4 id="u5C0F_u5DE5_u5177_u63A8_u8350"><a href="http://mafei.me/#u5C0F_u5DE5_u5177_u63A8_u8350" class="headerlink" title="小工具推荐"></a>小工具推荐</h4><p><a href="http://nearlock.me/" target="_blank" rel="external">nearlock</a><br>这是一款通过蓝牙自动检测距离来锁定解锁mac电脑的应用，亲测很好使不过只有付费版才支持后台运行。</p>
+<p><a href="https://github.com/pedrovgs/AndroidWiFiADB" target="_blank" rel="external">AndroidWiFiADB</a><br>这是AS上的一个插件可以帮助你实现无线调试。</p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
+
+
+</div>
+<footer class="article-footer">
+<a data-url="http://logan62334.github.io/2016/04/24/一周阅读清单-RxJava、Gradle、动态化、小工具推荐/" data-id="cio3o8kbl00080ut13j26s7fi" class="article-share-link">Share</a>
+
+
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="http://mafei.me/tags/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">一周阅读清单</a></li></ul>
+
+</footer>
+</div>
+
+</article>
+
+
+<article id="post-Android-Facebook-Redex-压缩优化Apk实践" class="article article-type-post" itemscope itemprop="blogPost">
+<div class="article-inner">
+
+
+
+<header class="article-header">
+
+
+<h1 itemprop="name">
+<a class="article-title" href="http://mafei.me/2016/04/16/Android-Facebook-Redex-%E5%8E%8B%E7%BC%A9%E4%BC%98%E5%8C%96Apk%E5%AE%9E%E8%B7%B5/">[Android] Facebook Redex 压缩优化Apk实践</a>
+</h1>
+
+
+<div class="article-meta">
+
+<div class="article-date">
+<i class="fa fa-calendar"></i>
+<a href="http://mafei.me/2016/04/16/Android-Facebook-Redex-%E5%8E%8B%E7%BC%A9%E4%BC%98%E5%8C%96Apk%E5%AE%9E%E8%B7%B5/">
+<time datetime="2016-04-16T05:29:11.000Z" itemprop="datePublished">2016-04-16</time>
+</a>
+</div>
+
+
+<div class="article-category">
+<i class="fa fa-folder"></i>
+<a class="article-category-link" href="http://mafei.me/categories/Android%E6%96%B0%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">Android新技术实践</a>
+</div>
+
+</div>
+</header>
+
+<div class="article-entry" itemprop="articleBody">
+
+
+<blockquote>
+<p>最近Facebook 又放出了一个用于Android apk字节码优化的工具包——redex，经过redex的优化apk会变的体积更小，速度更快。至于原理大家可以到<a href="https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex%E8%BF%99%E4%B8%AA%E7%BD%91%E7%AB%99%E5%8E%BB%E7%9C%8B%EF%BC%8C%E4%BB%8A%E5%A4%A9%E6%88%91%E6%83%B3%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8B%E5%85%B7%E4%BD%93%E7%9A%84%E5%AE%9E%E8%B7%B5%E8%BF%87%E7%A8%8B%E3%80%82" target="_blank" rel="external">https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。</a></p>
+</blockquote>
+<p>前两天刚看到FB放出的这个工具包就迫不及待的去尝试了下，结果一直报下面这个错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure: error: Please install double-conversion library</span><br></pre></td></tr></table></figure></p>
+<p>但其实这些library都已经安装好了的，那天倒腾了好久也跟群里的朋友交流过，感觉应该是FB的一个小bug于是去github上提了issue，果然第二天得到了回应官方更新了使用说明。下面是我在Mac OS X上的实践过程：</p>
+<p>1、首先需要你的Xcode安装了命令行工具：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+<p>2、利用homebrew安装依赖包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install autoconf automake libtool python3&#160;&#10;brew install boost double-conversion gflags glog libevent openssl&#160;&#10;brew link openssl --force</span><br></pre></td></tr></table></figure>
+<p>3、通过Git将redex的源码checkout到电脑上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/facebook/redex.git&#160;&#10;cd redex&#160;&#10;git submodule update --init</span><br></pre></td></tr></table></figure>
+<p>4、通过autoconf和make来构建redex：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autoreconf -ivf &#38;&#38; ./configure &#38;&#38; make&#160;&#10;sudo make install</span><br></pre></td></tr></table></figure>
+<p>在执行步骤四的时候就出现了问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure: error: Please install google-gflags library&#160;&#10;configure: error: ./configure failed for third-party/folly/folly</span><br></pre></td></tr></table></figure></p>
+<p>于是我又提了issue，下面是跟沟通的过程：<br><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/16.png" alt="">按照他的方法执行下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --install&#160;&#10;sudo xcode-select --switch /Library/Developer/CommandLineTools/</span><br></pre></td></tr></table></figure>
+<p>再执行步骤四就OK了当然如果看到很多warn也不用担心，最终可以编译通过。<br>接下来就可以通过redex执行最后的优化命令了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redex path/to/your.apk -o path/to/output.apk</span><br></pre></td></tr></table></figure>
+<p>不过这里又出现了个问题：<br><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/17.png" alt="">又是环境问题😂 ,下面是配置过程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mafeideAir:~ mafei$ vi ~/.bash_profile&#160;&#10;export PATH=/Users/mafei/Development/adt-bundle-mac-x86_64-20140702/sdk/build-tools/23.0.2:$PATH</span><br></pre></td></tr></table></figure></p>
+<p>因为这个是系统只读文件所以退出的时候要输入!wq才行<br>这下执行下面的命令就完全没问题啦！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mafeideAir:~ mafei$ cd GitHub/&#10;mafeideAir:GitHub mafei$ cd redex/&#10;mafeideAir:redex mafei$ redex metis_release_v1.0.2.apk -o out.apk</span><br></pre></td></tr></table></figure>
+<p>刚刚又去看了下redex的官网发现FB已经把这几天遇到的一些典型问题都汇总了一下：<br><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/18.png" alt=""></p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
+
+
+</div>
+<footer class="article-footer">
+<a data-url="http://logan62334.github.io/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/" data-id="cio3o8kd5001x0ut1tau1uh63" class="article-share-link">Share</a>
+
+
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="http://mafei.me/tags/Android-redex/">Android redex</a></li></ul>
+
+</footer>
+</div>
+
+</article>
+
+
+<article id="post-Android-防止连续点击打开两个重复页面的小技巧" class="article article-type-post" itemscope itemprop="blogPost">
+<div class="article-inner">
+
+
+
+<header class="article-header">
+
+
+<h1 itemprop="name">
+<a class="article-title" href="http://mafei.me/2016/04/12/Android-%E9%98%B2%E6%AD%A2%E8%BF%9E%E7%BB%AD%E7%82%B9%E5%87%BB%E6%89%93%E5%BC%80%E4%B8%A4%E4%B8%AA%E9%87%8D%E5%A4%8D%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/">[Android] 防止连续点击打开两个重复页面的小技巧</a>
+</h1>
+
+
+<div class="article-meta">
+
+<div class="article-date">
+<i class="fa fa-calendar"></i>
+<a href="http://mafei.me/2016/04/12/Android-%E9%98%B2%E6%AD%A2%E8%BF%9E%E7%BB%AD%E7%82%B9%E5%87%BB%E6%89%93%E5%BC%80%E4%B8%A4%E4%B8%AA%E9%87%8D%E5%A4%8D%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/">
+<time datetime="2016-04-12T15:00:28.000Z" itemprop="datePublished">2016-04-12</time>
+</a>
+</div>
+
+
+<div class="article-category">
+<i class="fa fa-folder"></i>
+<a class="article-category-link" href="http://mafei.me/categories/Android%E7%AC%94%E8%AE%B0/">Android笔记</a>
+</div>
+
+</div>
+</header>
+
+<div class="article-entry" itemprop="articleBody">
+
+
+<blockquote>
+<p>我们在开发APP的过程中经常会遇到在某些低端机或者在机器响应比较慢的情况下手抖连续点击某个页面（当然不排除有些人故意这么做）重复弹出好几个相同的页面，不过我发现微信这样的应用都没有做处理……但还是要分享一下我是怎么解决的。</p>
+</blockquote>
+<h4 id="1_u3001_u901A_u8FC7_u5224_u65AD_u4E24_u6B21_u70B9_u51FB_u7684_u65F6_u95F4_u95F4_u9694_u6765_u9632_u6B62_u91CD_u590D_u70B9_u51FB"><a href="http://mafei.me/#1_u3001_u901A_u8FC7_u5224_u65AD_u4E24_u6B21_u70B9_u51FB_u7684_u65F6_u95F4_u95F4_u9694_u6765_u9632_u6B62_u91CD_u590D_u70B9_u51FB" class="headerlink" title="1、通过判断两次点击的时间间隔来防止重复点击"></a>1、通过判断两次点击的时间间隔来防止重复点击</h4><p>工具类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> /**&#10; * Created by mafei on 15/12/8.&#10; */&#10;public class NoDoubleClickUtils &#123;&#10; private static long lastClickTime;&#10; private final static int SPACE_TIME = 500;&#10;&#10; public static void initLastClickTime() &#123;&#10; lastClickTime = 0;&#10; &#125;&#10;&#10; public synchronized static boolean isDoubleClick() &#123;&#10; long currentTime = System.currentTimeMillis();&#10; boolean isClick2;&#10; if (currentTime - lastClickTime &#62;&#10; SPACE_TIME) &#123;&#10; isClick2 = false;&#10; &#125; else &#123;&#10; isClick2 = true;&#10; &#125;&#10; lastClickTime = currentTime;&#10; return isClick2;&#10; &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10; * &#28857;&#20987;&#20107;&#20214;&#10; */&#10; private View.OnClickListener logListener = new View.OnClickListener() &#123;&#10; @Override&#10; public void onClick(View view) &#123;&#10; if (!NoDoubleClickUtils.isDoubleClick()) &#123;&#10; &#20107;&#20214;&#21709;&#24212;&#26041;&#27861;&#10; &#125;&#10; &#125;&#10; &#125;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2_u3001_u901A_u8FC7_u4FEE_u6539manifest_u4E2D_u9875_u9762_u7684launchMode_u5C5E_u6027_u6539_u4E3A_u5355_u4F8B_u6A21_u5F0F"><a href="http://mafei.me/#2_u3001_u901A_u8FC7_u4FEE_u6539manifest_u4E2D_u9875_u9762_u7684launchMode_u5C5E_u6027_u6539_u4E3A_u5355_u4F8B_u6A21_u5F0F" class="headerlink" title="2、通过修改manifest中页面的launchMode属性改为单例模式"></a>2、通过修改manifest中页面的launchMode属性改为单例模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;!-- &#24066;&#22330;&#32593;&#36151;&#20135;&#21697;&#39029; --&#62;&#10; &#60;activity&#10; android:name=&#34;.activity.market.CreditRecordActivity&#34;&#10; android:launchMode=&#34;singleTask&#34;&#10; android:screenOrientation=&#34;portrait&#34; /&#62;</span><br></pre></td></tr></table></figure>
+<h4 id="3_u3001_u5229_u7528RxBinding_u5B9E_u73B0_u9632_u91CD_u590D_u70B9_u51FB"><a href="http://mafei.me/#3_u3001_u5229_u7528RxBinding_u5B9E_u73B0_u9632_u91CD_u590D_u70B9_u51FB" class="headerlink" title="3、利用RxBinding实现防重复点击"></a>3、利用RxBinding实现防重复点击</h4><p>RxBinding 是 Jake Wharton 的一个开源库，它提供了一套在 Android 平台上的基于 RxJava 的 Binding API。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RxView.clickEvents(button)&#10; .throttleFirst(500, TimeUnit.MILLISECONDS)&#10; .subscribe(clickAction);</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
+
+
+</div>
+<footer class="article-footer">
+<a data-url="http://logan62334.github.io/2016/04/12/Android-防止连续点击打开两个重复页面的小技巧/" data-id="cio3o8kck00150ut1my732yzg" class="article-share-link">Share</a>
+
+
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="http://mafei.me/tags/Android%E7%AC%94%E8%AE%B0/">Android笔记</a></li></ul>
+
+</footer>
+</div>
+
+</article>
+
+
+<article id="post-Android-移动开发技术周报-198" class="article article-type-post" itemscope itemprop="blogPost">
+<div class="article-inner">
+
+
+
+<header class="article-header">
+
+
+<h1 itemprop="name">
+<a class="article-title" href="http://mafei.me/2016/04/03/Android-%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E5%91%A8%E6%8A%A5-198/">[Android] 移动开发技术周报 #198</a>
+</h1>
+
+
+<div class="article-meta">
+
+<div class="article-date">
+<i class="fa fa-calendar"></i>
+<a href="http://mafei.me/2016/04/03/Android-%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E5%91%A8%E6%8A%A5-198/">
+<time datetime="2016-04-03T10:18:35.000Z" itemprop="datePublished">2016-04-03</time>
+</a>
+</div>
+
+
+<div class="article-category">
+<i class="fa fa-folder"></i>
+<a class="article-category-link" href="http://mafei.me/categories/Android%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E5%91%A8%E6%8A%A5/">Android移动开发技术周报</a>
+</div>
+
+</div>
+</header>
+
+<div class="article-entry" itemprop="articleBody">
+
+
+<blockquote>
+<p>最近在浏览各大技术类资讯平台的时候发现Android Weekly是目前感觉在质量和时效性上都比较不错的平台，有兴趣的同学可以去<a href="http://androidweekly.net/" target="_blank" rel="external">http://androidweekly.net/</a> 订阅，但同时有了一个想法因为这个网站每次推送的都是纯英文版，说实话我一开始也是有点不太习惯因为阅读速度一下慢了好多，于是我打算试着去每周翻译一刊他们的推文希望可以为一些英文不太好但特别喜欢Android的同学带来些帮助，让大家可以快速了解目前的Android技术动态。</p>
+</blockquote>
+<h3 id="u6587_u7AE0_26amp_3B_u5B66_u4E60_u6307_u5357"><a href="http://mafei.me/#u6587_u7AE0_26amp_3B_u5B66_u4E60_u6307_u5357" class="headerlink" title="文章&amp;学习指南"></a>文章&amp;学习指南</h3><p><a href="http://code.tutsplus.com/articles/how-to-use-bottom-sheets-with-the-design-support-library--cms-26031?utm_source=Android+Weekly&amp;utm_campaign=c1ffc42de6-Android_Weekly_198&amp;utm_medium=email&amp;utm_term=0_4eb677ad19-c1ffc42de6-337919745" target="_blank" rel="external">使用Design Support Library中的Bottom Sheets</a><br>随着时间的推移Design support library在被慢慢的改善，在23.2版本中增加了对Bottom Sheets的支持，在本文中你将很轻松的学会如果在你的应用中实现Bottom Sheets。<br><a href="http://mcomella.xyz/blog/2016/thread-annotations.html?utm_source=Android+Weekly&amp;utm_campaign=c1ffc42de6-Android_Weekly_198&amp;utm_medium=email&amp;utm_term=0_4eb677ad19-c1ffc42de6-337919745" target="_blank" rel="external">Android Thread Annotations的缺点</a><br>当像@UiThread和@WorkerThread这样的Android thread annotations被发布的时候，Michael Comella 很兴奋，然后许多个月过后他发现这种注解并没有像他所希望的那样有效果但又不知道为什么，于是他决定研究一下。<br><a href="http://androidweekly.us2.list-manage.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=cb5f9ea63c&amp;e=240370e0eb" target="_blank" rel="external">AutoValue Extensions</a><br>谷歌的AutoValue库在即将发布的extensions中提供了简单的值类型，这个演讲介绍了这个扩展的功能，囊括了对Android有用的扩展并且在构建你自己的应用中提供一些建议。<br><a href="http://androidweekly.us2.list-manage.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=fe6fb646b1&amp;e=240370e0eb" target="_blank" rel="external">Vectors</a><br>这是偶然在第三方平台上看到的一个关于Android VectorDrawable的支持包,另外Google发布了Android 23.2支持库,其中包含了备受期待的VectorDrawableCompat。<br><a href="http://androidweekly.us2.list-manage.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=ee170d5d5b&amp;e=240370e0eb" target="_blank" rel="external">五种很少有人知道的会阻塞主线程的情况</a><br>一般来说，任何方法的调用导致主线程阻塞时间超过16*N毫秒都会引起掉帧。我们称这种方法为阻塞方法。在这篇文章中，我们将首先看一个阻塞方法的例子，然后再看五个阻塞主线程的方式。<br><a href="http://androidweekly.us2.list-manage.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=6bfab89c07&amp;e=240370e0eb" target="_blank" rel="external">开源的Android LightCycle</a><br>SoundCloud最近开源了LightCycle，LightCycle是一个Android库有助于把Activity和Fragment中的逻辑拆分成小的代码块。<br><a href="http://androidweekly.us2.list-manage.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=497e831fc0&amp;e=240370e0eb" target="_blank" rel="external">在Airbnb的Android版中采用RxJava</a><br>这个演讲中分享了Airbnb采用这些新模式和技术的经验，以及遇到的困难和坑。<br><a href="http://androidweekly.us2.list-manage2.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=c2859e69ea&amp;e=240370e0eb" target="_blank" rel="external">第一个五年</a><br>Mark Allison通过每周写很有深度的文章来跟我们分享他的Android知识，请一定要在Twitter或者G +上感谢他。<br><a href="http://androidweekly.us2.list-manage2.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=4ac7782453&amp;e=240370e0eb" target="_blank" rel="external">RxJava的一些问题</a><br>Thomas Nield写了一些在使用RxJava中你可能会遇到的一些问题</p>
+<h3 id="u8D5E_u52A9"><a href="http://mafei.me/#u8D5E_u52A9" class="headerlink" title="赞助"></a>赞助</h3><p><a href="http://mafei.me/">Buddybuild：世界上第一个移动的持续集成平台</a><br>Buddybuild是一个移动的持续集成和部署平台，只需要几分钟设置。我们的SDK使用户能够无比轻松地实时获取用户的反馈和崩溃报告。不用再维护不同的构建、部署、崩溃报告和反馈系统。专注于自己最擅长的：创建人们喜爱的应用程序。<br><a href="http://mafei.me/">Hired—Android开发者的招聘平台</a><br>国外版的100Offer</p>
+<h3 id="LIBRARIES__26amp_3B_CODE"><a href="http://mafei.me/#LIBRARIES__26amp_3B_CODE" class="headerlink" title="LIBRARIES &amp; CODE"></a>LIBRARIES &amp; CODE</h3><p><a href="http://androidweekly.us2.list-manage.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=f1178a42e7&amp;e=240370e0eb" target="_blank" rel="external">Lightcycle</a><br><a href="http://androidweekly.us2.list-manage1.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=857c42f8d8&amp;e=240370e0eb" target="_blank" rel="external">MaterialColorsApp</a><br>MaterialColorsApp 是一个方便的Mac小应用程序，让您可以快速访问标准的材料设计调色板。<br><a href="http://androidweekly.us2.list-manage.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=866d14b078&amp;e=240370e0eb" target="_blank" rel="external">LandscapeVideoCamera</a><br>非常强大的android 视频录制库，可以选择视频尺寸以及视频质量，只允许横屏录制。</p>
+<h3 id="u65B0_u95FB"><a href="http://mafei.me/#u65B0_u95FB" class="headerlink" title="新闻"></a>新闻</h3><p><a href="http://androidweekly.us2.list-manage.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=20f53c827b&amp;e=240370e0eb" target="_blank" rel="external">Android Experiments I/O 挑战赛</a><br>去年夏天谷歌开发者社区启动了 Android Experiments ：一个用于展示创新性 Android 作品的项目。所有开发者都可以提交你的创意作品，通过后将加入到网站收录中。<br><a href="http://androidweekly.us2.list-manage1.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=80f92d1309&amp;e=240370e0eb" target="_blank" rel="external">Fragmented Podcast 更新了 – TSHIRTS!</a><br>发布限量版的Fragmented T-Shirt<br><a href="http://androidweekly.us2.list-manage1.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=03c5fb2bff&amp;e=240370e0eb" target="_blank" rel="external">Android Studio 2.1 Preview 4 可用了</a><br>Google在canary渠道推送了Android Studio 2.1 Preview 4，修复了很多bug。</p>
+<h3 id="u5DE5_u5177"><a href="http://mafei.me/#u5DE5_u5177" class="headerlink" title="工具"></a>工具</h3><p><a href="http://androidweekly.us2.list-manage.com/track/click?u=887caf4f48db76fd91e20a06d&amp;id=6e8b5a3f8a&amp;e=240370e0eb" target="_blank" rel="external">Google新的 Accessibility Scanner</a><br>全新的Accessibility Scanner应用程序允许你检查潜在的问题从而改进你的应用程序。它在Play商店免费下载，但目前它仅限于Android 6.0设备。</p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
+
+
+</div>
+<footer class="article-footer">
+<a data-url="http://logan62334.github.io/2016/04/03/Android-移动开发技术周报-198/" data-id="cio3o8kct001f0ut1tbrcmqz0" class="article-share-link">Share</a>
+
+
+<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="http://mafei.me/tags/Android%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E5%91%A8%E6%8A%A5/">Android移动开发技术周报</a></li></ul>
+
+</footer>
+</div>
+
+</article>
+
+
+<nav id="page-nav">
+<span class="page-number current">1</span><a class="page-number" href="http://mafei.me/page/2/">2</a><a class="page-number" href="http://mafei.me/page/3/">3</a><a class="page-number" href="http://mafei.me/page/4/">4</a><a class="extend next" rel="next" href="http://mafei.me/page/2/">Next &raquo;</a>
+</nav>
+</section>
+
+<aside id="sidebar">
+
+
+<div class="widget-wrap">
+<h3 class="widget-title">recents</h3>
+<div class="widget">
+<ul id="recent-post" class="">
+
+<li>
+
+<div class="item-thumbnail">
+<a href="http://mafei.me/2016/05/09/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95-Gradle%E3%80%81CI%E3%80%81%E9%98%85%E8%AF%BB%E3%80%81%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/" class="thumbnail">
+
+<span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
+)" alt="[一周阅读清单] Gradle、CI、阅读、工具推荐" class="thumbnail-image"></span>
+
+</a>
+</div>
+
+<div class="item-inner">
+<p class="item-category"><a class="article-category-link" href="http://mafei.me/categories/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">一周阅读清单</a></p>
+<p class="item-title"><a href="http://mafei.me/2016/05/09/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95-Gradle%E3%80%81CI%E3%80%81%E9%98%85%E8%AF%BB%E3%80%81%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/" class="title">[一周阅读清单] Gradle、CI、阅读、工具推荐</a></p>
+<p class="item-date"><time datetime="2016-05-09T08:39:58.000Z" itemprop="datePublished">2016-05-09</time></p>
+</div>
+</li>
+
+<li>
+
+<div class="item-thumbnail">
+<a href="http://mafei.me/2016/05/01/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95-RxAndroid%E3%80%81Dagger2%E3%80%81%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/" class="thumbnail">
+
+<span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
+)" alt="[一周阅读清单] RxAndroid、Dagger2、动态配置、小工具推荐" class="thumbnail-image"></span>
+
+</a>
+</div>
+
+<div class="item-inner">
+<p class="item-category"><a class="article-category-link" href="http://mafei.me/categories/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">一周阅读清单</a></p>
+<p class="item-title"><a href="http://mafei.me/2016/05/01/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95-RxAndroid%E3%80%81Dagger2%E3%80%81%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/" class="title">[一周阅读清单] RxAndroid、Dagger2、动态配置、小工具推荐</a></p>
+<p class="item-date"><time datetime="2016-05-01T08:52:25.000Z" itemprop="datePublished">2016-05-01</time></p>
+</div>
+</li>
+
+<li>
+
+<div class="item-thumbnail">
+<a href="http://mafei.me/2016/04/24/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95-RxJava%E3%80%81Gradle%E3%80%81%E5%8A%A8%E6%80%81%E5%8C%96%E3%80%81%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/" class="thumbnail">
+
+<span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
+)" alt="[一周阅读清单] RxJava、Gradle、动态化、小工具推荐" class="thumbnail-image"></span>
+
+</a>
+</div>
+
+<div class="item-inner">
+<p class="item-category"><a class="article-category-link" href="http://mafei.me/categories/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">一周阅读清单</a></p>
+<p class="item-title"><a href="http://mafei.me/2016/04/24/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95-RxJava%E3%80%81Gradle%E3%80%81%E5%8A%A8%E6%80%81%E5%8C%96%E3%80%81%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/" class="title">[一周阅读清单] RxJava、Gradle、动态化、小工具推荐</a></p>
+<p class="item-date"><time datetime="2016-04-23T17:59:24.000Z" itemprop="datePublished">2016-04-24</time></p>
+</div>
+</li>
+
+<li>
+
+<div class="item-thumbnail">
+<a href="http://mafei.me/2016/04/16/Android-Facebook-Redex-%E5%8E%8B%E7%BC%A9%E4%BC%98%E5%8C%96Apk%E5%AE%9E%E8%B7%B5/" class="thumbnail">
+
+<span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/Android/16.png
+)" alt="[Android] Facebook Redex 压缩优化Apk实践" class="thumbnail-image"></span>
+
+</a>
+</div>
+
+<div class="item-inner">
+<p class="item-category"><a class="article-category-link" href="http://mafei.me/categories/Android%E6%96%B0%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">Android新技术实践</a></p>
+<p class="item-title"><a href="http://mafei.me/2016/04/16/Android-Facebook-Redex-%E5%8E%8B%E7%BC%A9%E4%BC%98%E5%8C%96Apk%E5%AE%9E%E8%B7%B5/" class="title">[Android] Facebook Redex 压缩优化Apk实践</a></p>
+<p class="item-date"><time datetime="2016-04-16T05:29:11.000Z" itemprop="datePublished">2016-04-16</time></p>
+</div>
+</li>
+
+<li>
+
+<div class="item-thumbnail">
+<a href="http://mafei.me/2016/04/12/Android-%E9%98%B2%E6%AD%A2%E8%BF%9E%E7%BB%AD%E7%82%B9%E5%87%BB%E6%89%93%E5%BC%80%E4%B8%A4%E4%B8%AA%E9%87%8D%E5%A4%8D%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="thumbnail">
+
+<span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
+)" alt="[Android] 防止连续点击打开两个重复页面的小技巧" class="thumbnail-image"></span>
+
+</a>
+</div>
+
+<div class="item-inner">
+<p class="item-category"><a class="article-category-link" href="http://mafei.me/categories/Android%E7%AC%94%E8%AE%B0/">Android笔记</a></p>
+<p class="item-title"><a href="http://mafei.me/2016/04/12/Android-%E9%98%B2%E6%AD%A2%E8%BF%9E%E7%BB%AD%E7%82%B9%E5%87%BB%E6%89%93%E5%BC%80%E4%B8%A4%E4%B8%AA%E9%87%8D%E5%A4%8D%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="title">[Android] 防止连续点击打开两个重复页面的小技巧</a></p>
+<p class="item-date"><time datetime="2016-04-12T15:00:28.000Z" itemprop="datePublished">2016-04-12</time></p>
+</div>
+</li>
+
+</ul>
+</div>
+</div>
+
+
+
+<div class="widget-wrap">
+<h3 class="widget-title">categories</h3>
+<div class="widget">
+<ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="http://mafei.me/categories/Android%E5%B8%83%E5%B1%80%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="http://mafei.me/categories/Android%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="http://mafei.me/categories/Android%E6%96%B0%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">Android新技术实践</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="http://mafei.me/categories/Android%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="http://mafei.me/categories/Android%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E5%91%A8%E6%8A%A5/">Android移动开发技术周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="http://mafei.me/categories/Android%E7%AC%94%E8%AE%B0/">Android笔记</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="http://mafei.me/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="http://mafei.me/categories/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">一周阅读清单</a><span class="category-list-count">3</span></li></ul>
+</div>
+</div>
+
+
+
+<div class="widget-wrap">
+<h3 class="widget-title">tags</h3>
+<div class="widget">
+<ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/Android-redex/">Android redex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/Android-%E5%86%B7%E5%90%AF%E5%8A%A8-%E5%90%AF%E5%8A%A8%E9%BB%91%E5%B1%8F/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/Android-%E5%9B%BE%E7%89%87%E6%B5%8F%E8%A7%88/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/Android-%E5%BA%94%E7%94%A8%E5%B4%A9%E6%BA%83-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/Android-%E5%BC%80%E5%B1%8F%E5%B9%BF%E5%91%8A/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/Android-%E7%83%AD%E4%BF%AE%E5%A4%8D/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/Android%E5%B8%83%E5%B1%80UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/Android%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E5%91%A8%E6%8A%A5/">Android移动开发技术周报</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/Android%E7%AC%94%E8%AE%B0/">Android笔记</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/Android%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BA/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/webview/">webview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="http://mafei.me/tags/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">一周阅读清单</a><span class="tag-list-count">3</span></li></ul>
+</div>
+</div>
+
+
+
+<div class="widget-wrap">
+<h3 class="widget-title">tag cloud</h3>
+<div class="widget tagcloud">
+<a href="http://mafei.me/tags/Android-redex/" style="font-size: 10px;">Android redex</a> <a href="http://mafei.me/tags/Android-%E5%86%B7%E5%90%AF%E5%8A%A8-%E5%90%AF%E5%8A%A8%E9%BB%91%E5%B1%8F/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="http://mafei.me/tags/Android-%E5%9B%BE%E7%89%87%E6%B5%8F%E8%A7%88/" style="font-size: 10px;">Android 图片浏览</a> <a href="http://mafei.me/tags/Android-%E5%BA%94%E7%94%A8%E5%B4%A9%E6%BA%83-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="http://mafei.me/tags/Android-%E5%BC%80%E5%B1%8F%E5%B9%BF%E5%91%8A/" style="font-size: 10px;">Android 开屏广告</a> <a href="http://mafei.me/tags/Android-%E7%83%AD%E4%BF%AE%E5%A4%8D/" style="font-size: 10px;">Android 热修复</a> <a href="http://mafei.me/tags/Android%E5%B8%83%E5%B1%80UI/" style="font-size: 20px;">Android布局UI</a> <a href="http://mafei.me/tags/Android%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E5%91%A8%E6%8A%A5/" style="font-size: 10px;">Android移动开发技术周报</a> <a href="http://mafei.me/tags/Android%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">Android笔记</a> <a href="http://mafei.me/tags/Android%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BA/" style="font-size: 10px;">Android自动化构建</a> <a href="http://mafei.me/tags/Git/" style="font-size: 10px;">Git</a> <a href="http://mafei.me/tags/webview/" style="font-size: 10px;">webview</a> <a href="http://mafei.me/tags/%E4%B8%80%E5%91%A8%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/" style="font-size: 20px;">一周阅读清单</a>
+</div>
+</div>
+
+
+
+<div class="widget-wrap">
+<h3 class="widget-title">archives</h3>
+<div class="widget">
+<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="http://mafei.me/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="http://mafei.me/archives/2016/04/">April 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="http://mafei.me/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="http://mafei.me/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="http://mafei.me/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="http://mafei.me/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="http://mafei.me/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+</div>
+</div>
+
+
+<div id="toTop" class="fa fa-chevron-up"></div>
+</aside>
+
+</div>
+<footer id="footer">
+
+<div class="outer">
+<div id="footer-info" class="inner">
+&copy; 2000 - 2016 马飞<br>
+Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+</div>
+</div>
+</footer>
+
+
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src="http://mafei.me/u;e.parentNode.insertBefore(s,e);"
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','fKCWzKJSMacajfY-DTha','2.0.0');
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<link rel="stylesheet" href="http://mafei.me/fancybox/jquery.fancybox.css" type="text/css">
+<script src="http://mafei.me/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+<script src="http://mafei.me/js/script.js" type="text/javascript"></script>
+
+</div>
+</body>
+</html>
