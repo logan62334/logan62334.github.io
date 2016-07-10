@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016 | 马飞的技术博客</title>
+  <title>[Android] 优雅的处理登录页面跳转逻辑 | 马飞的技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="产品改变世界，技术驱动未来">
-<meta property="og:type" content="website">
-<meta property="og:title" content="马飞的技术博客">
-<meta property="og:url" content="http://logan62334.github.io/archives/2016/page/3/index.html">
+  <meta name="description" content="一般有用户系统的应用都会有以下两种需求：1、在执行某个动作时需要判断当前用户是否登录，如果没有登录则跳转至登录页面，登录成功后返回原页面但不执行任何操作，如果已经登录则直接执行相应的操作。2、在执行某个动作时需要判断当前用户是否登录，如果没有登录则跳转至登录页面，登录成功后返回原页面继续执行相应的操作，如果已经登录则直接执行相应的操作。但往往一个应用中会有很多地方需要有这样的判断逻辑，所以直觉告诉">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android] 优雅的处理登录页面跳转逻辑">
+<meta property="og:url" content="http://logan62334.github.io/2016/07/10/Android-优雅的处理登录页面跳转逻辑/index.html">
 <meta property="og:site_name" content="马飞的技术博客">
-<meta property="og:description" content="产品改变世界，技术驱动未来">
+<meta property="og:description" content="一般有用户系统的应用都会有以下两种需求：1、在执行某个动作时需要判断当前用户是否登录，如果没有登录则跳转至登录页面，登录成功后返回原页面但不执行任何操作，如果已经登录则直接执行相应的操作。2、在执行某个动作时需要判断当前用户是否登录，如果没有登录则跳转至登录页面，登录成功后返回原页面继续执行相应的操作，如果已经登录则直接执行相应的操作。但往往一个应用中会有很多地方需要有这样的判断逻辑，所以直觉告诉">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg">
+<meta property="og:updated_time" content="2016-07-10T05:14:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="马飞的技术博客">
-<meta name="twitter:description" content="产品改变世界，技术驱动未来">
+<meta name="twitter:title" content="[Android] 优雅的处理登录页面跳转逻辑">
+<meta name="twitter:description" content="一般有用户系统的应用都会有以下两种需求：1、在执行某个动作时需要判断当前用户是否登录，如果没有登录则跳转至登录页面，登录成功后返回原页面但不执行任何操作，如果已经登录则直接执行相应的操作。2、在执行某个动作时需要判断当前用户是否登录，如果没有登录则跳转至登录页面，登录成功后返回原页面继续执行相应的操作，如果已经登录则直接执行相应的操作。但往往一个应用中会有很多地方需要有这样的判断逻辑，所以直觉告诉">
   
   
     <link rel="icon" href="favicon.png">
@@ -149,229 +151,82 @@
 </aside>
 
       
-      <section id="main">
-      <div class="archive-year-wrap">
-        <a href="/archives/2016" class="archive-year">2016</a>
-      </div>
-      <section class="archives-wrap">
-        <div class="archives">
+      <section id="main"><article id="post-Android-优雅的处理登录页面跳转逻辑" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
     
-    <div class="archive-article-thumbnail">
-      <a href="/2016/03/29/Android-西瓜理财APP开源库的使用/" class="thumbnail">
-  
-    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
-)" alt="西瓜理财APP开源库的使用" class="thumbnail-image"></span>
-  
-</a>
-    </div>
     
-    <header class="archive-article-header">
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/29/Android-西瓜理财APP开源库的使用/">西瓜理财APP开源库的使用</a>
+    <h1 class="article-title" itemprop="name">
+      [Android] 优雅的处理登录页面跳转逻辑
     </h1>
   
 
-      
-        
-  <div class="archive-article-date">
+        <div class="article-meta">
+          
+  <div class="article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2016/03/29/Android-西瓜理财APP开源库的使用/">
-      <time datetime="2016-03-29T15:15:55.000Z" itemprop="datePublished">Mar 29</time>
+    <a href="/2016/07/10/Android-优雅的处理登录页面跳转逻辑/">
+      <time datetime="2016-07-10T05:12:35.000Z" itemprop="datePublished">2016-07-10</time>
     </a>
   </div>
 
 
-      
-    </header>
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/Android笔记/">Android笔记</a>
   </div>
-</article>
-  
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
+
+        </div>
+      </header>
     
-    <div class="archive-article-thumbnail">
-      <a href="/2016/03/17/西瓜理财APP用到的开源库和工具整理/" class="thumbnail">
-  
-    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/Android/1.gif
-)" alt="西瓜理财APP用到的开源库和工具整理" class="thumbnail-image"></span>
-  
-</a>
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <blockquote>
+<p>一般有用户系统的应用都会有以下两种需求：<br>1、在执行某个动作时需要判断当前用户是否登录，如果没有登录则跳转至登录页面，登录成功后返回原页面但不执行任何操作，如果已经登录则直接执行相应的操作。<br>2、在执行某个动作时需要判断当前用户是否登录，如果没有登录则跳转至登录页面，登录成功后返回原页面继续执行相应的操作，如果已经登录则直接执行相应的操作。<br>但往往一个应用中会有很多地方需要有这样的判断逻辑，所以直觉告诉我们应该把这一重复的处理逻辑封装一下：</p>
+</blockquote>
+<h5 id="1_u3001_u5B9A_u4E49_u5DE5_u5177_u7C7BLoginUtil-java"><a href="#1_u3001_u5B9A_u4E49_u5DE5_u5177_u7C7BLoginUtil-java" class="headerlink" title="1、定义工具类LoginUtil.java"></a>1、定义工具类LoginUtil.java</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class LoginUtil extends Activity &#123;&#10;&#10;&#160; private int REQUEST_CODE_LOGIN = 1;&#10;&#160; static LoginCallback mCallback;&#10;&#10;&#160; public interface LoginCallback &#123;&#10;&#160; &#160; void onLogin();&#10;&#160; &#125;&#10;&#10;&#160; @Override protected void onCreate(Bundle savedInstanceState) &#123;&#10;&#160; &#160; super.onCreate(savedInstanceState);&#10;&#160; &#160; Intent intent = new Intent(this, LoginActivity.class);&#10;&#160; &#160; startActivityForResult(intent, REQUEST_CODE_LOGIN);&#10;&#160; &#125;&#10;&#10;&#160; public static void checkLogin(Context context, LoginCallback callback) &#123;&#10;&#160; &#160; //&#27492;&#22788;&#26816;&#26597;&#24403;&#21069;&#30340;&#30331;&#24405;&#29366;&#24577;&#10;&#160; &#160; boolean login = AccountMgr.get().isLogin();&#10;&#160; &#160; if (login) &#123;&#10;&#160; &#160; &#160; callback.onLogin();&#10;&#160; &#160; &#125; else &#123;&#10;&#160; &#160; &#160; mCallback = callback;&#10;&#160; &#160; &#160; Intent intent = new Intent(context, LoginUtil.class);&#10;&#160; &#160; &#160; context.startActivity(intent);&#10;&#160; &#160; &#125;&#10;&#160; &#125;&#10;&#10;&#160; public static void checkLogin(Context context, LoginCallback logged, LoginCallback callback) &#123;&#10;&#160; &#160; //&#27492;&#22788;&#26816;&#26597;&#24403;&#21069;&#30340;&#30331;&#24405;&#29366;&#24577;&#10;&#160; &#160; boolean login = AccountMgr.get().isLogin();&#10;&#160; &#160; if (login) &#123;&#10;&#160; &#160; &#160; logged.onLogin();&#10;&#160; &#160; &#125; else &#123;&#10;&#160; &#160; &#160; mCallback = callback;&#10;&#160; &#160; &#160; Intent intent = new Intent(context, LoginUtil.class);&#10;&#160; &#160; &#160; context.startActivity(intent);&#10;&#160; &#160; &#125;&#10;&#160; &#125;&#10;&#10;&#160; @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) &#123;&#10;&#160; &#160; finish();&#10;&#160; &#160; if (requestCode == REQUEST_CODE_LOGIN &#38;&#38; resultCode == RESULT_OK &#38;&#38; mCallback != null) &#123;&#10;&#160; &#160; &#160; mCallback.onLogin();&#10;&#160; &#160; &#125;&#10;&#160; &#160; mCallback = null;&#10;&#160; &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2_u3001_u5728AndroidManifest-xml_u91CC_u914D_u7F6E_u6B64activity_u7684_u4E3B_u9898"><a href="#2_u3001_u5728AndroidManifest-xml_u91CC_u914D_u7F6E_u6B64activity_u7684_u4E3B_u9898" class="headerlink" title="2、在AndroidManifest.xml里配置此activity的主题"></a>2、在AndroidManifest.xml里配置此activity的主题</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;activity&#10;&#160; android:name=&#34;com.xxx.base.utils.LoginUtil&#34;&#10;&#160; android:theme=&#34;@style/NoDisplay&#34; /&#62;</span><br></pre></td></tr></table></figure>
+<p>注意：在values中创建主题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;style name=&#34;NoDisplay&#34; parent=&#34;android:Theme.NoDisplay&#34;/&#62;</span><br></pre></td></tr></table></figure></p>
+<p>在values-v23中创建适配主题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;style name=&#34;NoDisplay&#34; parent=&#34;android:Theme.Translucent.NoTitleBar&#34;/&#62;</span><br></pre></td></tr></table></figure></p>
+<h5 id="3_u3001_u5728_u767B_u5F55_u9875_u9762_u6210_u529F_u767B_u5F55_u540E_u6267_u884C_u4E0B_u9762_u8BED_u53E5_uFF1A"><a href="#3_u3001_u5728_u767B_u5F55_u9875_u9762_u6210_u529F_u767B_u5F55_u540E_u6267_u884C_u4E0B_u9762_u8BED_u53E5_uFF1A" class="headerlink" title="3、在登录页面成功登录后执行下面语句："></a>3、在登录页面成功登录后执行下面语句：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Subscribe(threadMode = ThreadMode.MAIN)&#10;&#160; public void onEventMainThread(AccountEvent.LoginEvent event) &#123;&#10;&#160; &#160; setResult(Activity.RESULT_OK);&#10;&#160; &#160; finish();&#10;&#160; &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4_u3001_u5728_u9700_u8981_u5224_u65AD_u767B_u5F55_u7684_u5730_u65B9_u76F4_u63A5_u8C03_u7528_u4E0B_u9762_u4E24_u79CD_u91CD_u8F7D_u65B9_u6CD5_u5373_u53EF_uFF1A"><a href="#4_u3001_u5728_u9700_u8981_u5224_u65AD_u767B_u5F55_u7684_u5730_u65B9_u76F4_u63A5_u8C03_u7528_u4E0B_u9762_u4E24_u79CD_u91CD_u8F7D_u65B9_u6CD5_u5373_u53EF_uFF1A" class="headerlink" title="4、在需要判断登录的地方直接调用下面两种重载方法即可："></a>4、在需要判断登录的地方直接调用下面两种重载方法即可：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoginUtil.checkLogin(getActivity(), new LoginUtil.LoginCallback() &#123;&#10;&#160; &#160; &#160; public void onLogin() &#123;&#10;&#160; &#160; &#160; &#160; //&#24050;&#32463;&#30331;&#24405;&#21644;&#26410;&#30331;&#24405;&#29366;&#24577;&#19979;&#36827;&#34892;&#30340;&#25805;&#20316;&#10;&#160; &#160; &#160; &#125;&#10;&#160; &#160; &#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoginUtil.checkLogin(getActivity(), new LoginUtil.LoginCallback() &#123;&#10;&#160; &#160; &#160; @Override public void onLogin() &#123;&#10;&#160; &#160; &#160; &#160; //&#24050;&#32463;&#30331;&#24405;&#29366;&#24577;&#36827;&#34892;&#30340;&#25805;&#20316;&#10;&#160; &#160; &#160; &#125;&#10;&#160; &#160; &#125;, null);</span><br></pre></td></tr></table></figure>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="关注FullStackEngineer的公众号，更多分享"></p>
+
+      
     </div>
-    
-    <header class="archive-article-header">
+    <footer class="article-footer">
+      <a data-url="http://logan62334.github.io/2016/07/10/Android-优雅的处理登录页面跳转逻辑/" data-id="ciqg5b6gq0021vft16dy0w7vn" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/17/西瓜理财APP用到的开源库和工具整理/">西瓜理财APP用到的开源库和工具整理</a>
-    </h1>
-  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android笔记/">Android笔记</a></li></ul>
 
-      
-        
-  <div class="archive-article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/03/17/西瓜理财APP用到的开源库和工具整理/">
-      <time datetime="2016-03-17T14:08:15.000Z" itemprop="datePublished">Mar 17</time>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/06/19/两周阅读清单-Realm、单元测试、Rxjava、读书/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[两周阅读清单] Realm、单元测试、Rxjava、读书</div>
     </a>
-  </div>
+  
+</nav>
 
 
-      
-    </header>
-  </div>
+  
 </article>
-  
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    
-    <div class="archive-article-thumbnail">
-      <a href="/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/" class="thumbnail">
-  
-    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/Android/4.jpg
-)" alt="西瓜小贴士图片浏览功能实现思路" class="thumbnail-image"></span>
-  
-</a>
-    </div>
-    
-    <header class="archive-article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/">西瓜小贴士图片浏览功能实现思路</a>
-    </h1>
-  
-
-      
-        
-  <div class="archive-article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/03/07/Android-西瓜小贴士图片浏览功能实现思路/">
-      <time datetime="2016-03-07T15:04:02.000Z" itemprop="datePublished">Mar 7</time>
-    </a>
-  </div>
 
 
-      
-    </header>
-  </div>
-</article>
-  
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    
-    <div class="archive-article-thumbnail">
-      <a href="/2016/03/03/Android-冷启动时间优化/" class="thumbnail">
-  
-    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
-)" alt="Android冷启动时间优化" class="thumbnail-image"></span>
-  
-</a>
-    </div>
-    
-    <header class="archive-article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/03/Android-冷启动时间优化/">Android冷启动时间优化</a>
-    </h1>
-  
-
-      
-        
-  <div class="archive-article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/03/03/Android-冷启动时间优化/">
-      <time datetime="2016-03-03T05:12:49.000Z" itemprop="datePublished">Mar 3</time>
-    </a>
-  </div>
-
-
-      
-    </header>
-  </div>
-</article>
-  
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    
-    <div class="archive-article-thumbnail">
-      <a href="/2016/03/02/Android-应用崩溃-Crash-日志报告/" class="thumbnail">
-  
-    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
-)" alt="Android应用崩溃(Crash)日志报告" class="thumbnail-image"></span>
-  
-</a>
-    </div>
-    
-    <header class="archive-article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/02/Android-应用崩溃-Crash-日志报告/">Android应用崩溃(Crash)日志报告</a>
-    </h1>
-  
-
-      
-        
-  <div class="archive-article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/03/02/Android-应用崩溃-Crash-日志报告/">
-      <time datetime="2016-03-02T04:19:39.000Z" itemprop="datePublished">Mar 2</time>
-    </a>
-  </div>
-
-
-      
-    </header>
-  </div>
-</article>
-  
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    
-    <div class="archive-article-thumbnail">
-      <a href="/2016/03/01/Git-简易指南/" class="thumbnail">
-  
-    <span style="background-image:url(https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg
-)" alt="Git简易指南" class="thumbnail-image"></span>
-  
-</a>
-    </div>
-    
-    <header class="archive-article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/01/Git-简易指南/">Git简易指南</a>
-    </h1>
-  
-
-      
-        
-  <div class="archive-article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/03/01/Git-简易指南/">
-      <time datetime="2016-03-01T14:48:52.000Z" itemprop="datePublished">Mar 1</time>
-    </a>
-  </div>
-
-
-      
-    </header>
-  </div>
-</article>
-  
-    </div></section>
-  
-      <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/2016/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/2016/">1</a><a class="page-number" href="/archives/2016/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/2016/page/4/">4</a><a class="extend next" rel="next" href="/archives/2016/page/4/">Next &raquo;</a>
-      </nav>
-    </section>
+</section>
       
         <aside id="sidebar">
   
