@@ -117,11 +117,11 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        26
+        27
         <span>posts</span>
       </div>
       <div class="article-info-block">
-        14
+        15
         <span>tags</span>
       </div>
     </div>
@@ -150,6 +150,67 @@
 
       
       <section id="main">
+      <article id="post-Android-应用崩溃-Crash-日志报告" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/02/Android-应用崩溃-Crash-日志报告/">Android应用崩溃(Crash)日志报告</a>
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2016/03/02/Android-应用崩溃-Crash-日志报告/">
+      <time datetime="2016-03-02T04:19:39.000Z" itemprop="datePublished">2016-03-02</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <p>我们在开发应用的过程中不可避免的会遇到各种Crash，今天分享一下如何姿势正确的处理这些Crash来提高我们的开发效率。</p>
+<p>对于应用的Crash处理分为测试环境和生产环境。</p>
+<p>1、测试环境<br>在开发过程中为了方便快速定位崩溃所发生的代码，要求我们能在崩溃的同时将日志打印出来，最好以直观的界面显示。这里推荐大家一个开源项目：CustomActivityOnCrash<br>github地址：<a href="https://github.com/Ereza/CustomActivityOnCrash" target="_blank" rel="external">https://github.com/Ereza/CustomActivityOnCrash</a></p>
+<p>2、生产环境<br>当应用发布上线就不能给用户显示这样的界面了所以要用一种用户比较能接受的方式处理。<br>在Application类中配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10;    * &#21021;&#22987;&#21270;&#31243;&#24207;&#23849;&#28291;&#25429;&#25417;&#22788;&#29702;&#10;    */&#10;   protected void initCrashHandler() &#123;&#10;       if (BuildConfig.isDebug) &#123;&#10;           CustomActivityOnCrash.install(this);&#10;       &#125; else &#123;&#10;           CrashHandler handler = CrashHandler.getInstance();&#10;           handler.init(getApplicationContext());&#10;           Thread.setDefaultUncaughtExceptionHandler(handler);&#10;       &#125;&#10;   &#125;</span><br></pre></td></tr></table></figure>
+<p>CrashHandler类文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> public class CrashHandler implements UncaughtExceptionHandler &#123;&#10;    /** Debug Log tag*/&#10;    public static final String TAG = &#34;CrashHandler&#34;;&#10;    /** &#26159;&#21542;&#24320;&#21551;&#26085;&#24535;&#36755;&#20986;,&#22312;Debug&#29366;&#24577;&#19979;&#24320;&#21551;,&#10;     * &#22312;Release&#29366;&#24577;&#19979;&#20851;&#38381;&#20197;&#25552;&#31034;&#31243;&#24207;&#24615;&#33021;&#10;     * */&#10;    public static final boolean DEBUG = false;&#10;    /** &#31995;&#32479;&#40664;&#35748;&#30340;UncaughtException&#22788;&#29702;&#31867; */&#10;    private UncaughtExceptionHandler mDefaultHandler;&#10;    /** CrashHandler&#23454;&#20363; */&#10;    private static CrashHandler INSTANCE;&#10;    /** &#31243;&#24207;&#30340;Context&#23545;&#35937; */&#10;    private Context mContext;&#10;    /** &#20351;&#29992;Properties&#26469;&#20445;&#23384;&#35774;&#22791;&#30340;&#20449;&#24687;&#21644;&#38169;&#35823;&#22534;&#26632;&#20449;&#24687;*/&#10;    private Properties mDeviceCrashInfo = new Properties();&#10;    private static final String VERSION_NAME = &#34;versionName&#34;;&#10;    private static final String VERSION_CODE = &#34;versionCode&#34;;&#10;    private static final String STACK_TRACE = &#34;STACK_TRACE&#34;;&#10;    /** &#38169;&#35823;&#25253;&#21578;&#25991;&#20214;&#30340;&#25193;&#23637;&#21517; */&#10;    private static final String CRASH_REPORTER_EXTENSION = &#34;.cr&#34;;&#10;&#10;    /** &#20445;&#35777;&#21482;&#26377;&#19968;&#20010;CrashHandler&#23454;&#20363; */&#10;    private CrashHandler() &#123;&#125;&#10;&#10;    /** &#33719;&#21462;CrashHandler&#23454;&#20363; ,&#21333;&#20363;&#27169;&#24335;*/&#10;    public static CrashHandler getInstance() &#123;&#10;        if (INSTANCE == null) &#123;&#10;            INSTANCE = new CrashHandler();&#10;        &#125;&#10;        return INSTANCE;&#10;    &#125;&#10;&#10;    /**&#10;     * &#21021;&#22987;&#21270;,&#27880;&#20876;Context&#23545;&#35937;,&#10;     * &#33719;&#21462;&#31995;&#32479;&#40664;&#35748;&#30340;UncaughtException&#22788;&#29702;&#22120;,&#10;     * &#35774;&#32622;&#35813;CrashHandler&#20026;&#31243;&#24207;&#30340;&#40664;&#35748;&#22788;&#29702;&#22120;&#10;     * @param ctx&#10;     */&#10;    public void init(Context ctx) &#123;&#10;        mContext = ctx;&#10;        mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();&#10;        Thread.setDefaultUncaughtExceptionHandler(this);&#10;    &#125;&#10;&#10;    /**&#10;     * &#24403;UncaughtException&#21457;&#29983;&#26102;&#20250;&#36716;&#20837;&#35813;&#20989;&#25968;&#26469;&#22788;&#29702;&#10;     */&#10;    @Override&#10;    public void uncaughtException(Thread thread, Throwable ex) &#123;&#10;        if (!handleException(ex) &#38;&#38; mDefaultHandler != null) &#123;&#10;            //&#22914;&#26524;&#29992;&#25143;&#27809;&#26377;&#22788;&#29702;&#21017;&#35753;&#31995;&#32479;&#40664;&#35748;&#30340;&#24322;&#24120;&#22788;&#29702;&#22120;&#26469;&#22788;&#29702;&#10;            mDefaultHandler.uncaughtException(thread, ex);&#10;        &#125; else &#123;&#10;            //Sleep&#19968;&#20250;&#21518;&#32467;&#26463;&#31243;&#24207;&#10;            try &#123;&#10;                Thread.sleep(5000);&#10;            &#125; catch (InterruptedException e) &#123;&#10;                Log.e(TAG, &#34;Error : &#34;, e);&#10;            &#125;&#10;            android.os.Process.killProcess(android.os.Process.myPid());&#10;            System.exit(10);&#10;        &#125;&#10;    &#125;&#10;&#10;    /**&#10;     * &#33258;&#23450;&#20041;&#38169;&#35823;&#22788;&#29702;,&#25910;&#38598;&#38169;&#35823;&#20449;&#24687;&#10;     * &#21457;&#36865;&#38169;&#35823;&#25253;&#21578;&#31561;&#25805;&#20316;&#22343;&#22312;&#27492;&#23436;&#25104;.&#10;     * &#24320;&#21457;&#32773;&#21487;&#20197;&#26681;&#25454;&#33258;&#24049;&#30340;&#24773;&#20917;&#26469;&#33258;&#23450;&#20041;&#24322;&#24120;&#22788;&#29702;&#36923;&#36753;&#10;     * @param ex&#10;     * @return true:&#22914;&#26524;&#22788;&#29702;&#20102;&#35813;&#24322;&#24120;&#20449;&#24687;;&#21542;&#21017;&#36820;&#22238;false&#10;     */&#10;    private boolean handleException(Throwable ex) &#123;&#10;        if (ex == null) &#123;&#10;            Log.w(TAG, &#34;handleException --- ex==null&#34;);&#10;            return true;&#10;        &#125;&#10;        final String msg = ex.getLocalizedMessage();&#10;        if(msg == null) &#123;&#10;            return false;&#10;        &#125;&#10;        //&#20351;&#29992;Toast&#26469;&#26174;&#31034;&#24322;&#24120;&#20449;&#24687;&#10;        new Thread() &#123;&#10;            @Override&#10;            public void run() &#123;&#10;                Looper.prepare();&#10;                Toast toast = Toast.makeText(mContext, &#34;&#31243;&#24207;&#20986;&#38169;&#65292;&#21363;&#23558;&#36864;&#20986;&#34;,&#10;                        Toast.LENGTH_LONG);&#10;                toast.setGravity(Gravity.CENTER, 0, 0);&#10;                toast.show();&#10;//              MsgPrompt.showMsg(mContext, &#34;&#31243;&#24207;&#20986;&#38169;&#21862;&#34;, msg+&#34;\n&#28857;&#30830;&#35748;&#36864;&#20986;&#34;);&#10;                Looper.loop();&#10;            &#125;&#10;        &#125;.start();&#10;        //&#25910;&#38598;&#35774;&#22791;&#20449;&#24687;&#10;        collectCrashDeviceInfo(mContext);&#10;        //&#20445;&#23384;&#38169;&#35823;&#25253;&#21578;&#25991;&#20214;&#10;        saveCrashInfoToFile(ex);&#10;        //&#21457;&#36865;&#38169;&#35823;&#25253;&#21578;&#21040;&#26381;&#21153;&#22120;&#10;        //sendCrashReportsToServer(mContext);&#10;        return true;&#10;    &#125;&#10;&#10;    /**&#10;     * &#22312;&#31243;&#24207;&#21551;&#21160;&#26102;&#20505;, &#21487;&#20197;&#35843;&#29992;&#35813;&#20989;&#25968;&#26469;&#21457;&#36865;&#20197;&#21069;&#27809;&#26377;&#21457;&#36865;&#30340;&#25253;&#21578;&#10;     */&#10;    public void sendPreviousReportsToServer() &#123;&#10;        sendCrashReportsToServer(mContext);&#10;    &#125;&#10;    /**&#10;     * &#25226;&#38169;&#35823;&#25253;&#21578;&#21457;&#36865;&#32473;&#26381;&#21153;&#22120;,&#21253;&#21547;&#26032;&#20135;&#29983;&#30340;&#21644;&#20197;&#21069;&#27809;&#21457;&#36865;&#30340;.&#10;     * @param ctx&#10;     */&#10;    private void sendCrashReportsToServer(Context ctx) &#123;&#10;        String[] crFiles = getCrashReportFiles(ctx);&#10;        if (crFiles != null &#38;&#38; crFiles.length &#62; 0) &#123;&#10;            TreeSet&#60;String&#62; sortedFiles = new TreeSet&#60;String&#62;();&#10;            sortedFiles.addAll(Arrays.asList(crFiles));&#10;            for (String fileName : sortedFiles) &#123;&#10;                File cr = new File(ctx.getFilesDir(), fileName);&#10;                postReport(cr);&#10;                cr.delete();// &#21024;&#38500;&#24050;&#21457;&#36865;&#30340;&#25253;&#21578;&#10;            &#125;&#10;        &#125;&#10;    &#125;&#10;    private void postReport(File file) &#123;&#10;        // TODO &#21457;&#36865;&#38169;&#35823;&#25253;&#21578;&#21040;&#26381;&#21153;&#22120;&#10;    &#125;&#10;&#10;    /**&#10;     * &#33719;&#21462;&#38169;&#35823;&#25253;&#21578;&#25991;&#20214;&#21517;&#10;     * @param ctx&#10;     * @return&#10;     */&#10;    private String[] getCrashReportFiles(Context ctx) &#123;&#10;        File filesDir = ctx.getFilesDir();&#10;        FilenameFilter filter = new FilenameFilter() &#123;&#10;            public boolean accept(File dir, String name) &#123;&#10;                return name.endsWith(CRASH_REPORTER_EXTENSION);&#10;            &#125;&#10;        &#125;;&#10;        return filesDir.list(filter);&#10;    &#125;&#10;&#10;    /**&#10;     * &#20445;&#23384;&#38169;&#35823;&#20449;&#24687;&#21040;&#25991;&#20214;&#20013;&#10;     * @param ex&#10;     * @return&#10;     */&#10;    private String saveCrashInfoToFile(Throwable ex) &#123;&#10;        Writer info = new StringWriter();&#10;        PrintWriter printWriter = new PrintWriter(info);&#10;        ex.printStackTrace(printWriter);&#10;        Throwable cause = ex.getCause();&#10;        while (cause != null) &#123;&#10;            cause.printStackTrace(printWriter);&#10;            cause = cause.getCause();&#10;        &#125;&#10;        String result = info.toString();&#10;        printWriter.close();&#10;        mDeviceCrashInfo.put(&#34;EXEPTION&#34;, ex.getLocalizedMessage());&#10;        mDeviceCrashInfo.put(STACK_TRACE, result);&#10;        try &#123;&#10;            //long timestamp = System.currentTimeMillis();&#10;            Time t = new Time(&#34;GMT+8&#34;);&#10;            t.setToNow(); // &#21462;&#24471;&#31995;&#32479;&#26102;&#38388;&#10;            int date = t.year * 10000 + t.month * 100 + t.monthDay;&#10;            int time = t.hour * 10000 + t.minute * 100 + t.second;&#10;            String fileName = &#34;crash-&#34; + date + &#34;-&#34; + time + CRASH_REPORTER_EXTENSION;&#10;            FileOutputStream trace = mContext.openFileOutput(fileName,&#10;                    Context.MODE_PRIVATE);&#10;            mDeviceCrashInfo.store(trace, &#34;&#34;);&#10;            trace.flush();&#10;            trace.close();&#10;            return fileName;&#10;        &#125; catch (Exception e) &#123;&#10;            Log.e(TAG, &#34;an error occured while writing report file...&#34;, e);&#10;        &#125;&#10;        return null;&#10;    &#125;&#10;&#10;    /**&#10;     * &#25910;&#38598;&#31243;&#24207;&#23849;&#28291;&#30340;&#35774;&#22791;&#20449;&#24687;&#10;     *&#10;     * @param ctx&#10;     */&#10;    public void collectCrashDeviceInfo(Context ctx) &#123;&#10;        try &#123;&#10;            PackageManager pm = ctx.getPackageManager();&#10;            PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(),&#10;                    PackageManager.GET_ACTIVITIES);&#10;            if (pi != null) &#123;&#10;                mDeviceCrashInfo.put(VERSION_NAME,&#10;                        pi.versionName == null ? &#34;not set&#34; : pi.versionName);&#10;                mDeviceCrashInfo.put(VERSION_CODE, &#34;&#34;+pi.versionCode);&#10;            &#125;&#10;        &#125; catch (PackageManager.NameNotFoundException e) &#123;&#10;            Log.e(TAG, &#34;Error while collect package info&#34;, e);&#10;        &#125;&#10;        //&#20351;&#29992;&#21453;&#23556;&#26469;&#25910;&#38598;&#35774;&#22791;&#20449;&#24687;.&#22312;Build&#31867;&#20013;&#21253;&#21547;&#21508;&#31181;&#35774;&#22791;&#20449;&#24687;,&#10;        //&#20363;&#22914;: &#31995;&#32479;&#29256;&#26412;&#21495;,&#35774;&#22791;&#29983;&#20135;&#21830; &#31561;&#24110;&#21161;&#35843;&#35797;&#31243;&#24207;&#30340;&#26377;&#29992;&#20449;&#24687;&#10;        //&#20855;&#20307;&#20449;&#24687;&#35831;&#21442;&#32771;&#21518;&#38754;&#30340;&#25130;&#22270;&#10;        Field[] fields = Build.class.getDeclaredFields();&#10;        for (Field field : fields) &#123;&#10;            try &#123;&#10;                field.setAccessible(true);&#10;                mDeviceCrashInfo.put(field.getName(), &#34;&#34;+field.get(null));&#10;                if (DEBUG) &#123;&#10;                    Log.d(TAG, field.getName() + &#34; : &#34; + field.get(null));&#10;                &#125;&#10;            &#125; catch (Exception e) &#123;&#10;                Log.e(TAG, &#34;Error while collect crash info&#34;, e);&#10;            &#125;&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://logan62334.github.io/2016/03/02/Android-应用崩溃-Crash-日志报告/" data-id="ciril8dqa0021k0t17fo2riy5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
       <article id="post-Git-简易指南" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -214,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/03/01/Git-简易指南/" data-id="cirhxcjz7000v2zt1hyucx8tj" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/03/01/Git-简易指南/" data-id="ciril8dpf0010k0t1fpei2j2y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -276,7 +337,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="cirhxck0e00272zt11amwu5rh" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/28/Android-WebView内存泄露终结解决方案/" data-id="ciril8dqk002ck0t1xvetm4mc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
@@ -344,7 +405,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="cirhxck13002s2zt1vjbdkpvg" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/27/Activity启动后EditText是否自动弹出输入法虚拟键盘的问题/" data-id="ciril8dr7002xk0t1vc16ctmc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android布局UI/">Android布局UI</a></li></ul>
@@ -445,7 +506,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="cirhxcjzg00152zt1m4hwul84" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/02/Android持续集成技术实践/" data-id="ciril8dpl001ak0t1tftrjmna" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a></li></ul>
@@ -504,72 +565,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="cirhxcjzc00102zt1jx8ide3n" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/02/01/Android热修复技术实践/" data-id="ciril8dpj0015k0t1kau69hnc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-热修复/">Android 热修复</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-      <article id="post-Android 实现APP开屏广告" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/02/Android 实现APP开屏广告/">Android实现APP开屏广告</a>
-    </h1>
-  
-
-        <div class="article-meta">
-          
-  <div class="article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/01/02/Android 实现APP开屏广告/">
-      <time datetime="2016-01-02T00:54:53.000Z" itemprop="datePublished">2016-01-02</time>
-    </a>
-  </div>
-
-
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a>
-  </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <p>代码详见：<a href="https://github.com/logan62334/StartupAdPage" target="_blank" rel="external">https://github.com/logan62334/StartupAdPage</a></p>
-<p>功能点：</p>
-<ol>
-<li>实现打开应用从moblieapi获取广告信息并存储在本地；</li>
-<li>每次APP打开显示上一次缓存下来的广告；</li>
-<li>可以控制广告停留时间和跳转页面</li>
-<li>很容易扩展</li>
-</ol>
-<hr>
-<p> <img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/01/02/Android 实现APP开屏广告/" data-id="cirhxck10002n2zt1q02chqag" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a></li></ul>
 
     </footer>
   </div>
@@ -590,7 +589,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android移动开发技术周报/">Android移动开发技术周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一周阅读清单/">一周阅读清单</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android移动开发技术周报/">Android移动开发技术周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android译文/">Android译文</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一周阅读清单/">一周阅读清单</a><span class="category-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -599,7 +598,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-6-0/">Android 6.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-redex/">Android redex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a><span class="tag-list-count">6</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-6-0/">Android 6.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-redex/">Android redex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android译文/">Android译文</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a><span class="tag-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -608,7 +607,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tag cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android-6-0/" style="font-size: 10px;">Android 6.0</a> <a href="/tags/Android-redex/" style="font-size: 10px;">Android redex</a> <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 15px;">Android布局UI</a> <a href="/tags/Android移动开发技术周报/" style="font-size: 10px;">Android移动开发技术周报</a> <a href="/tags/Android笔记/" style="font-size: 20px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/一周阅读清单/" style="font-size: 20px;">一周阅读清单</a>
+      <a href="/tags/Android-6-0/" style="font-size: 10px;">Android 6.0</a> <a href="/tags/Android-redex/" style="font-size: 10px;">Android redex</a> <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 15px;">Android布局UI</a> <a href="/tags/Android移动开发技术周报/" style="font-size: 10px;">Android移动开发技术周报</a> <a href="/tags/Android笔记/" style="font-size: 17.5px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Android译文/" style="font-size: 12.5px;">Android译文</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/一周阅读清单/" style="font-size: 20px;">一周阅读清单</a>
     </div>
   </div>
 
@@ -617,7 +616,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
