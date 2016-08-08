@@ -192,7 +192,7 @@
 <p><img src="http://upload-images.jianshu.io/upload_images/1044671-246411c2e710d5a0.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <h4 id="1_u3001_u4F60_u7684AndroidManifest_u6587_u4EF6_u771F_u5B9E_u7684_u6837_u5B50_u662F_u4EC0_u4E48"><a href="#1_u3001_u4F60_u7684AndroidManifest_u6587_u4EF6_u771F_u5B9E_u7684_u6837_u5B50_u662F_u4EC0_u4E48" class="headerlink" title="1、你的AndroidManifest文件真实的样子是什么"></a>1、你的AndroidManifest文件真实的样子是什么</h4><p>我们大多数人早已知道我们在文本编辑器中看到的<em>AndroidManifest.xml</em> 文件跟实际编译好生成的的内容并不一样。这主要是因为你在工程中包含的第三方库中存在额外的&lt;<em>uses-permission/</em>&gt;标签，将和你自己的manifest文件混合。（<a href="https://commonsware.com/blog/2015/06/25/hey-where-did-these-permissions-come-from.html" target="_blank" rel="external">The Commons Blog</a>查看更详细的信息）</p>
 <p>在构建APK前检查你的manifest，我们可以用Android Studio 2.2中提供的新特性：<a href="http://android-developers.blogspot.de/2016/05/android-studio-22-preview-new-ui.html" target="_blank" rel="external">Merged Manifest Viewer</a>。这个工具将会给你展示你的AndroidManifest是如何基于build types, flavors, and variants这些配置和你的依赖包merge的。你可以导航到<em>AndroidManifest.xml</em>文件点击底部的Merged Manifest标签使用这个工具。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1044671-da23dd06a3abb8e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/19.png" alt=""></p>
 <h4 id="2_u3001Support_annotations_u662F_u4F60_u7684_u670B_u53CB"><a href="#2_u3001Support_annotations_u662F_u4F60_u7684_u670B_u53CB" class="headerlink" title="2、Support annotations是你的朋友"></a>2、Support annotations是你的朋友</h4><p>另外一个特别有用的工具是support annotations library。你可以通过在你的build.gradle文件中添加“<em>com.android.support:support-annotations:23.4.0</em>” 来包含入你的工程。使用这些metadata annotations去修饰你的代码帮助你发现bug定义编码规则。最常规的使用场景是标记nullable和non-nullable，链接资源，并且指定从哪个线程被回调。</p>
 <p>既然这些annotations是metadata annotations，所以即使你违反了它定义的语法规则你的工程也会编译。然而它会被Android Studio 和 Lint标记为高亮，并且在你的持续集成工具输出中对你的团队成员是可见的。</p>
 <h4 id="3_u3001_u5FEB_u901F_u3001_u65E0_u75DB_u7684code_review"><a href="#3_u3001_u5FEB_u901F_u3001_u65E0_u75DB_u7684code_review" class="headerlink" title="3、快速、无痛的code review"></a>3、快速、无痛的code review</h4><p>假设你想要去做一个code review，检查开发feature是如何工作的是有意义的，所以你需要去编译你的工程。这种情况有下面这样的一种通用工作流：</p>
@@ -239,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/08/06/译文-Android开发最佳实践/" data-id="cirk9o9pk0008gjt1xp9y6m2s" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/08/06/译文-Android开发最佳实践/" data-id="cirlfhalj0008dot1zt412md2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android译文/">Android译文</a></li></ul>
@@ -321,7 +321,7 @@ finish();
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/07/27/译文-如何正确在闪屏页加载耗时的库/" data-id="cirk9o9pa0003gjt1aie23mpv" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/07/27/译文-如何正确在闪屏页加载耗时的库/" data-id="cirlfhal90003dot18u3sfhg5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android译文/">Android译文</a></li></ul>
@@ -385,7 +385,7 @@ finish();
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/07/10/Android-优雅的处理登录页面跳转逻辑/" data-id="cirk9o9r60029gjt1nqh5lppo" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/07/10/Android-优雅的处理登录页面跳转逻辑/" data-id="cirlfhanr0029dot1cbehgxnv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android笔记/">Android笔记</a></li></ul>
@@ -449,7 +449,7 @@ finish();
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/06/19/两周阅读清单-Realm、单元测试、Rxjava、读书/" data-id="cirk9o9pq000ggjt1sz8shft2" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/06/19/两周阅读清单-Realm、单元测试、Rxjava、读书/" data-id="cirlfhalq000gdot1uep1l0rl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a></li></ul>
@@ -510,7 +510,7 @@ finish();
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/06/05/Android-ViewPager的notifyDataSetChanged刷新无效果的解决方案/" data-id="cirk9o9rh002hgjt13yox3n3k" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/06/05/Android-ViewPager的notifyDataSetChanged刷新无效果的解决方案/" data-id="cirlfhao1002hdot162w7gq7u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android笔记/">Android笔记</a></li></ul>
@@ -571,7 +571,7 @@ finish();
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/05/28/Android-6-0-系统权限适配实践/" data-id="cirk9o9rn002ogjt1p2d7mxan" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/05/28/Android-6-0-系统权限适配实践/" data-id="cirlfhao5002odot15jzr9xjj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-6-0/">Android 6.0</a></li></ul>
