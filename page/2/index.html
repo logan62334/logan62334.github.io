@@ -117,7 +117,7 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        27
+        28
         <span>posts</span>
       </div>
       <div class="article-info-block">
@@ -150,6 +150,67 @@
 
       
       <section id="main">
+      <article id="post-Android-6-0-系统权限适配实践" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/28/Android-6-0-系统权限适配实践/">[Android] 6.0 系统权限适配实践</a>
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2016/05/28/Android-6-0-系统权限适配实践/">
+      <time datetime="2016-05-28T01:56:06.000Z" itemprop="datePublished">2016-05-28</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <blockquote>
+<p>Android 6.0也已经出来有一段时间了，其中的权限模式从一开始的全部列出授予，到后来的运行时动态申请，这对开发者来说是一个重要的变化，今天我来分享一下具体的实践过程。</p>
+</blockquote>
+<p>首先检查一下你的项目中 targetSdkVersion，如果是 23及以上，则必须适配新的权限模式；如果是 23以下，则还是统一在安装时全部申请权限。然后你还需要了解哪些权限是危险权限、特殊权限以及正常权限。</p>
+<p>接下来我们需要准备两个类：<br>PermissionsChecker.java<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10; * &#26816;&#26597;&#26435;&#38480;&#30340;&#24037;&#20855;&#31867;&#10; *&#10; * @author mafei&#10; */&#10;public class PermissionsChecker &#123;&#10;  private final Context mContext;&#10;&#10;  public PermissionsChecker(Context context) &#123;&#10;    mContext = context.getApplicationContext();&#10;  &#125;&#10;&#10;  // &#21028;&#26029;&#26435;&#38480;&#38598;&#21512;&#10;  public boolean lacksPermissions(String... permissions) &#123;&#10;    for (String permission : permissions) &#123;&#10;      if (lacksPermission(permission)) &#123;&#10;        return true;&#10;      &#125;&#10;    &#125;&#10;    return false;&#10;  &#125;&#10;&#10;  // &#21028;&#26029;&#26159;&#21542;&#32570;&#23569;&#26435;&#38480;&#10;  private boolean lacksPermission(String permission) &#123;&#10;    return ContextCompat.checkSelfPermission(mContext, permission)&#10;        == PackageManager.PERMISSION_DENIED;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>PermissionsType.java<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10; * Created by mafei on 16/3/31.&#10; */&#10;public class PermissionsType &#123;&#10;&#10;  /**&#10;   * &#35835;&#21462;&#25163;&#26426;&#26435;&#38480;&#10;   */&#10;  public static final int READ_PHONE_STATE_CODE = 1;&#10;  /**&#10;   * &#33719;&#21462;&#30456;&#26426;&#26435;&#38480;&#10;   */&#10;  public static final int CAMERA_CODE = 2;&#10;&#10;  /**&#10;   * &#33719;&#21462;&#23384;&#20648;&#26435;&#38480;&#10;   */&#10;  public static final int WRITE_EXTERNAL_STORAGE_CODE = 3;&#10;&#10;  public static class PermissionsTypeExtend &#123;&#10;&#10;    public static String toDescription(int type) &#123;&#10;      switch (type) &#123;&#10;        case PermissionsType.READ_PHONE_STATE_CODE:&#10;          return &#34;&#38656;&#35201;&#22312;&#31995;&#32479;&#8220;&#26435;&#38480;&#8221;&#20013;&#25171;&#24320;&#8220;&#30005;&#35805;&#8221;&#24320;&#20851;&#65292;&#25165;&#33021;&#26356;&#22909;&#30340;&#20026;&#20320;&#26381;&#21153;&#34;;&#10;        case PermissionsType.CAMERA_CODE:&#10;          return &#34;&#38656;&#35201;&#22312;&#31995;&#32479;&#8220;&#26435;&#38480;&#8221;&#20013;&#25171;&#24320;&#8220;&#30456;&#26426;&#8221;&#24320;&#20851;&#65292;&#25165;&#33021;&#30456;&#26426;&#25293;&#29031;&#34;;&#10;        case PermissionsType.WRITE_EXTERNAL_STORAGE_CODE:&#10;          return &#34;&#38656;&#35201;&#22312;&#31995;&#32479;&#8220;&#26435;&#38480;&#8221;&#20013;&#25171;&#24320;&#8220;&#23384;&#20648;&#8221;&#24320;&#20851;&#65292;&#25165;&#33021;&#31163;&#32447;&#32531;&#23384;&#34;;&#10;        default:&#10;          return &#34;&#38656;&#35201;&#22312;&#31995;&#32479;&#8220;&#26435;&#38480;&#8221;&#20013;&#25171;&#24320;&#30456;&#20851;&#26435;&#38480;&#65292;&#25165;&#33021;&#26356;&#22909;&#30340;&#20026;&#20320;&#26381;&#21153;&#34;;&#10;      &#125;&#10;    &#125;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>准备好这两个类之后，就可以在你需要进行权限申请和控制的地方写下面的代码了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private PermissionsChecker mPermissionsChecker; // &#26435;&#38480;&#26816;&#27979;&#22120;&#10; // &#25152;&#38656;&#30340;&#20840;&#37096;&#26435;&#38480;&#10; static final String[] PERMISSIONS = new String[] &#123;&#10;     android.Manifest.permission.WRITE_EXTERNAL_STORAGE&#10; &#125;;&#10;&#10; @Override protected void onCreate(Bundle savedInstanceState) &#123;&#10;   super.onCreate(savedInstanceState);&#10;   setContentView(R.layout.activity_movie_detail);&#10;   mPermissionsChecker = new PermissionsChecker(this);&#10; &#125;&#10;&#10; if (VersionSDK.isMarshmallowOrHigher()) &#123;&#10;   String[] permissions = PERMISSIONS;&#10;   if (mPermissionsChecker.lacksPermissions(permissions)) &#123;&#10;      requestPermissions(permissions, PermissionsType.WRITE_EXTERNAL_STORAGE_CODE);&#10;      &#125; else &#123;&#10;        //&#38656;&#35201;&#26435;&#38480;&#25165;&#33021;&#25805;&#20316;&#30340;&#20195;&#30721;&#10;        &#125;&#10;    &#125; else &#123;&#10;      //&#38656;&#35201;&#26435;&#38480;&#25165;&#33021;&#25805;&#20316;&#30340;&#20195;&#30721;&#10;   &#125;&#10;&#10; @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,&#10;     @NonNull int[] grantResults) &#123;&#10;   if (requestCode == PermissionsType.WRITE_EXTERNAL_STORAGE_CODE) &#123;&#10;     for (int i = 0; i &#60; permissions.length; i++) &#123;&#10;       String permission = permissions[i];&#10;       int grantResult = grantResults[i];&#10;&#10;       if (permission.equals(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) &#123;&#10;         if (grantResult == PackageManager.PERMISSION_GRANTED) &#123;&#10;           movieDetailIvCache.setSelected(true);&#10;         &#125; else &#123;&#10;           ToastUtils.showShortToast(&#34;&#38656;&#35201;&#23384;&#20648;&#26435;&#38480;&#34;);&#10;         &#125;&#10;       &#125;&#10;     &#125;&#10;   &#125;&#10; &#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://logan62334.github.io/2016/05/28/Android-6-0-系统权限适配实践/" data-id="ciruicbgn002r10t1ah19auq3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-6-0/">Android 6.0</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
       <article id="post-一周阅读清单-开发神器推荐" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -202,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/05/22/一周阅读清单-开发神器推荐/" data-id="cirr4p9tx000lldt1wuie5pld" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/05/22/一周阅读清单-开发神器推荐/" data-id="ciruicbdk000o10t1sz3ft38m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a></li></ul>
@@ -283,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/05/15/一周阅读清单-在线小工具推荐/" data-id="cirr4p9u0000oldt1y1vebh88" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/05/15/一周阅读清单-在线小工具推荐/" data-id="ciruicbdr000r10t1awkmfkiq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a></li></ul>
@@ -351,7 +412,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/05/09/一周阅读清单-Gradle、CI、阅读、工具推荐/" data-id="cirr4p9ue000xldt1o0vq8rvl" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/05/09/一周阅读清单-Gradle、CI、阅读、工具推荐/" data-id="ciruicbeg001010t1diywrrns" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a></li></ul>
@@ -419,7 +480,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/05/01/一周阅读清单-RxAndroid、Dagger2、动态配置、小工具推荐/" data-id="cirr4p9u8000uldt1sfvd6b04" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/05/01/一周阅读清单-RxAndroid、Dagger2、动态配置、小工具推荐/" data-id="ciruicbec000x10t1sh00tq56" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a></li></ul>
@@ -485,86 +546,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/04/24/一周阅读清单-RxJava、Gradle、动态化、小工具推荐/" data-id="cirr4p9u5000rldt1dlzcsj9a" class="article-share-link">Share</a>
+      <a data-url="http://logan62334.github.io/2016/04/24/一周阅读清单-RxJava、Gradle、动态化、小工具推荐/" data-id="ciruicbdv000u10t1pdyfu0kf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-      <article id="post-Android-Facebook-Redex-压缩优化Apk实践" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/">[Android] Facebook Redex 压缩优化Apk实践</a>
-    </h1>
-  
-
-        <div class="article-meta">
-          
-  <div class="article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/">
-      <time datetime="2016-04-16T05:29:11.000Z" itemprop="datePublished">2016-04-16</time>
-    </a>
-  </div>
-
-
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/Android新技术实践/">Android新技术实践</a>
-  </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <blockquote>
-<p>最近Facebook 又放出了一个用于Android apk字节码优化的工具包——redex，经过redex的优化apk会变的体积更小，速度更快。至于原理大家可以到<a href="https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。" target="_blank" rel="external">https://code.facebook.com/posts/1480969635539475/optimizing-android-bytecode-with-redex这个网站去看，今天我想分享一下具体的实践过程。</a></p>
-</blockquote>
-<p>前两天刚看到FB放出的这个工具包就迫不及待的去尝试了下，结果一直报下面这个错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure: error: Please install double-conversion library</span><br></pre></td></tr></table></figure></p>
-<p>但其实这些library都已经安装好了的，那天倒腾了好久也跟群里的朋友交流过，感觉应该是FB的一个小bug于是去github上提了issue，果然第二天得到了回应官方更新了使用说明。下面是我在Mac OS X上的实践过程：</p>
-<p>1、首先需要你的Xcode安装了命令行工具：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
-<p>2、利用homebrew安装依赖包：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install autoconf automake libtool python3&#160;&#10;brew install boost double-conversion gflags glog libevent openssl&#160;&#10;brew link openssl --force</span><br></pre></td></tr></table></figure>
-<p>3、通过Git将redex的源码checkout到电脑上：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/facebook/redex.git&#160;&#10;cd redex&#160;&#10;git submodule update --init</span><br></pre></td></tr></table></figure>
-<p>4、通过autoconf和make来构建redex：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autoreconf -ivf &#38;&#38; ./configure &#38;&#38; make&#160;&#10;sudo make install</span><br></pre></td></tr></table></figure>
-<p>在执行步骤四的时候就出现了问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure: error: Please install google-gflags library&#160;&#10;configure: error: ./configure failed for third-party/folly/folly</span><br></pre></td></tr></table></figure></p>
-<p>于是我又提了issue，下面是跟沟通的过程：<br><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/16.png" alt="">按照他的方法执行下面的命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --install&#160;&#10;sudo xcode-select --switch /Library/Developer/CommandLineTools/</span><br></pre></td></tr></table></figure>
-<p>再执行步骤四就OK了当然如果看到很多warn也不用担心，最终可以编译通过。<br>接下来就可以通过redex执行最后的优化命令了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redex path/to/your.apk -o path/to/output.apk</span><br></pre></td></tr></table></figure>
-<p>不过这里又出现了个问题：<br><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/17.png" alt="">又是环境问题😂 ,下面是配置过程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mafeideAir:~ mafei$ vi ~/.bash_profile&#160;&#10;export PATH=/Users/mafei/Development/adt-bundle-mac-x86_64-20140702/sdk/build-tools/23.0.2:$PATH</span><br></pre></td></tr></table></figure></p>
-<p>因为这个是系统只读文件所以退出的时候要输入!wq才行<br>这下执行下面的命令就完全没问题啦！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mafeideAir:~ mafei$ cd GitHub/&#10;mafeideAir:GitHub mafei$ cd redex/&#10;mafeideAir:redex mafei$ redex metis_release_v1.0.2.apk -o out.apk</span><br></pre></td></tr></table></figure>
-<p>刚刚又去看了下redex的官网发现FB已经把这几天遇到的一些典型问题都汇总了一下：<br><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/18.png" alt=""></p>
-<hr>
-<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://logan62334.github.io/2016/04/16/Android-Facebook-Redex-压缩优化Apk实践/" data-id="cirr4p9vy002kldt105bazh3n" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-redex/">Android redex</a></li></ul>
 
     </footer>
   </div>
@@ -585,7 +570,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android移动开发技术周报/">Android移动开发技术周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android译文/">Android译文</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一周阅读清单/">一周阅读清单</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android布局问题总结/">Android布局问题总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android常用模块功能实现/">Android常用模块功能实现</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android疑难杂症/">Android疑难杂症</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android移动开发技术周报/">Android移动开发技术周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android译文/">Android译文</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一周阅读清单/">一周阅读清单</a><span class="category-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -608,7 +593,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-6-0/">Android 6.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-redex/">Android redex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android译文/">Android译文</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a><span class="tag-list-count">6</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-6-0/">Android 6.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-redex/">Android redex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android译文/">Android译文</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a><span class="tag-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -617,7 +602,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tag cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android-6-0/" style="font-size: 10px;">Android 6.0</a> <a href="/tags/Android-redex/" style="font-size: 10px;">Android redex</a> <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 15px;">Android布局UI</a> <a href="/tags/Android移动开发技术周报/" style="font-size: 10px;">Android移动开发技术周报</a> <a href="/tags/Android笔记/" style="font-size: 17.5px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Android译文/" style="font-size: 12.5px;">Android译文</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/一周阅读清单/" style="font-size: 20px;">一周阅读清单</a>
+      <a href="/tags/Android-6-0/" style="font-size: 10px;">Android 6.0</a> <a href="/tags/Android-redex/" style="font-size: 10px;">Android redex</a> <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android布局UI/" style="font-size: 13.33px;">Android布局UI</a> <a href="/tags/Android移动开发技术周报/" style="font-size: 10px;">Android移动开发技术周报</a> <a href="/tags/Android笔记/" style="font-size: 16.67px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Android译文/" style="font-size: 13.33px;">Android译文</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/一周阅读清单/" style="font-size: 20px;">一周阅读清单</a>
     </div>
   </div>
 
@@ -626,7 +611,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 

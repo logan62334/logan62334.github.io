@@ -3,17 +3,41 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2015/12 | 马飞的技术博客</title>
+  <title>[译文] 我不使用Android Data Binding的四个理由 | 马飞的技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="产品改变世界，技术驱动未来">
-<meta property="og:type" content="website">
-<meta property="og:title" content="马飞的技术博客">
-<meta property="og:url" content="http://logan62334.github.io/archives/2015/12/index.html">
+  <meta name="description" content="为什么我还停留在ButterKnife。
+
+免责声明：本文是基于个人经验和实践可以随意反驳，是否采纳自行决定。
+
+
+1、专家不建议这么做ButterKnife的作者Jake在下面这个github issue中直指要点。
+
+data binding在最简单的场景下是比较有用的。但它并没有什么创新，所以在复杂度增加的情况下还是会像其他平台上的解决方案一样用起来非常痛苦（例如：XAML）。当这个库扩展到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[译文] 我不使用Android Data Binding的四个理由">
+<meta property="og:url" content="http://logan62334.github.io/2016/08/14/译文-我不使用Android-Data-Binding的四个理由/index.html">
 <meta property="og:site_name" content="马飞的技术博客">
-<meta property="og:description" content="产品改变世界，技术驱动未来">
+<meta property="og:description" content="为什么我还停留在ButterKnife。
+
+免责声明：本文是基于个人经验和实践可以随意反驳，是否采纳自行决定。
+
+
+1、专家不建议这么做ButterKnife的作者Jake在下面这个github issue中直指要点。
+
+data binding在最简单的场景下是比较有用的。但它并没有什么创新，所以在复杂度增加的情况下还是会像其他平台上的解决方案一样用起来非常痛苦（例如：XAML）。当这个库扩展到">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1044671-61a2ad842f88f06c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg">
+<meta property="og:updated_time" content="2016-08-14T11:07:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="马飞的技术博客">
-<meta name="twitter:description" content="产品改变世界，技术驱动未来">
+<meta name="twitter:title" content="[译文] 我不使用Android Data Binding的四个理由">
+<meta name="twitter:description" content="为什么我还停留在ButterKnife。
+
+免责声明：本文是基于个人经验和实践可以随意反驳，是否采纳自行决定。
+
+
+1、专家不建议这么做ButterKnife的作者Jake在下面这个github issue中直指要点。
+
+data binding在最简单的场景下是比较有用的。但它并没有什么创新，所以在复杂度增加的情况下还是会像其他平台上的解决方案一样用起来非常痛苦（例如：XAML）。当这个库扩展到">
   
   
     <link rel="icon" href="favicon.png">
@@ -149,49 +173,109 @@
 </aside>
 
       
-      <section id="main">
-      <div class="archive-year-wrap">
-        <a href="/archives/2015" class="archive-year">2015</a>
-      </div>
-      <section class="archives-wrap">
-        <div class="archives">
+      <section id="main"><article id="post-译文-我不使用Android-Data-Binding的四个理由" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
     
-    <div class="archive-article-thumbnail">
-      <a href="/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/" class="thumbnail">
-  
-    <span class="thumbnail-image thumbnail-none"></span>
-  
-</a>
-    </div>
     
-    <header class="archive-article-header">
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/">Android实现PopupWindow背景半透明（兼容方案）</a>
+    <h1 class="article-title" itemprop="name">
+      [译文] 我不使用Android Data Binding的四个理由
     </h1>
   
 
-      
-        
-  <div class="archive-article-date">
+        <div class="article-meta">
+          
+  <div class="article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2015/12/27/Android实现PopupWindow背景半透明（兼容方案）/">
-      <time datetime="2015-12-27T03:37:42.000Z" itemprop="datePublished">Dec 27</time>
+    <a href="/2016/08/14/译文-我不使用Android-Data-Binding的四个理由/">
+      <time datetime="2016-08-14T11:06:56.000Z" itemprop="datePublished">2016-08-14</time>
     </a>
   </div>
 
 
-      
-    </header>
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/Android译文/">Android译文</a>
   </div>
-</article>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <p>为什么我还停留在ButterKnife。</p>
+<blockquote>
+<p>免责声明：本文是基于个人经验和实践可以随意反驳，是否采纳自行决定。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1044671-61a2ad842f88f06c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><strong>1、专家不建议这么做</strong><br>ButterKnife的作者Jake在下面这个github issue中直指要点。</p>
+<blockquote>
+<p>data binding在最简单的场景下是比较有用的。但它并没有什么创新，所以在复杂度增加的情况下还是会像其他平台上的解决方案一样用起来非常痛苦（例如：XAML）。当这个库扩展到高级的情况下，将会迫使你把绑定的逻辑写到代码中，那里才是它真正该在的地方。</p>
+</blockquote>
+<p>事实上，我同意其中的两点：</p>
+<p>1、它的扩展性并不好。<br>2、业务逻辑应该在代码中。</p>
+<p><strong>2、它让你写出意大利面式的代码</strong><br>一旦我们开始实现复杂的布局，将会使我们的Data Binding解决方案越来越复杂。</p>
+<p>首先我们将会面临下面的问题：</p>
+<p>1、Layout 要求你给他们分别传递数据。</p>
+<p>2、你也可能想为你的布局创建不同的数据源。</p>
+<p>3、同样的问题也会在ViewStubs中发生。</p>
+<p>4、当你使用Picasso加载图片的时候，你需要为他实现一个自定义的data binding adapter，那样的话你就不能作为依赖mock和注入了。</p>
+<p>我们可能会试着做些更复杂的事情：</p>
+<p>1、在layout中增加presentation的逻辑。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;TextView&#10;   android:text=&#34;@&#123;user.lastName&#125;&#34;&#10;   android:layout_width=&#34;wrap_content&#34;&#10;   android:layout_height=&#34;wrap_content&#34;&#10;   android:visibility=&#34;@&#123;user.isAdult ? View.VISIBLE : View.GONE&#125;&#34;/&#62;</span><br></pre></td></tr></table></figure></p>
+<p>2、在listeners中增加Lambda表达式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:onLongClick=&#34;@&#123;(theView) -&#62; presenter.onLongClick(theView, task)&#125;&#34;</span><br></pre></td></tr></table></figure></p>
+<p>3、在layouts中使用导入的class类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;data&#62;&#10;    &#60;import type=&#34;android.view.View&#34;/&#62;&#10;&#60;/data&#62;</span><br></pre></td></tr></table></figure></p>
+<p>我们的逻辑一部分在代码中一部分在布局文件中，这将很快变成一个噩梦，并且闻起来像是意大利面式的代码。</p>
+<p><strong>3、单元测试也不能用了</strong><br>我非常喜欢Robolectric和Mockito，他们节约了我很多时间在创建和运行测试实例的时候，没有了他们我将无法工作。</p>
+<p>Data Binding的一个特性对于我来说是一个bug：如果layout发生了异步更新，那就意味着在我设置了绑定之后单元测试中我无法确定view上的数据是否正确。</p>
+<p>我记得google用Espresso实现的测试框架，但如果有可能的话我还是希望用单元测试的方式来测UI。我喜欢将Activities、Fragments和Views分开来测试而不是在一个大的Instrumentation Test中导入他们。</p>
+<p><strong>4、它比ButterKnife提供的功能少很多</strong><br>ButterKnife提供了很多不错的特性，可能有些我们都不记得了：</p>
+<p>1、资源绑定</p>
+<p>2、View 列表</p>
+<p>3、多个监听器的绑定</p>
+<p>当我们用自定义控件做一些高级的实现的时候，资源绑定是非常有用的，我们可以通过它获取到Dimensions和Drawables。</p>
+<p>当我们有一系列的视图触发同样的操作的时候，多视图绑定和多监听器绑定会让我们少写很多代码，例如：一系列的EditText和Buttons。</p>
+<p>而如果你使用Data Binding库将得不到这些功能。</p>
+<p><strong>为什么你会使用Data Binding</strong></p>
+<p><strong>1、我可以开发的更快</strong><br>长远来看，快速并不一定总是好的。当我们开发app的时候，我们是在跑一场马拉松而不是一次百米冲刺……不是吗？</p>
+<p><strong>2、它已经存在于系统sdk中</strong><br>不需要引入第三方库总归是好事情。如果你被调入到一个已经出现了方法数快超过限制的项目中时，你的leader将不希望你再引入过多的第三方库。</p>
+<p><strong>3、我在遵循MVVM的模式</strong><br>如果你正确的利用观察者模式实现了MVVM，Data Binding库将会帮助你在views中实现观察者模式。</p>
+<p>谢谢你看了这么长时间！</p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://logan62334.github.io/2016/08/14/译文-我不使用Android-Data-Binding的四个理由/" data-id="ciruicbbx000310t16vcgxl9n" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android译文/">Android译文</a></li></ul>
+
+    </footer>
+  </div>
   
-    </div></section>
-  </section>
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/08/06/译文-Android开发最佳实践/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[译文] Android开发最佳实践</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+</section>
       
         <aside id="sidebar">
   
