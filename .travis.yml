@@ -1,0 +1,3 @@
+before_install:
+- openssl aes-256-cbc -K $encrypted_7e497eed9f60_key -iv $encrypted_7e497eed9f60_iv
+  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
