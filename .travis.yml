@@ -10,7 +10,8 @@ node_js: stable
  # - npm install -g gulp
 
 script:
-  - hexo g
+  - hexo generate
+  - hexo deploy
 
 after_script:
   - cd ./public
