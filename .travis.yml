@@ -25,6 +25,3 @@ after_script:
 branches:
   only:
     - blog_source
-env:
- global:
-   - GH_REF: github.com/logan62334/logan62334.github.io.git

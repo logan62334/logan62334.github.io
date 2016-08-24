@@ -4,7 +4,7 @@ date: 2016-08-14 19:06:56
 tags: Android译文
 category: Android译文
 ---
-为什么我还在用ButterKnife?
+为什么我还在用ButterKnife。
 
 >免责声明：本文是基于个人经验和实践可以随意反驳，是否采纳自行决定。
 
