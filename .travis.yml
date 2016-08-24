@@ -24,7 +24,7 @@ after_script:
 
 branches:
   only:
-    - blog-source
+    - blog_source
 env:
  global:
    - GH_REF: git@github.com:logan62334/logan62334.github.io.git
