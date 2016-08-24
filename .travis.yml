@@ -4,6 +4,7 @@ node_js: stable
 # S: Build Lifecycle
 install:
   - npm install
+  - npm install -S hexo-generator-json-content
 
 
 #before_script:
