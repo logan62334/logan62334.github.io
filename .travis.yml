@@ -19,7 +19,7 @@ after_script:
   - git config user.email "logan62334@gmail.com"
   - git add .
   - git commit -m "Update docs"
-  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
+  - git push --force --quiet "https://${GH_TOKEN}@git@github.com:logan62334/logan62334.github.io.git" master:master
 # E: Build LifeCycle
 
 branches:
