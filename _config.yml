@@ -83,8 +83,6 @@ swiftype_install_key: fKCWzKJSMacajfY-DTha
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type:git
+  repo:git@github.com:logan62334/logan62334.github.io.git
   branch:master
   message:hexo
-  repo:
-    github: git@github.com:logan62334/logan62334.github.io.git
-    coding: git@git.coding.net:Logan62334/logan62334.git
