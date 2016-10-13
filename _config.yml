@@ -86,5 +86,5 @@ deploy:
   branch:master
   message:hexo
   repo:
-    git@github.com:logan62334/logan62334.github.io.git
-    git@git.coding.net:Logan62334/logan62334.git
+    github: git@github.com:logan62334/logan62334.github.io.git
+    coding: git@git.coding.net:Logan62334/logan62334.git
