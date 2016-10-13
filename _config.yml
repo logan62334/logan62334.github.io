@@ -84,6 +84,6 @@ swiftype_install_key: fKCWzKJSMacajfY-DTha
 deploy:
   type:git
   repo:git@github.com:logan62334/logan62334.github.io.git
-  coding: git@git.coding.net:logan62334/logan62334.git ## 这里是你的Coding项目
+  coding:git@git.coding.net:logan62334/logan62334.git ## 这里是你的Coding项目
   branch:master
   message:hexo
