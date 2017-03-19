@@ -105,5 +105,6 @@ Android StrictMode可帮助您检测不同类型的问题：
 ![9](https://github.com/logan62334/ImageArchive/raw/master/Android/41.png)
 
 > 在模板代码中查看[StrictMode](https://github.com/dmytrodanylyk/template/blob/master/app/src/main/java/com/dd/template/TemplateApplication.java#L12)。
+
 ***
 ![全栈增长工程师，欢迎关注](https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg)
