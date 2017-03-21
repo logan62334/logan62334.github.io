@@ -1,5 +1,5 @@
 ---
-title: '配置Android项目 - 一些重要的事情'
+title: '配置Android项目 - 静态代码分析工具'
 date: 2017-3-21 11:39:58
 tags: Android架构
 category: Android架构
