@@ -4,7 +4,7 @@ date: 2017-6-22 22:39:58
 tags: 自动化测试
 category: 自动化测试
 ---
-###背景
+### 背景
 ***
 对于基于 UI 的功能测试的需求其实一直存在，理由其实很简单，不想一直让人去做重复机械的事情，而且可靠性完全是靠人力的堆积产生。然而目前部门的功能测试工作依然主要是依靠人工来完成，从我们公司的实践来看我觉得有几个方面的影响因素：
 
@@ -16,7 +16,7 @@ category: 自动化测试
 
 通过不断地寻找，不断地对比，最终我们将目标聚焦在阿里巴巴开源解决方案Macaca上。
 
-###简介
+### 简介
 ***
 Macaca是一套完整的自动化测试解决方案，它的三个特性对我们极具吸引力：
 
@@ -26,7 +26,7 @@ Macaca是一套完整的自动化测试解决方案，它的三个特性对我�
 4、支持JS、Python、Java编写自动化脚本
 5、API比较统一
 
-###技术栈
+### 技术栈
 ***
 在落地Macaca之前，需要先部署下列技术栈：
 1、Node.js用于部署Macaca
@@ -35,7 +35,7 @@ Macaca是一套完整的自动化测试解决方案，它的三个特性对我�
 4、Slack用于团队的沟通协调
 5、Python用于部署本地Agent
 
-###使用流程
+### 使用流程
 ***
 业务测试人员通过在本地录制好测试脚本，然后上传到脚本管理平台，这些测试脚本将会根据业务模块和版本分类管理。使用者在自己的电脑上安装Agent，然后连接测试设备，Agent会将本机的ip、port和设备信息上传注册到录放平台。
 
@@ -43,7 +43,7 @@ Macaca是一套完整的自动化测试解决方案，它的三个特性对我�
 
 另外Macaca也提供了相应的分布式持续集成框架Reliable来进行任务管理。
 
-###Reliable
+### Reliable
 ***
 下图是Reliable的界面，通过Reliable用户可以查看测试用例和测试结果；并且Reliable天生与Macaca无缝衔接。
 
@@ -53,25 +53,25 @@ Macaca是一套完整的自动化测试解决方案，它的三个特性对我�
 
 ![](https://github.com/logan62334/ImageArchive/raw/master/Android/74.jpeg)
 
-###Inspector
+### Inspector
 ***
 Macaca中还提供了Inspector工具供用户直观、方便查找到想要选中的元素。图中右侧一栏提供的是XPS、ID、Name数据，用户通过Inspector工具寻找目标界面的元素。
 
 ![](https://github.com/logan62334/ImageArchive/raw/master/Android/75.jpeg)
 
-###Debug
+### Debug
 ***
 我们选择Visual Studio Code作为常用的IDE因为它能够轻量地、方便地支持使用者Debug，用户可以根据自己喜好选择相应地调试工具。
 
 ![](https://github.com/logan62334/ImageArchive/raw/master/Android/76.jpeg)
 
-###UI Recorder
+### UI Recorder
 ***
 下图是简单的登录测试用例：输入用户名和密码，然后点击登录按钮。UI-Recorder脚本录制工具可以快速的通过录制得到脚本，方便新手入门。
 
 ![](https://github.com/logan62334/ImageArchive/raw/master/Android/77.jpeg)
 
-###测试报告
+### 测试报告
 ***
 最终的测试结果需要与饿了么的质量平台对接（Macaca产生的测试报告、测试结果数据在导入饿了么质量平台前需要进行数据转换），形成完整的测试流程。
 
