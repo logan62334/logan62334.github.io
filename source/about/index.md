@@ -6,6 +6,6 @@ layout: "page"
 #### 关于作者
 >想做产品，却误入程序世界不小心爱上摄影的旅行家。
 
-我的微信公众号：FullStackEngineer
+我的微信公众号：全栈增长工程师
 
 ![](https://github.com/logan62334/ImageArchive/raw/master/about/avatar.jpg)
