@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    
+    <title>Model-View-Presenter:Android指南 | 马飞的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="原文地址：https://medium.com/@cervonefrancesco/model-view-presenter-android-guidelines-94970b430ddf#.nqgbpr2bj  网上有很多关于MVP架构的文章和示例，并且有很多不同的实现。但开发者社区仍不断努力，想以尽可能最好的方式将此模式应用在Android上。 如果你决定采用这种模式，你正在做一个架构选择，">
+<meta name="keywords" content="Android架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Model-View-Presenter:Android指南">
+<meta property="og:url" content="http://logan62334.github.io/2017/03/10/Model-View-Presenter:Android指南/index.html">
+<meta property="og:site_name" content="马飞的博客">
+<meta property="og:description" content="原文地址：https://medium.com/@cervonefrancesco/model-view-presenter-android-guidelines-94970b430ddf#.nqgbpr2bj  网上有很多关于MVP架构的文章和示例，并且有很多不同的实现。但开发者社区仍不断努力，想以尽可能最好的方式将此模式应用在Android上。 如果你决定采用这种模式，你正在做一个架构选择，">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/32.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg">
+<meta property="og:updated_time" content="2019-02-26T06:39:44.794Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Model-View-Presenter:Android指南">
+<meta name="twitter:description" content="原文地址：https://medium.com/@cervonefrancesco/model-view-presenter-android-guidelines-94970b430ddf#.nqgbpr2bj  网上有很多关于MVP架构的文章和示例，并且有很多不同的实现。但开发者社区仍不断努力，想以尽可能最好的方式将此模式应用在Android上。 如果你决定采用这种模式，你正在做一个架构选择，">
+<meta name="twitter:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/32.png">
+    
+
+    
+        <link rel="alternate" href="http://feed43.com/logan62334.xml" title="马飞的博客" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75194613-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+
+    <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">马飞的博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.jpg">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.jpg">
+            <h2 id="name">马飞</h2>
+            <h3 id="title">Android Developer &amp; Designer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>ShangHai, China</span>
+            <a id="follow" target="_blank" href="https://github.com/logan62334">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                43
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                26
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/logan62334" target="_blank" title="github" class="tooltip">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/logan62334" target="_blank" title="twitter" class="tooltip">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.facebook.com/profile.php?id=100011220522795" target="_blank" title="facebook" class="tooltip">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://dribbble.com/logan62334" target="_blank" title="dribbble" class="tooltip">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://feed43.com/logan62334.xml" target="_blank" title="rss" class="tooltip">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Model-View-Presenter:Android指南" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Model-View-Presenter:Android指南
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/03/10/Model-View-Presenter:Android指南/">
+            <time datetime="2017-03-10T11:39:58.000Z" itemprop="datePublished">2017-03-10</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Android架构/">Android架构</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android架构/">Android架构</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <blockquote>
+<p>原文地址：<a href="https://medium.com/@cervonefrancesco/model-view-presenter-android-guidelines-94970b430ddf#.nqgbpr2bj" target="_blank" rel="noopener">https://medium.com/@cervonefrancesco/model-view-presenter-android-guidelines-94970b430ddf#.nqgbpr2bj</a></p>
+</blockquote>
+<p>网上有很多关于MVP架构的文章和示例，并且有很多不同的实现。但开发者社区仍不断努力，想以尽可能最好的方式将此模式应用在Android上。</p>
+<p>如果你决定采用这种模式，你正在做一个架构选择，你必须知道你的代码库将改变，以及你新的功能也要用新的方法来开发。另外你需要面对常见的Android问题如Activity生命周期，然后你还应该问问自己下面这些问题：</p>
+<ul>
+<li>我应该保存<em>presenter</em>的状态吗？</li>
+<li>我应该将<em>presenter</em>做持久化处理吗？</li>
+<li><em>presenter</em>需要有生命周期吗？</li>
+</ul>
+<p>在本文中，我将提供一系列准则或最佳做法，以便：</p>
+<ul>
+<li>解决采用这个架构遇到的最常见问题（至少是一些我遇到过的）</li>
+<li>发挥这个架构的最大优势</li>
+</ul>
+<p>首先，让我们先解释一下这个模式：</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/32.png" alt="1"></p>
+<ul>
+<li><strong>Model</strong>：它是负责管理数据的接口。模型的职责包括使用API，缓存数据，管理数据库等。该模型还可以是与负责这些职责的其他模块通信的接口。例如，如果你使用Repository模式，则模型可以是Repository。如果你使用的是Clean架构，那么Model可以是一个Interactor。</li>
+<li><strong>Presenter</strong>：presenter是model和view的中间人。你的所有业务逻辑都应该放在这里面。presenter负责查询model和更新view，对更新模型的用户交互作出反应。</li>
+<li><strong>View</strong>：它只负责以presenter定义的方式来显示数据。view可以被Activities、 Fragments、任何Android widget或者其他一些像显示ProgressBar、更新TextView、填充RecyclerView等等可执行操作的视图。</li>
+</ul>
+<p>下面是以我的观点列出的一些指南，你可能不会全部赞同，不过我会试着解释为什么这么做。</p>
+<h3 id="1-让View变得被动和无知"><a href="#1-让View变得被动和无知" class="headerlink" title="1. 让View变得被动和无知"></a>1. 让View变得被动和无知</h3><p>Android中最大的一个问题就是view（Activities、Fragments等）不是那么容易被测试因为Android框架很复杂。为了解决这个问题，你需要实现<a href="https://martinfowler.com/eaaDev/PassiveScreen.html" target="_blank" rel="noopener"><strong>Passive View</strong></a>模式。这种实现方式通过利用一个controller来减少view的业务行为，在我们的例子中，这个controller是presenter。这种方式显著的提高的代码的可测试性。</p>
+<p>例如，如果你有一个username/password的表单和一个提交按钮，你不需要在view中写验证逻辑而是将它写在presenter中。你的view只管接受用户名和密码的输入然后将他们传递给presenter即可。</p>
+<h3 id="2-使presenter与框架无关"><a href="#2-使presenter与框架无关" class="headerlink" title="2. 使presenter与框架无关"></a>2. 使presenter与框架无关</h3><p>为了提高代码的可测试性，那么就要确保presenter不能依赖Android类文件。presenter用纯java代码实现的两个理由：首先你要将具体的实现抽象到presenter中，这样的话你就可以写不依赖于设备的测试代码了（甚至都不需要<a href="http://robolectric.org/" target="_blank" rel="noopener">Robolectric</a>），可以快速的在你的本地JVM中运行而不需要模拟器。</p>
+<blockquote>
+<p>如果我需要用到Context呢?</p>
+</blockquote>
+<p>那么就不要用它。在这种情况下，你应该问一下自己为什么需要context呢。我猜你可能想要存储数据或者获取资源。但是你不需要在presenter中做这些：你可以在view中获取资源，在model中存储数据。这里只是两个简单的例子，不过我敢打赌大多数情况下都是因为类的职责不明确导致的。</p>
+<p>顺便说一下，依赖倒置原则可以帮助你在这种情况下解耦。</p>
+<h3 id="3-写一个contract类来描述View和Presenter之间的交互"><a href="#3-写一个contract类来描述View和Presenter之间的交互" class="headerlink" title="3. 写一个contract类来描述View和Presenter之间的交互"></a>3. 写一个contract类来描述View和Presenter之间的交互</h3><p>当你准备开始写一个新功能时，第一步最好先写一个contract类。contract描述了view和presenter之间的交互，它帮助你以更干净的方式设计交互。</p>
+<p>我喜欢用Google在 <a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="noopener">Android Architecture</a> repository中建议的解决方案：这个contract接口类中包含两个接口一个是view另一个是presenter。</p>
+<p>让我们举个例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public interface SearchRepositoriesContract &#123;</span><br><span class="line">  interface View &#123;</span><br><span class="line">    void addResults(List&lt;Repository&gt; repos);</span><br><span class="line">    void clearResults();</span><br><span class="line">    void showContentLoading();</span><br><span class="line">    void hideContentLoading();</span><br><span class="line">    void showListLoading();</span><br><span class="line">    void hideListLoading();</span><br><span class="line">    void showContentError();</span><br><span class="line">    void hideContentError();</span><br><span class="line">    void showListError();</span><br><span class="line">    void showEmptyResultsView();</span><br><span class="line">    void hideEmptyResultsView();</span><br><span class="line">  &#125;</span><br><span class="line">  interface Presenter extends BasePresenter&lt;View&gt; &#123;</span><br><span class="line">    void load();</span><br><span class="line">    void loadMore();</span><br><span class="line">    void queryChanged(String query);</span><br><span class="line">    void repositoryClick(Repository repo);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看到这个方法的名字，你应该就明白这个例子中的contract是干什么的了吧。</p>
+<p>如果你还不知道，那一定是你的问题哈哈。</p>
+<p>在这个例子中你可以看到view中定义的方法非常简单而且不包含任何逻辑。</p>
+<h4 id="The-View-contract"><a href="#The-View-contract" class="headerlink" title="The View contract"></a>The View contract</h4><p>正如我之前说过的，view接口是要被Activity或者Fragment实现的。presenter必须依赖于view接口而不是直接依赖于Activity：通过这种方式，你可以将presenter从视图实现解耦，遵循SOLID原则的D：“依赖抽象，不要依赖具体实现）。</p>
+<p>我们不需要更改presenter中的一行代码就可以替换具体的视图。因此我们可以非常容易的通过创建一个mock view来进行单元测试。</p>
+<h4 id="The-presenter-contract"><a href="#The-presenter-contract" class="headerlink" title="The presenter contract"></a>The presenter contract</h4><blockquote>
+<p>等等，我们真的需要一个Presenter接口吗？</p>
+</blockquote>
+<p>事实上不需要，但我认为还是要的。</p>
+<p>关于这个话题有两种不同的思想流派。</p>
+<p>一些人认为应该写一个Presenter接口因为你要将具体的presenter和view解耦。</p>
+<p>然而另外一些开发者认为你在抽象的东西已经是一个抽象的了所以不需要再写一个接口了。另外不管怎么样，有了一个接口后可以帮你方便的写mock presenter，不过如果你采用了<a href="http://site.mockito.org/" target="_blank" rel="noopener">Mockito</a>这样的工具类那么你就不需要接口了。</p>
+<p>我个人还是喜欢写这么一个<strong>Presenter</strong>接口的，下面是两个简单的理由：</p>
+<ul>
+<li>我不是去为presenter写一个接口而是写一个Contract类来描述view和presenter之间的交互。</li>
+<li>写这么个接口并不费什么力。</li>
+</ul>
+<p>我已经这么写超过一年了甚至更长，至今没有发现什么问题。</p>
+<h3 id="4-定义一个名称方便区分责任"><a href="#4-定义一个名称方便区分责任" class="headerlink" title="4. 定义一个名称方便区分责任"></a>4. 定义一个名称方便区分责任</h3><p>presenter通常有两种类型的方法：</p>
+<ul>
+<li><strong>Actions</strong>（e.g: load()）：presenter的一些行为操作。</li>
+<li><strong>User events</strong>（e.g:queryChanged(…)）：用户触发的操作比如在搜索框中键入字符或者是点击列表中的某个选项。</li>
+</ul>
+<p>你定义的action越多那么view中的逻辑也就越多。</p>
+<p>当用户滚动到列表的结尾时将调用loadMore()方法，然后presenter加载另外一页的结果。这意味着当用户滚动到结尾时，view知道必须加载新页面。我可以命名方法onScrolledToEnd（）让具体的presenter处理具体做什么。</p>
+<p>我想说的是，在“contract设计”阶段，你必须定义好每个用户事件，相应的action是什么，逻辑应该属于谁。</p>
+<h3 id="5-不要在Presenter接口中创建Activity-lifecycle-style回调"><a href="#5-不要在Presenter接口中创建Activity-lifecycle-style回调" class="headerlink" title="5. 不要在Presenter接口中创建Activity-lifecycle-style回调"></a>5. 不要在Presenter接口中创建Activity-lifecycle-style回调</h3><p>我使用这个标题的意思是presenter不应该有像onCreate（…），onStart（），onResume（）等方法原因如下：</p>
+<ul>
+<li>如果这么做了的话presenter将会和Activity产生耦合。如果我想用一个Fragment替换Activity怎么办？我什么时候应该调用presenter.onCreate（state）方法？在fragment的onCreate(…)、onCreateView(…)还是onViewCreated(…)中？如果我使用自定义view怎么办？</li>
+<li>presenter不应该有这么复杂的生命周期。事实上，主要的Android组件都是以这种方式设计的，但并不意味着你必须也这么做。如果你有机会可以简化的话那就简化它吧。</li>
+</ul>
+<h3 id="6-Presenter和view有1对1的关系"><a href="#6-Presenter和view有1对1的关系" class="headerlink" title="6. Presenter和view有1对1的关系"></a>6. Presenter和view有1对1的关系</h3><p>如果没有view的话presenter就没有意义了。presenter随着view一起被创建也随着view一起被销毁。一个presenter管理一个view。</p>
+<p>你可以通过多种方式处理presenter中view的依赖。一种方式是在presenter接口中提供像attach(View view)和detach()的方法就像之前例子中展示的那样。不过这样做有一个问题就是你需要注意view是否为null，每次presenter用到它的时候都要检查一下是否为null。这点确实有点烦……</p>
+<p>我说了presenter和view是一对一的关系。我们可以利用这一点，实际上具体的presenter可以将view实例作为构造函数的参数传入。顺便说一句，你可能需要一个方法来订阅presenter的一些事件。所以我建议定义一个方法start（）（或类似的方法）来运行Presenter中的业务。</p>
+<blockquote>
+<p>关于<em>detach()</em>呢？</p>
+</blockquote>
+<p>如果你有一个叫start（）的方法，那么你可能至少还需要一个来释放依赖的方法。既然我们定义订阅presenter一些事件的方法叫start（），那么另一个方法就叫stop（）吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface BasePresenter&lt;V&gt; &#123;</span><br><span class="line">  void attach(V view);</span><br><span class="line">  void detach();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface BasePresesnter &#123;</span><br><span class="line">  void start();</span><br><span class="line">  void stop();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7-不要在presenter中保存状态"><a href="#7-不要在presenter中保存状态" class="headerlink" title="7. 不要在presenter中保存状态"></a>7. 不要在presenter中保存状态</h3><p>我的想着是要用Bundle来保存。但考虑到上面的第二条准则就不能这么做了。你不能将数据序列化到Bundle中，因为这样的话presenter就与Android类耦合了。</p>
+<p>我说presenter应该是无状态的，但其实也不然。在我之前描述的例子中，presenter应该至少具有页码/偏移量之类的状态。</p>
+<h3 id="8-不要持久化presenter"><a href="#8-不要持久化presenter" class="headerlink" title="8. 不要持久化presenter"></a>8. 不要持久化presenter</h3><p>我不喜欢这种方式主要是因为我认为presenter不是我们应该持久化的，要清楚它不是一个数据类。</p>
+<p>一些建议提供了一种在配置发生改变的时候通过恢复fragments或者 <a href="https://medium.com/@czyrux/presenter-surviving-orientation-changes-with-loaders-6da6d86ffbbf#.ii7px6adf" target="_blank" rel="noopener">Loaders</a>的方式记住presenter的状态。我不认为这是最好的解决方案。通过这种方式presenter可以在方向发生变化恢复，但是当Android杀死了进程并销毁Activity，后者将与新的presenter一起重新创建。因此，该解决方案仅解决了一半的问题。</p>
+<h3 id="9-为Model提供缓存以恢复视图状态"><a href="#9-为Model提供缓存以恢复视图状态" class="headerlink" title="9. 为Model提供缓存以恢复视图状态"></a>9. 为Model提供缓存以恢复视图状态</h3><p>在我看来，解决“恢复状态”问题需要一些应用架构的知识。基本上，作者建议使用类似Repository或任何旨在管理数据的接口来缓存网络结果，范围限定于应用程序而不是Activity。</p>
+<p>这个接口只是一个更聪明的Model。后者应至少提供磁盘缓存策略和可能的内存缓存。这样的话，即使进程被杀，presenter也可以使用磁盘缓存恢复视图状态。</p>
+<p>view应该只关心必要的请求参数以恢复状态。例如，在我们的示例中，我们只需要保存查询。</p>
+<p>现在，你有两个选择：</p>
+<ul>
+<li>你在model层中抽象这个行为，当presenter调用repository.get（params）时，如果页面已经在缓存中，数据源只返回它，否则再调用API。</li>
+<li>在contract中的presenter添加一个方法来恢复视图状态。restore（params），loadFromCache（params）或reload（params）这些是描述相同动作的不同名称你可以随便选一个。</li>
+</ul>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>以上是我对应用于Android的Model-View-Presenter架构的看法，希望通过不断的尝试可以找到最佳实践。</p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="全栈增长工程师，欢迎关注"></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://logan62334.github.io/2017/03/10/Model-View-Presenter:Android指南/" data-id="cjsleizan0059oqu0nxx9d8w0" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://logan62334.github.io/2017/03/10/Model-View-Presenter:Android指南/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://logan62334.github.io/2017/03/10/Model-View-Presenter:Android指南/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/03/20/配置Android项目—一些重要的事情/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    配置Android项目 - 一些重要的事情
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/10/13/和无序说再见/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">和无序说再见</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/03/10/Model-View-Presenter:Android指南/" data-title="Model-View-Presenter:Android指南" data-url="http://logan62334.github.io/2017/03/10/Model-View-Presenter:Android指南/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android-自动化测试/">Android 自动化测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android架构/">Android架构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android移动开发技术周报/">Android移动开发技术周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android译文/">Android译文</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CI/">CI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python-Android/">Python Android</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python-iOS/">Python iOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一周阅读清单/">一周阅读清单</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/增长黑客/">增长黑客</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活随笔/">生活随笔</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/自动化测试/">自动化测试</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-6-0/">Android 6.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-redex/">Android redex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-存储/">Android 存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-自动化测试/">Android 自动化测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android架构/">Android架构</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android译文/">Android译文</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps-Python/">DevOps Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python-Android/">Python Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python-iOS/">Python iOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/增长黑客/">增长黑客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活随笔/">生活随笔</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动化测试/">自动化测试</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Android-6-0/" style="font-size: 10px;">Android 6.0</a> <a href="/tags/Android-redex/" style="font-size: 10px;">Android redex</a> <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-存储/" style="font-size: 10px;">Android 存储</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android-自动化测试/" style="font-size: 10px;">Android 自动化测试</a> <a href="/tags/Android布局UI/" style="font-size: 14px;">Android布局UI</a> <a href="/tags/Android架构/" style="font-size: 16px;">Android架构</a> <a href="/tags/Android移动开发技术周报/" style="font-size: 10px;">Android移动开发技术周报</a> <a href="/tags/Android笔记/" style="font-size: 18px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Android译文/" style="font-size: 14px;">Android译文</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/DevOps-Python/" style="font-size: 10px;">DevOps Python</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Python-Android/" style="font-size: 10px;">Python Android</a> <a href="/tags/Python-iOS/" style="font-size: 10px;">Python iOS</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/一周阅读清单/" style="font-size: 20px;">一周阅读清单</a> <a href="/tags/增长黑客/" style="font-size: 10px;">增长黑客</a> <a href="/tags/生活随笔/" style="font-size: 12px;">生活随笔</a> <a href="/tags/自动化测试/" style="font-size: 10px;">自动化测试</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://blog.imallen.wang/">AllenWang的个人博客</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://zhoulingyu.com/">小鱼周凌宇のCODE_HOME</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2019 马飞<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'mafei1993'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

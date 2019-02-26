@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    
+    <title>Macaca 面向多端的自动化测试解决方案 | 马飞的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="背景 对于基于 UI 的功能测试的需求其实一直存在，理由其实很简单，不想一直让人去做重复机械的事情，而且可靠性完全是靠人力的堆积产生。然而目前部门的功能测试工作依然主要是依靠人工来完成，从我们公司的实践来看我觉得有几个方面的影响因素： 客户端APP已经实现模块化开发，而且外卖平台移动端的开发迭代流程正在进行改造，目标是从固定每三周一个迭代改造为每周一个发布窗口，版本迭代的提速，设备的碎片化，都给测">
+<meta name="keywords" content="自动化测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Macaca 面向多端的自动化测试解决方案">
+<meta property="og:url" content="http://logan62334.github.io/2017/06/22/Macaca 面向多端的自动化测试解决方案/index.html">
+<meta property="og:site_name" content="马飞的博客">
+<meta property="og:description" content="背景 对于基于 UI 的功能测试的需求其实一直存在，理由其实很简单，不想一直让人去做重复机械的事情，而且可靠性完全是靠人力的堆积产生。然而目前部门的功能测试工作依然主要是依靠人工来完成，从我们公司的实践来看我觉得有几个方面的影响因素： 客户端APP已经实现模块化开发，而且外卖平台移动端的开发迭代流程正在进行改造，目标是从固定每三周一个迭代改造为每周一个发布窗口，版本迭代的提速，设备的碎片化，都给测">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/72.jpeg">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/73.jpeg">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/74.jpeg">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/75.jpeg">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/76.jpeg">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/77.jpeg">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/78.jpeg">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg">
+<meta property="og:updated_time" content="2019-02-26T06:39:44.794Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Macaca 面向多端的自动化测试解决方案">
+<meta name="twitter:description" content="背景 对于基于 UI 的功能测试的需求其实一直存在，理由其实很简单，不想一直让人去做重复机械的事情，而且可靠性完全是靠人力的堆积产生。然而目前部门的功能测试工作依然主要是依靠人工来完成，从我们公司的实践来看我觉得有几个方面的影响因素： 客户端APP已经实现模块化开发，而且外卖平台移动端的开发迭代流程正在进行改造，目标是从固定每三周一个迭代改造为每周一个发布窗口，版本迭代的提速，设备的碎片化，都给测">
+<meta name="twitter:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/72.jpeg">
+    
+
+    
+        <link rel="alternate" href="http://feed43.com/logan62334.xml" title="马飞的博客" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75194613-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+
+    <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">马飞的博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.jpg">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.jpg">
+            <h2 id="name">马飞</h2>
+            <h3 id="title">Android Developer &amp; Designer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>ShangHai, China</span>
+            <a id="follow" target="_blank" href="https://github.com/logan62334">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                43
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                26
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/logan62334" target="_blank" title="github" class="tooltip">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/logan62334" target="_blank" title="twitter" class="tooltip">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.facebook.com/profile.php?id=100011220522795" target="_blank" title="facebook" class="tooltip">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://dribbble.com/logan62334" target="_blank" title="dribbble" class="tooltip">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://feed43.com/logan62334.xml" target="_blank" title="rss" class="tooltip">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Macaca 面向多端的自动化测试解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Macaca 面向多端的自动化测试解决方案
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/06/22/Macaca 面向多端的自动化测试解决方案/">
+            <time datetime="2017-06-22T22:39:58.000Z" itemprop="datePublished">2017-06-22</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/自动化测试/">自动化测试</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/自动化测试/">自动化测试</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><hr>
+<p>对于基于 UI 的功能测试的需求其实一直存在，理由其实很简单，不想一直让人去做重复机械的事情，而且可靠性完全是靠人力的堆积产生。然而目前部门的功能测试工作依然主要是依靠人工来完成，从我们公司的实践来看我觉得有几个方面的影响因素：</p>
+<p>客户端APP已经实现模块化开发，而且外卖平台移动端的开发迭代流程正在进行改造，目标是从固定每三周一个迭代改造为每周一个发布窗口，版本迭代的提速，设备的碎片化，都给测试工作带来巨大的挑战。<br>由于版本迭代周期越来越短，而且UI变动比较频繁，因此测试编写测试代码的积极性不是很高，同时由于测试代码的可重复利用性差，导致测试脚本的编写成本和维护成本偏高 。<br>部分测试人员的编码能力不是很强。由于大部分测试人员可能并没有过多的开发经验，所以在编写测试代码时并不能很顺畅的完成自己想要的效果，这样也会导致测试代码项目的推广阻力会比较大。</p>
+<p>如何在有限的时间内，追求尽可能高的产品质量？录放平台是我们推出的解决方案。它支持本地化UI脚本录制，集中式脚本管理，分布式脚本执行。业务测试只要开启我们的服务，就可以在业务测试的过程中，自动生成对Android、iOS和Web页面的自动化脚本，而自动化脚本在批量设备上的回放，可以极大提高关键路径的覆盖率，提升兼容性测试的效率，从而可以把业务测试从冗长重复的步骤中解放出来，把精力放到边界，异常等可以给我们产品带来更多提升的地方。 </p>
+<p>通过不断地寻找，不断地对比，最终我们将目标聚焦在阿里巴巴开源解决方案Macaca上。</p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><hr>
+<p>Macaca是一套完整的自动化测试解决方案，它的三个特性对我们极具吸引力：</p>
+<p>1、周边工具支持（Reliable、app-inspector、UI-Recorder等）<br>2、它是一个轻量化的开源项目<br>3、社区活跃，中文文档丰富<br>4、支持JS、Python、Java编写自动化脚本<br>5、API比较统一</p>
+<h3 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h3><hr>
+<p>在落地Macaca之前，需要先部署下列技术栈：<br>1、Node.js用于部署Macaca<br>2、Docker用于容器化Macaca的部署环境<br>3、Gitlab用于存储代码和测试用例<br>4、Slack用于团队的沟通协调<br>5、Python用于部署本地Agent</p>
+<h3 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h3><hr>
+<p>业务测试人员通过在本地录制好测试脚本，然后上传到脚本管理平台，这些测试脚本将会根据业务模块和版本分类管理。使用者在自己的电脑上安装Agent，然后连接测试设备，Agent会将本机的ip、port和设备信息上传注册到录放平台。</p>
+<p>新建一个task执行脚本回放操作，可以指定在哪些机器上回放也可以推送到STF手机管理平台批量回放，测试用例运行之后，会有两种情况发生：如果成功，则可以直接查看生成报告；否则会通过Slack或邮件通知开发人员测试失败，重新修改代码。</p>
+<p>另外Macaca也提供了相应的分布式持续集成框架Reliable来进行任务管理。</p>
+<h3 id="Reliable"><a href="#Reliable" class="headerlink" title="Reliable"></a>Reliable</h3><hr>
+<p>下图是Reliable的界面，通过Reliable用户可以查看测试用例和测试结果；并且Reliable天生与Macaca无缝衔接。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/72.jpeg" alt></p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/73.jpeg" alt></p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/74.jpeg" alt></p>
+<h3 id="Inspector"><a href="#Inspector" class="headerlink" title="Inspector"></a>Inspector</h3><hr>
+<p>Macaca中还提供了Inspector工具供用户直观、方便查找到想要选中的元素。图中右侧一栏提供的是XPS、ID、Name数据，用户通过Inspector工具寻找目标界面的元素。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/75.jpeg" alt></p>
+<h3 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h3><hr>
+<p>我们选择Visual Studio Code作为常用的IDE因为它能够轻量地、方便地支持使用者Debug，用户可以根据自己喜好选择相应地调试工具。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/76.jpeg" alt></p>
+<h3 id="UI-Recorder"><a href="#UI-Recorder" class="headerlink" title="UI Recorder"></a>UI Recorder</h3><hr>
+<p>下图是简单的登录测试用例：输入用户名和密码，然后点击登录按钮。UI-Recorder脚本录制工具可以快速的通过录制得到脚本，方便新手入门。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/77.jpeg" alt></p>
+<h3 id="测试报告"><a href="#测试报告" class="headerlink" title="测试报告"></a>测试报告</h3><hr>
+<p>最终的测试结果需要与饿了么的质量平台对接（Macaca产生的测试报告、测试结果数据在导入饿了么质量平台前需要进行数据转换），形成完整的测试流程。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/78.jpeg" alt></p>
+<p>上面总结了一下自己在调研并选择UI自动化框架中的一些思考，希望能给处于UI自动化调研初期的同学们一些帮助，其中很多选择是出于自身业务的需要，仅供参考，希望大家能结合自身业务的需要，找到适合自己的UI自动化框架。另外如果有对此框架感兴趣的同学欢迎一起学习交流。</p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="全栈增长工程师，欢迎关注"></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://logan62334.github.io/2017/06/22/Macaca 面向多端的自动化测试解决方案/" data-id="cjsleiz7x001roqu0e0iajl7s" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://logan62334.github.io/2017/06/22/Macaca 面向多端的自动化测试解决方案/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://logan62334.github.io/2017/06/22/Macaca 面向多端的自动化测试解决方案/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/12/01/DevOps | 实现命令行交互自动化/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    DevOps | 实现命令行交互自动化
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/03/22/配置Android项目 - 版本名称和代码/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">配置Android项目 - 版本名称和代码</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/06/22/Macaca 面向多端的自动化测试解决方案/" data-title="Macaca 面向多端的自动化测试解决方案" data-url="http://logan62334.github.io/2017/06/22/Macaca 面向多端的自动化测试解决方案/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android-自动化测试/">Android 自动化测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android架构/">Android架构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android移动开发技术周报/">Android移动开发技术周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android译文/">Android译文</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CI/">CI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python-Android/">Python Android</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python-iOS/">Python iOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一周阅读清单/">一周阅读清单</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/增长黑客/">增长黑客</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活随笔/">生活随笔</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/自动化测试/">自动化测试</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-6-0/">Android 6.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-redex/">Android redex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-存储/">Android 存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-自动化测试/">Android 自动化测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android架构/">Android架构</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android译文/">Android译文</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps-Python/">DevOps Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python-Android/">Python Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python-iOS/">Python iOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/增长黑客/">增长黑客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活随笔/">生活随笔</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动化测试/">自动化测试</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Android-6-0/" style="font-size: 10px;">Android 6.0</a> <a href="/tags/Android-redex/" style="font-size: 10px;">Android redex</a> <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-存储/" style="font-size: 10px;">Android 存储</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android-自动化测试/" style="font-size: 10px;">Android 自动化测试</a> <a href="/tags/Android布局UI/" style="font-size: 14px;">Android布局UI</a> <a href="/tags/Android架构/" style="font-size: 16px;">Android架构</a> <a href="/tags/Android移动开发技术周报/" style="font-size: 10px;">Android移动开发技术周报</a> <a href="/tags/Android笔记/" style="font-size: 18px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Android译文/" style="font-size: 14px;">Android译文</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/DevOps-Python/" style="font-size: 10px;">DevOps Python</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Python-Android/" style="font-size: 10px;">Python Android</a> <a href="/tags/Python-iOS/" style="font-size: 10px;">Python iOS</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/一周阅读清单/" style="font-size: 20px;">一周阅读清单</a> <a href="/tags/增长黑客/" style="font-size: 10px;">增长黑客</a> <a href="/tags/生活随笔/" style="font-size: 12px;">生活随笔</a> <a href="/tags/自动化测试/" style="font-size: 10px;">自动化测试</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://blog.imallen.wang/">AllenWang的个人博客</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://zhoulingyu.com/">小鱼周凌宇のCODE_HOME</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2019 马飞<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'mafei1993'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

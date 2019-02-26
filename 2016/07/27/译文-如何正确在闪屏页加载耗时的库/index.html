@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    
+    <title>[译文] 如何正确在闪屏页加载耗时的库 | 马飞的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="在这篇文章中我想展示的是当开发人员有一个初始化很慢的库时可能不希望在主线程中来初始化这个库，因为它将阻塞UI线程使应用无响应。相反，开发人员希望在后台加载它，然后将结果通知到主线程中。  闪屏页首先，如果你已经有一些初始化的东西在自己定义的application中，你可能需要一个适当的闪屏页。这意味着当点击应用程序图标的同时应该出现闪屏页。它可以很容易通过设置SplashActivity的主题背">
+<meta name="keywords" content="Android译文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[译文] 如何正确在闪屏页加载耗时的库">
+<meta property="og:url" content="http://logan62334.github.io/2016/07/27/译文-如何正确在闪屏页加载耗时的库/index.html">
+<meta property="og:site_name" content="马飞的博客">
+<meta property="og:description" content="在这篇文章中我想展示的是当开发人员有一个初始化很慢的库时可能不希望在主线程中来初始化这个库，因为它将阻塞UI线程使应用无响应。相反，开发人员希望在后台加载它，然后将结果通知到主线程中。  闪屏页首先，如果你已经有一些初始化的东西在自己定义的application中，你可能需要一个适当的闪屏页。这意味着当点击应用程序图标的同时应该出现闪屏页。它可以很容易通过设置SplashActivity的主题背">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg">
+<meta property="og:updated_time" content="2019-02-26T06:39:44.794Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[译文] 如何正确在闪屏页加载耗时的库">
+<meta name="twitter:description" content="在这篇文章中我想展示的是当开发人员有一个初始化很慢的库时可能不希望在主线程中来初始化这个库，因为它将阻塞UI线程使应用无响应。相反，开发人员希望在后台加载它，然后将结果通知到主线程中。  闪屏页首先，如果你已经有一些初始化的东西在自己定义的application中，你可能需要一个适当的闪屏页。这意味着当点击应用程序图标的同时应该出现闪屏页。它可以很容易通过设置SplashActivity的主题背">
+<meta name="twitter:image" content="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg">
+    
+
+    
+        <link rel="alternate" href="http://feed43.com/logan62334.xml" title="马飞的博客" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75194613-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+
+    <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">马飞的博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.jpg">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.jpg">
+            <h2 id="name">马飞</h2>
+            <h3 id="title">Android Developer &amp; Designer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>ShangHai, China</span>
+            <a id="follow" target="_blank" href="https://github.com/logan62334">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                43
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                26
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/logan62334" target="_blank" title="github" class="tooltip">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/logan62334" target="_blank" title="twitter" class="tooltip">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.facebook.com/profile.php?id=100011220522795" target="_blank" title="facebook" class="tooltip">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://dribbble.com/logan62334" target="_blank" title="dribbble" class="tooltip">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://feed43.com/logan62334.xml" target="_blank" title="rss" class="tooltip">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-译文-如何正确在闪屏页加载耗时的库" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            [译文] 如何正确在闪屏页加载耗时的库
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/07/27/译文-如何正确在闪屏页加载耗时的库/">
+            <time datetime="2016-07-27T21:30:47.000Z" itemprop="datePublished">2016-07-27</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Android译文/">Android译文</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android译文/">Android译文</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <blockquote>
+<p>在这篇文章中我想展示的是当开发人员有一个初始化很慢的库时可能不希望在主线程中来初始化这个库，因为它将阻塞UI线程使应用无响应。相反，开发人员希望在后台加载它，然后将结果通知到主线程中。</p>
+</blockquote>
+<h4 id="闪屏页"><a href="#闪屏页" class="headerlink" title="闪屏页"></a>闪屏页</h4><p>首先，如果你已经有一些初始化的东西在自己定义的application中，你可能需要一个适当的闪屏页。这意味着当点击应用程序图标的同时应该出现闪屏页。它可以很容易通过设置SplashActivity的主题背景实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;style name=&quot;SplashTheme&quot; parent=&quot;Theme.AppCompat.NoActionBar&quot;&gt;</span><br><span class="line">  &lt;item name=&quot;android:windowBackground&quot;&gt;@drawable/background_splash&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p>在你的AndroidManifest.xml中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity</span><br><span class="line">  android:name=&quot;.splash.SplashActivity&quot;</span><br><span class="line">  android:theme=&quot;@style/SplashTheme&quot;&gt;</span><br><span class="line">  &lt;intent-filter&gt;</span><br><span class="line">    &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;</span><br><span class="line">    &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;</span><br><span class="line">  &lt;/intent-filter&gt;</span><br><span class="line">&lt;/activity&gt;</span><br></pre></td></tr></table></figure>
+<p>通常闪屏页是一个logo，所以这个@drawable/background_splash可以是一个layer-list，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;layer-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</span><br><span class="line">  &lt;item android:drawable=&quot;@android:color/holo_blue_dark&quot;/&gt;</span><br><span class="line"></span><br><span class="line">  &lt;item&gt;</span><br><span class="line">    &lt;bitmap</span><br><span class="line">      android:gravity=&quot;center&quot;</span><br><span class="line">      android:src=&quot;@drawable/ic_hockey_stick&quot;/&gt;</span><br><span class="line">  &lt;/item&gt;</span><br><span class="line">&lt;/layer-list&gt;</span><br></pre></td></tr></table></figure>
+<p>关于这个的实现就到这里。</p>
+<p>顺便说一句，如果你使用<vector>作为你bitmap的资源，注意这个<a href="http://stackoverflow.com/questions/34831142/how-to-center-vector-drawable-in-layer-list-without-scaling" target="_blank" rel="noopener">bug</a>。不幸的是，没有相应的解决方案所以在API版本小于23的情况下闪屏页中的图片要用png格式。</vector></p>
+<h4 id="初始化库"><a href="#初始化库" class="headerlink" title="初始化库"></a>初始化库</h4><p>现在我们有了闪屏页，接下来干什么呢？现在我们应该考虑一下如何加载这些耗时的库了，Dagger 2和RxJava来救驾！</p>
+<p>如果这个漫长的初始化库只是需要在闪屏页加载一些数据的话我们可以把它定义在SplashModule中，这样的话当我们不再使用的时候可以清除掉它的引用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Module</span><br><span class="line">public class SplashModule &#123;</span><br><span class="line">  @Provides @NonNull @SplashScope</span><br><span class="line">  public SplashLibrary splashLibrary() &#123;</span><br><span class="line">    return new SplashLibrary(); // Takes &gt;5 seconds.</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>目前我们还不能在任何地方注入这个库，因为它会阻塞UI线程。我们将会创建一个Observable来接受SplashLibrary实例，但仍然不会被初始化因为我们通过<a href="https://github.com/google/dagger/blob/master/core/src/main/java/dagger/Lazy.java" target="_blank" rel="noopener">Lazy&lt;&gt;
+</a>实例化它。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Module</span><br><span class="line">public class SplashModule &#123;</span><br><span class="line">  // ...</span><br><span class="line"></span><br><span class="line">  @Provides @NonNull @SplashScope</span><br><span class="line">  public Observable&lt;SplashLibrary&gt; observable(final Lazy&lt;SplashLibrary&gt; library) &#123;</span><br><span class="line">    return Observable.defer(new Func0&lt;Observable&lt;SplashLibrary&gt;&gt;() &#123;</span><br><span class="line">      @Override public Observable&lt;SplashLibrary&gt; call() &#123;</span><br><span class="line">        return Observable.just(library.get());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="注入这个库"><a href="#注入这个库" class="headerlink" title="注入这个库"></a>注入这个库</h4><p>最后我们可以在SplashActivity中注入Observable<splashlibrary></splashlibrary></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/** Observable which will emit an item when fully initialized. */</span><br><span class="line">@Inject Observable&lt;SplashLibrary&gt; splashLibraryObservable;</span><br><span class="line"></span><br><span class="line">/** Subscription to unsubscribe in onStop(). */</span><br><span class="line">private Subscription subscription;</span><br><span class="line"></span><br><span class="line">@Override protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">  super.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">  // ...</span><br><span class="line"></span><br><span class="line">  subscription = splashLibraryObservable</span><br><span class="line">      // Init library on another thread.</span><br><span class="line">      .subscribeOn(Schedulers.computation())</span><br><span class="line">      // Observe result on the main thread.</span><br><span class="line">      .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">      .subscribe(new Action1&lt;SplashLibrary&gt;() &#123;</span><br><span class="line">        @Override public void call(SplashLibrary splashLibrary) &#123;</span><br><span class="line"></span><br><span class="line">          // Use the initialized library.</span><br><span class="line"></span><br><span class="line">          Intent intent = new Intent(activity, MainActivity.class);</span><br><span class="line">          startActivity(intent);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里仍然有一些需要注意的坑：<br>1、这个库可能抛出异常=&gt;我们需要实现onError()方法。<br>2、当我们在初始化完成前离开或者旋转页面时可能会导致内存泄露因为我们在回调方法中持有activity的引用。</p>
+<h4 id="处理当初始化一个重量级库的时候引发的错误"><a href="#处理当初始化一个重量级库的时候引发的错误" class="headerlink" title="处理当初始化一个重量级库的时候引发的错误"></a>处理当初始化一个重量级库的时候引发的错误</h4><p>为了解决这个问题，我们可以通过一个Observer订阅subscribe()。非常简单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.subscribe(new Observer&lt;SplashLibrary&gt;() &#123;</span><br><span class="line">  final String TAG = &quot;Observer&lt;SplashLibrary&gt;&quot;;</span><br><span class="line"></span><br><span class="line">  @Override public void onCompleted() &#123;  &#125;</span><br><span class="line"></span><br><span class="line">  @Override public void onError(Throwable e) &#123;</span><br><span class="line">    Log.d(TAG, &quot;Library init error!&quot;, e);</span><br><span class="line">    // Possible UI interaction.</span><br><span class="line">    // ...</span><br><span class="line">    finish();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override public void onNext(SplashLibrary splashLibrary) &#123;</span><br><span class="line">    // ...</span><br><span class="line">    // Use the initialized library.</span><br><span class="line"></span><br><span class="line">    Intent intent = new Intent(activity, MainActivity.class);</span><br><span class="line">    startActivity(intent);</span><br><span class="line">    finish();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="处理当用户离开activity页面时引发的内存泄露问题"><a href="#处理当用户离开activity页面时引发的内存泄露问题" class="headerlink" title="处理当用户离开activity页面时引发的内存泄露问题"></a>处理当用户离开activity页面时引发的内存泄露问题</h4><p>在这个例子中我们仅仅从Subscription取消订阅是不够的，因为当对象正在初始化的过程中Subscription不能释放资源从而是我们在内存中持有已经销毁的activity的资源导致内存泄露。如果在Application中开启了StrictMode.enableDefaults();我们很容易在LogCat中看到，当旋转activity页面日志如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">E/StrictMode: class .SplashActivity; instances=2; limit=1</span><br><span class="line">android.os.StrictMode$InstanceCountViolation: class .SplashActivity; instances=2; limit=1</span><br><span class="line">at android.os.StrictMode.setClassInstanceLimit(StrictMode.java:1)</span><br></pre></td></tr></table></figure>
+<p>这就是为什么我们需要去释放在Observer创建中持有的对activity的引用，我们可以通过创建一个实现了Observer<splashactivity>的静态类来实现，并且在onDestroy()中清除引用，通过这种方法我们可以确保没有任何泄露。</splashactivity></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">private static final class OnInitObserver implements Observer&lt;SplashLibrary&gt; &#123;</span><br><span class="line">  @Nullable private SplashActivity splashActivity;</span><br><span class="line"></span><br><span class="line">  OnInitObserver(@NonNull SplashActivity splashActivity) &#123;</span><br><span class="line">    this.splashActivity = splashActivity;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override public void onCompleted() &#123; /* ... */ &#125;</span><br><span class="line">  @Override public void onError(Throwable e) &#123; /* ... */ &#125;</span><br><span class="line">  @Override public void onNext(SplashLibrary splashLibrary) &#123; /* ... */ &#125;</span><br><span class="line"></span><br><span class="line">  public void releaseListener() &#123;</span><br><span class="line">    splashActivity = null;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Override protected void onDestroy() &#123;</span><br><span class="line">  super.onDestroy();</span><br><span class="line"></span><br><span class="line">  onInitObserver.releaseListener();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>记住这些点，可以在闪屏页中很容易初始化一个库、发起一个网络请求或者做一些复杂的处理。</p>
+<p>感谢阅读！<a href="https://github.com/zsavely/FastStartUp" target="_blank" rel="noopener">源码在这里</a></p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="FullStackEngineer的公众号，更多分享"></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://logan62334.github.io/2016/07/27/译文-如何正确在闪屏页加载耗时的库/" data-id="cjsleiz8g002toqu0o49upldt" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://logan62334.github.io/2016/07/27/译文-如何正确在闪屏页加载耗时的库/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://logan62334.github.io/2016/07/27/译文-如何正确在闪屏页加载耗时的库/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/08/06/译文-Android开发最佳实践/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    [译文] Android开发最佳实践
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/07/10/Android-优雅的处理登录页面跳转逻辑/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">[Android] 优雅的处理登录页面跳转逻辑</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2016/07/27/译文-如何正确在闪屏页加载耗时的库/" data-title="[译文] 如何正确在闪屏页加载耗时的库" data-url="http://logan62334.github.io/2016/07/27/译文-如何正确在闪屏页加载耗时的库/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android-自动化测试/">Android 自动化测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android架构/">Android架构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android移动开发技术周报/">Android移动开发技术周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android译文/">Android译文</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CI/">CI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python-Android/">Python Android</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python-iOS/">Python iOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一周阅读清单/">一周阅读清单</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/增长黑客/">增长黑客</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活随笔/">生活随笔</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/自动化测试/">自动化测试</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-6-0/">Android 6.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-redex/">Android redex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-存储/">Android 存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-自动化测试/">Android 自动化测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android架构/">Android架构</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android译文/">Android译文</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps-Python/">DevOps Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python-Android/">Python Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python-iOS/">Python iOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/增长黑客/">增长黑客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活随笔/">生活随笔</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动化测试/">自动化测试</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Android-6-0/" style="font-size: 10px;">Android 6.0</a> <a href="/tags/Android-redex/" style="font-size: 10px;">Android redex</a> <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-存储/" style="font-size: 10px;">Android 存储</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android-自动化测试/" style="font-size: 10px;">Android 自动化测试</a> <a href="/tags/Android布局UI/" style="font-size: 14px;">Android布局UI</a> <a href="/tags/Android架构/" style="font-size: 16px;">Android架构</a> <a href="/tags/Android移动开发技术周报/" style="font-size: 10px;">Android移动开发技术周报</a> <a href="/tags/Android笔记/" style="font-size: 18px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Android译文/" style="font-size: 14px;">Android译文</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/DevOps-Python/" style="font-size: 10px;">DevOps Python</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Python-Android/" style="font-size: 10px;">Python Android</a> <a href="/tags/Python-iOS/" style="font-size: 10px;">Python iOS</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/一周阅读清单/" style="font-size: 20px;">一周阅读清单</a> <a href="/tags/增长黑客/" style="font-size: 10px;">增长黑客</a> <a href="/tags/生活随笔/" style="font-size: 12px;">生活随笔</a> <a href="/tags/自动化测试/" style="font-size: 10px;">自动化测试</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://blog.imallen.wang/">AllenWang的个人博客</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://zhoulingyu.com/">小鱼周凌宇のCODE_HOME</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2019 马飞<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'mafei1993'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

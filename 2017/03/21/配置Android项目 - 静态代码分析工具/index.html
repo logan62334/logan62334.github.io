@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    
+    <title>配置Android项目 - 静态代码分析工具 | 马飞的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="静态代码分析工具静态代码分析工具 - 分析代码而不执行它。通常用于发现错误或确保符合编码指南。有助于保持你的代码健康，并保持代码质量。 在Android上，最流行的代码分析工具是：  Lint PMD Findbugs  我通常将静态代码分析脚本和相关文件保存在单独的文件夹中。 Lint lint工具检查你的Android项目源文件是否存在潜在错误，并针对正确性，安全性，性能，可用性，可访问性和国">
+<meta name="keywords" content="Android架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="配置Android项目 - 静态代码分析工具">
+<meta property="og:url" content="http://logan62334.github.io/2017/03/21/配置Android项目 - 静态代码分析工具/index.html">
+<meta property="og:site_name" content="马飞的博客">
+<meta property="og:description" content="静态代码分析工具静态代码分析工具 - 分析代码而不执行它。通常用于发现错误或确保符合编码指南。有助于保持你的代码健康，并保持代码质量。 在Android上，最流行的代码分析工具是：  Lint PMD Findbugs  我通常将静态代码分析脚本和相关文件保存在单独的文件夹中。 Lint lint工具检查你的Android项目源文件是否存在潜在错误，并针对正确性，安全性，性能，可用性，可访问性和国">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/55.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/56.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/57.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/58.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/59.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/60.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/61.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/62.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/63.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/64.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/65.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/66.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/67.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/68.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/69.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/70.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/71.png">
+<meta property="og:image" content="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg">
+<meta property="og:updated_time" content="2019-02-26T06:39:44.794Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="配置Android项目 - 静态代码分析工具">
+<meta name="twitter:description" content="静态代码分析工具静态代码分析工具 - 分析代码而不执行它。通常用于发现错误或确保符合编码指南。有助于保持你的代码健康，并保持代码质量。 在Android上，最流行的代码分析工具是：  Lint PMD Findbugs  我通常将静态代码分析脚本和相关文件保存在单独的文件夹中。 Lint lint工具检查你的Android项目源文件是否存在潜在错误，并针对正确性，安全性，性能，可用性，可访问性和国">
+<meta name="twitter:image" content="https://github.com/logan62334/ImageArchive/raw/master/Android/55.png">
+    
+
+    
+        <link rel="alternate" href="http://feed43.com/logan62334.xml" title="马飞的博客" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75194613-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+
+    <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">马飞的博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.jpg">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.jpg">
+            <h2 id="name">马飞</h2>
+            <h3 id="title">Android Developer &amp; Designer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>ShangHai, China</span>
+            <a id="follow" target="_blank" href="https://github.com/logan62334">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                43
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                26
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/logan62334" target="_blank" title="github" class="tooltip">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/logan62334" target="_blank" title="twitter" class="tooltip">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.facebook.com/profile.php?id=100011220522795" target="_blank" title="facebook" class="tooltip">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://dribbble.com/logan62334" target="_blank" title="dribbble" class="tooltip">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://feed43.com/logan62334.xml" target="_blank" title="rss" class="tooltip">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-配置Android项目 - 静态代码分析工具" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            配置Android项目 - 静态代码分析工具
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/03/21/配置Android项目 - 静态代码分析工具/">
+            <time datetime="2017-03-21T11:39:58.000Z" itemprop="datePublished">2017-03-21</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Android架构/">Android架构</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android架构/">Android架构</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="静态代码分析工具"><a href="#静态代码分析工具" class="headerlink" title="静态代码分析工具"></a>静态代码分析工具</h3><p>静态代码分析工具 - 分析代码而不执行它。通常用于发现错误或确保符合编码指南。有助于保持你的代码健康，并保持代码质量。</p>
+<p>在Android上，最流行的代码分析工具是：</p>
+<ul>
+<li>Lint</li>
+<li>PMD</li>
+<li>Findbugs</li>
+</ul>
+<p>我通常将静态代码分析脚本和相关文件保存在单独的文件夹中。</p>
+<h3 id="Lint"><a href="#Lint" class="headerlink" title="Lint"></a>Lint</h3><blockquote>
+<p>lint工具检查你的Android项目源文件是否存在潜在错误，并针对正确性，安全性，性能，可用性，可访问性和国际化进行优化改进。</p>
+</blockquote>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>添加lint到你的android项目创建script-lint.gradle文件。<img src="https://github.com/logan62334/ImageArchive/raw/master/Android/55.png" alt="55"></p>
+<p>重要的lint选项：</p>
+<ul>
+<li><em>lintConfig</em> —lint规则集的路径（可以用来配置压制警告）。</li>
+<li><em>htmlOutput</em> —html报告生成的地方。</li>
+</ul>
+<p>将script-lint.gradle导入到build.gradle文件。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/56.png" alt="56"></p>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>重新构建你的项目，然后使用./gradlew lint命令运行lint。如果它发现一些问题，你会看到类似下面的输出。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/57.png" alt="57"></p>
+<p>当你打开lint.html报告文件时，你将看到问题列表描述，和如何解决它们的建议。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/58.png" alt="58"></p>
+<p>如果你想忽略此问题，请将以下规则添加到rules-lint.xml文件中。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/59.png" alt="59"></p>
+<p>注意：还有其他方法可以压制lint警告。有关lint的更多信息，请访问官方网站。</p>
+<h3 id="Findbugs"><a href="#Findbugs" class="headerlink" title="Findbugs"></a><strong>Findbugs</strong></h3><blockquote>
+<p>静态代码分析工具，用于分析Java字节码并检测各种各样的问题。</p>
+</blockquote>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><p>要添加findbug到你的android项目需要创建script-findbugs.gradle文件。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/60.png" alt="60"></p>
+<p>重要的findbugs选项：</p>
+<ul>
+<li><em>excludeFilter</em> —findbugs规则集文件所在的路径，你可以在其中压制问题。</li>
+<li><em>classes</em> — 生成的类的路径（如果你有多个<em>flavor</em>，路径由<em>flavor</em>名称组成，在当前情况下为“dev”）。</li>
+<li><em>source</em> —源代码的路径</li>
+<li><em>html.destination</em> —html报告生成的路径</li>
+</ul>
+<p>将script-findbugs.gradle导入到build.gradle文件。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/61.png" alt="61"></p>
+<h4 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h4><p>为了测试，我们将创建以下方法。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/62.png" alt="62"></p>
+<p>重新构建你的项目，然后运行findbugs ./gradlew findbugs命令。如果它发现一些问题，你会看到类似下面的输出。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/63.png" alt="63"></p>
+<p>当你打开findbugs.html报告文件，你将看到问题列表与说明和如何解决它们的建议。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/64.png" alt="64"></p>
+<p>如果你想忽略此问题，请将以下规则添加到rules-findbugs.xml文件中。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/65.png" alt="65"></p>
+<p>注意：还有其他方法去压制findbugs警告。有关findbugs的更多信息，请访问官方网站。</p>
+<h3 id="PMD"><a href="#PMD" class="headerlink" title="PMD"></a>PMD</h3><blockquote>
+<p>PMD是一个源代码分析器。它发现常见的编程缺陷，如未使用的变量，空catch块，不必要的对象创建等等。</p>
+</blockquote>
+<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><p>要添加pmd到你的android项目那么需要创建script-pmd.gradle文件。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/66.png" alt="66"></p>
+<p>重要的pmd选项：</p>
+<ul>
+<li><em>ruleSetFiles</em> —pmd规则集文件的路径，你可以在其中压制问题并定义要跟踪的问题。</li>
+<li><em>source</em> —源代码的路径</li>
+<li><em>html.destination</em> —html报告生成的路径</li>
+</ul>
+<p>将脚本<em>script-pmd.gradle</em>导入到build.gradle文件。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/67.png" alt="67"></p>
+<h4 id="测试-2"><a href="#测试-2" class="headerlink" title="测试"></a>测试</h4><p>为了测试，我们将创建以下方法。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/68.png" alt="68"></p>
+<p>重新构建你的项目，然后使用./gradlew pmd命令运行pmd。如果它发现一些问题，你会看到类似下面的输出。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/69.png" alt="69"></p>
+<p>当你打开pmd.html报告文件，你将看到问题列表与说明和如何解决它们的建议。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/70.png" alt="70"></p>
+<p>如果你想忽略此问题，请将以下规则添加到rules-pmd.xml文件中。</p>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/Android/71.png" alt="71"></p>
+<p>注意：还有其他方法压制pmd警告。有关pmd的更多信息，请访问官方网站。</p>
+<hr>
+<p><img src="https://github.com/logan62334/ImageArchive/raw/master/weixin/weixin.jpg" alt="全栈增长工程师，欢迎关注"></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://logan62334.github.io/2017/03/21/配置Android项目 - 静态代码分析工具/" data-id="cjsleiz8m0036oqu0v1twcylx" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://logan62334.github.io/2017/03/21/配置Android项目 - 静态代码分析工具/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://logan62334.github.io/2017/03/21/配置Android项目 - 静态代码分析工具/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/03/22/配置Android项目 - 版本名称和代码/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    配置Android项目 - 版本名称和代码
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/03/20/配置Android项目—一些重要的事情/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">配置Android项目 - 一些重要的事情</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/03/21/配置Android项目 - 静态代码分析工具/" data-title="配置Android项目 - 静态代码分析工具" data-url="http://logan62334.github.io/2017/03/21/配置Android项目 - 静态代码分析工具/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android-自动化测试/">Android 自动化测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android新技术实践/">Android新技术实践</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android架构/">Android架构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android移动开发技术周报/">Android移动开发技术周报</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android笔记/">Android笔记</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android译文/">Android译文</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CI/">CI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python-Android/">Python Android</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python-iOS/">Python iOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一周阅读清单/">一周阅读清单</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/增长黑客/">增长黑客</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活随笔/">生活随笔</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/自动化测试/">自动化测试</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-6-0/">Android 6.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-redex/">Android redex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-冷启动-启动黑屏/">Android 冷启动 启动黑屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-图片浏览/">Android 图片浏览</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-存储/">Android 存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-应用崩溃-日志分析/">Android 应用崩溃 日志分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-开屏广告/">Android 开屏广告</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-热修复/">Android 热修复</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-自动化测试/">Android 自动化测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android布局UI/">Android布局UI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android架构/">Android架构</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android移动开发技术周报/">Android移动开发技术周报</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android笔记/">Android笔记</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android自动化构建/">Android自动化构建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android译文/">Android译文</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CI/">CI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps-Python/">DevOps Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python-Android/">Python Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python-iOS/">Python iOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webview/">webview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一周阅读清单/">一周阅读清单</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/增长黑客/">增长黑客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活随笔/">生活随笔</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动化测试/">自动化测试</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Android-6-0/" style="font-size: 10px;">Android 6.0</a> <a href="/tags/Android-redex/" style="font-size: 10px;">Android redex</a> <a href="/tags/Android-冷启动-启动黑屏/" style="font-size: 10px;">Android 冷启动 启动黑屏</a> <a href="/tags/Android-图片浏览/" style="font-size: 10px;">Android 图片浏览</a> <a href="/tags/Android-存储/" style="font-size: 10px;">Android 存储</a> <a href="/tags/Android-应用崩溃-日志分析/" style="font-size: 10px;">Android 应用崩溃 日志分析</a> <a href="/tags/Android-开屏广告/" style="font-size: 10px;">Android 开屏广告</a> <a href="/tags/Android-热修复/" style="font-size: 10px;">Android 热修复</a> <a href="/tags/Android-自动化测试/" style="font-size: 10px;">Android 自动化测试</a> <a href="/tags/Android布局UI/" style="font-size: 14px;">Android布局UI</a> <a href="/tags/Android架构/" style="font-size: 16px;">Android架构</a> <a href="/tags/Android移动开发技术周报/" style="font-size: 10px;">Android移动开发技术周报</a> <a href="/tags/Android笔记/" style="font-size: 18px;">Android笔记</a> <a href="/tags/Android自动化构建/" style="font-size: 10px;">Android自动化构建</a> <a href="/tags/Android译文/" style="font-size: 14px;">Android译文</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/DevOps-Python/" style="font-size: 10px;">DevOps Python</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Python-Android/" style="font-size: 10px;">Python Android</a> <a href="/tags/Python-iOS/" style="font-size: 10px;">Python iOS</a> <a href="/tags/webview/" style="font-size: 10px;">webview</a> <a href="/tags/一周阅读清单/" style="font-size: 20px;">一周阅读清单</a> <a href="/tags/增长黑客/" style="font-size: 10px;">增长黑客</a> <a href="/tags/生活随笔/" style="font-size: 12px;">生活随笔</a> <a href="/tags/自动化测试/" style="font-size: 10px;">自动化测试</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://blog.imallen.wang/">AllenWang的个人博客</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://zhoulingyu.com/">小鱼周凌宇のCODE_HOME</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2019 马飞<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'mafei1993'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
